@@ -6,8 +6,8 @@ const {
   Order,
   Product,
   Item,
-  Type,
-  Tag
+  ProductType,
+  ProductTag
 } = require('../server/db/models')
 
 const users = [
@@ -56,8 +56,8 @@ const products = [
   imgUrl: https://www.fillmurray.com/300/500
   },
   {
-  name: Tagliatelle,
-  description: `description of Tagliatelle`,
+  name: ProductTagliatelle,
+  description: `description of ProductTagliatelle`,
   price: 1475,
   stock: 5000,
   imgUrl: https://www.fillmurray.com/300/600
@@ -78,18 +78,18 @@ const products = [
   },
 ]
 
-const types = [
+const ProductTypes = [
   {name: long},
   {name: short},
   {name: stuffed},
 ]
 
-const tags = [
-  {name: tag1},
-  {name: tag2},
-  {name: tag3},
-  {name: tag4},
-  {name: tag5},
+const Producttags = [
+  {name: Producttag1},
+  {name: Producttag2},
+  {name: Producttag3},
+  {name: Producttag4},
+  {name: Producttag5},
 ]
 
 // const items = [
@@ -111,8 +111,8 @@ async function seed() {
   await Promise.all( orders.map(o => Product.create(o)) )
   await Promise.all( products.map(p => Product.create(p)) )
   // await Promise.all( items.map(i => Item.create(i)) )
-  await Promise.all( types.map(t => Type.create(t)) )
-  await Promise.all( tags.map(t => Tag.create(t)) )
+  await Promise.all( ProductTypes.map(t => ProductType.create(t)) )
+  await Promise.all( Producttags.map(t => ProductTag.create(t)) )
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
