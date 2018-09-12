@@ -1,3 +1,4 @@
+//UNFINISHED
 
 const {expect} = require('chai')
 const db = require('../index')
@@ -13,6 +14,6 @@ describe('Product Model', () => {
   // })
 
   describe('Create Product', () => {
-    describe
+
   })
 })
