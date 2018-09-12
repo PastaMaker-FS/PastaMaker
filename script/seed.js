@@ -12,20 +12,20 @@ const {
 
 const users = [
   {
-  firstname: `Jelly`,
-  lastname: `Fish`,
+  firstName: `Jelly`,
+  lastName: `Fish`,
   email: `jelly@fish.com`,
   password: `123`,
   },
   {
-  firstname: `Square`,
-  lastname: `Brackets`,
+  firstName: `Square`,
+  lastName: `Brackets`,
   email: `sqr@braks.com`,
   password: `456`,
   },
   {
-  firstname: `Dino`,
-  lastname: `Sor`,
+  firstName: `Dino`,
+  lastName: `Sor`,
   email: `dino@sor.com`,
   password: `789`,
   },
@@ -42,54 +42,54 @@ const orders = [
 
 const products = [
   {
-  name: Bucatini,
+  name: `Bucatini`,
   description: `description of Bucatini`,
   price: 1298,
-  stock: 3000,
-  imgUrl: https://www.fillmurray.com/300/400
+  stock: 300,
+  imgUrl: `https://www.fillmurray.com/300/400`
   },
   {
-  name: Scialatelli,
+  name: `Scialatelli`,
   description: `description of Scialatelli`,
   price: 2350,
-  stock: 4000,
-  imgUrl: https://www.fillmurray.com/300/500
+  stock: 400,
+  imgUrl: `https://www.fillmurray.com/300/500`
   },
   {
-  name: ProductTagliatelle,
-  description: `description of ProductTagliatelle`,
+  name: `Tagliatelle`,
+  description: `description of Tagliatelle`,
   price: 1475,
-  stock: 5000,
-  imgUrl: https://www.fillmurray.com/300/600
+  stock: 500,
+  imgUrl: `https://www.fillmurray.com/300/600`
   },
   {
-  name: Mafalde,
+  name: `Mafalde`,
   description: `description of Mafalde`,
   price: 1678,
-  stock: 6000,
-  imgUrl: https://www.fillmurray.com/300/700
+  stock: 600,
+  imgUrl: `https://www.fillmurray.com/300/700`
   },
   {
-  name: Spaghetti,
+  name: `Spaghetti`,
   description: `description of Spaghetti`,
   price: 1399,
-  stock: 7000,
-  imgUrl: https://www.fillmurray.com/300/800
+  stock: 700,
+  imgUrl: `https://www.fillmurray.com/300/800`
   },
 ]
 
 const ProductTypes = [
-  {name: long},
-  {name: short},
-  {name: stuffed},
+  {name: `long`},
+  {name: `short`},
+  {name: `stuffed`},
 ]
 
 const Producttags = [
-  {name: Producttag1},
-  {name: Producttag2},
-  {name: Producttag3},
-  {name: Producttag4},
-  {name: Producttag5},
+  {name: `Producttag1`},
+  {name: `Producttag2`},
+  {name: `Producttag3`},
+  {name: `Producttag4`},
+  {name: `Producttag5`},
 ]
 
 // const items = [
@@ -108,11 +108,15 @@ async function seed() {
   console.log('db synced!')
 
   await Promise.all( users.map(u => User.create(u)) )
-  await Promise.all( orders.map(o => Product.create(o)) )
   await Promise.all( products.map(p => Product.create(p)) )
+  await Promise.all( orders.map(o => Order.create(o)) )
   // await Promise.all( items.map(i => Item.create(i)) )
   await Promise.all( ProductTypes.map(t => ProductType.create(t)) )
   await Promise.all( Producttags.map(t => ProductTag.create(t)) )
+
+  await Promise.all(
+
+  )
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
