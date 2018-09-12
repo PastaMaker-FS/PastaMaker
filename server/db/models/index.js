@@ -9,7 +9,6 @@ const Product = require('./product')
  *
  *    BlogPost.belongsTo(User)
  */
-
 Order.belongsToMany(Product, {through: 'item'});
 Product.belongsToMany(Order, {through: 'item'});
 
