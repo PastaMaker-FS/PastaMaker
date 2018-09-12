@@ -8,19 +8,32 @@ const ProductType = require('../models/ProductType');
 //Note Price is stored as Integer. Front end needs to handle Decimal Places.
 const Product = db.define('product', {
 	name: {
-		type: Sequelize.STRING,
-		allowNull: false
+    type: Sequelize.STRING,
+    validate: {
+    notNull: false,
+    notEmpty: true
+    }
 	},
 	description: {
-		type: Sequelize.TEXT,
-		allowNull: false
+    type: Sequelize.TEXT,
+    validate: {
+      notNull: false,
+      notEmpty: true,
+    }
+
 	},
 	price: {
-		type: Sequelize.INTEGER,
-		allowNull: false
+    type: Sequelize.INTEGER,
+    validate: {
+      notNull: false,
+      notEmpty: true,
+      min: 0,
+      max: 1000000
+    }
 	},
 	imgUrl: {
-		type: Sequelize.STRING,
+    type: Sequelize.STRING,
+    defaultValue: "http://assets.stickpng.com/thumbs/589c827a64b351149f22a829.png",
 		allowNull: false
 	}
 });
@@ -33,23 +46,24 @@ ProductTag.belongsTo(Product);
 ProductType.belongsTo(Product);
 
 //Class Methods
-//Find Products of a Tag
-//productTag is an Array of Tags
-ProductTag.findProducts = function (productTag) {
-  return Product.findAll({
-      where: {
-        productTag: {[Op.contains]: productTag}
-      }
-  })
-}
 
-ProductType.findProducts = function (productType) {
-  return Product.findAll({
-    where: {
-      productType: {[Op.contains]: productType}
-    }
-  })
-}
+//Already given to us. Saving so that we can return to it later if needed.
+
+// ProductTag.findProducts = function (productTag) {
+//   return Product.findAll({
+//       where: {
+//         productTag: {[Op.contains]: productTag}
+//       }
+//   })
+// }
+
+// ProductType.findProducts = function (productType) {
+//   return Product.findAll({
+//     where: {
+//       productType: {[Op.contains]: productType}
+//     }
+//   })
+// }
 
 
 //Instance Methods
