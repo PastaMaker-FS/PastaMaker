@@ -12,6 +12,17 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+//get single product
+router.get('/:productId', async (req, res, next) => {
+  const id = req.params.productId
+  try {
+    const singleProduct = await product.findById(id)
+    res.json(singleProduct)
+  } catch (error) {
+    next(error)
+  }
+})
+
 //post new products only allowed by Admin
 router.post('/', async (req, res, next) => {
   const checkAdmin = req.body.user.isAdmin
