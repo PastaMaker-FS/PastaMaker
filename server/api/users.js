@@ -57,15 +57,21 @@ router.put('/:userId', async (req, res, next) => {
 // get items for user (in cart)
 router.get('/:userId/orders', async (req, res, next) => {
   try {
-    const productsByOrder = [];
-    const orders = findAll({ where: {
+    const ordersWithProducts = [];
+    const orders = await Order.findAll({ where: {
       userId: req.params.userId
     }})
-    orders.forEach(order => {
-      const products = order.getProducts();
-      productsByOrder.push({order, products})
-    })
-    res.send(productsByOrder)
+    await Promise.all(
+      orders.map(async (order) => {
+        const products = await order.getProducts();
+        ordersWithProducts.push({
+          id: order.id,
+          datePurchased: order.datePurchased,
+          isPurchased: order.isPurchased,
+          products})
+      })
+    )
+    res.send(ordersWithProducts)
   } catch (error) {
     console.error(error);
     next(error)
