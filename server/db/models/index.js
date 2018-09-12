@@ -1,4 +1,6 @@
 const User = require('./user')
+const Order = require('./order')
+const Item = require('./item')
 const Address = require('./address')
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -6,6 +8,7 @@ const Address = require('./address')
  *
  *    BlogPost.belongsTo(User)
  */
+Order.hasMany(Item);
 
 User.hasOne(Address)
 User.hasMany(Order)
@@ -17,5 +20,7 @@ User.hasMany(Order)
  */
 module.exports = {
   User,
+  Order,
+  Item,
   Address
 }
