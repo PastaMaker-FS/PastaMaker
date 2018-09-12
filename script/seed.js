@@ -92,16 +92,16 @@ const Producttags = [
   {name: `Producttag5`},
 ]
 
-// const items = [
-//   { orderId: 1, productId: 1},
-//   { orderId: 1, productId: 2},
-//   { orderId: 1, productId: 3},
-//   { orderId: 1, productId: 4},
-//   { orderId: 1, productId: 5},
-//   { orderId: 2, productId: 1},
-//   { orderId: 3, productId: 2},
-//   { orderId: 3, productId: 3},
-// ]
+const items = [
+  { orderId: 1, productId: 1},
+  { orderId: 1, productId: 2},
+  { orderId: 1, productId: 3},
+  { orderId: 1, productId: 4},
+  { orderId: 1, productId: 5},
+  { orderId: 2, productId: 1},
+  { orderId: 3, productId: 2},
+  { orderId: 3, productId: 3},
+]
 
 async function seed() {
   await db.sync({force: true})
@@ -110,13 +110,10 @@ async function seed() {
   await Promise.all( users.map(u => User.create(u)) )
   await Promise.all( products.map(p => Product.create(p)) )
   await Promise.all( orders.map(o => Order.create(o)) )
-  // await Promise.all( items.map(i => Item.create(i)) )
+  await Promise.all( items.map(i => Item.create(i)) )
   await Promise.all( ProductTypes.map(t => ProductType.create(t)) )
   await Promise.all( Producttags.map(t => ProductTag.create(t)) )
 
-  await Promise.all(
-
-  )
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
