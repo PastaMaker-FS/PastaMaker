@@ -1,11 +1,34 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {
+  User,
+  Order,
+  Product,
+  Item,
+  Type,
+  Tag
+} = require('../server/db/models')
 
 const users = [
-  {email: 'cody@email.com', password: '123'},
-  {email: 'murphy@email.com', password: '123'},
+  {
+  firstname: `Jelly`,
+  lastname: `Fish`,
+  email: `jelly@fish.com`,
+  password: `123`,
+  },
+  {
+  firstname: `Square`,
+  lastname: `Brackets`,
+  email: `sqr@braks.com`,
+  password: `456`,
+  },
+  {
+  firstname: `Dino`,
+  lastname: `Sor`,
+  email: `dino@sor.com`,
+  password: `789`,
+  },
 ]
 
 const orders = [
@@ -55,16 +78,30 @@ const products = [
   },
 ]
 
-const items = [
-  { orderId: 1, productId: 1},
-  { orderId: 1, productId: 2},
-  { orderId: 1, productId: 3},
-  { orderId: 1, productId: 4},
-  { orderId: 1, productId: 5},
-  { orderId: 2, productId: 1},
-  { orderId: 3, productId: 2},
-  { orderId: 3, productId: 3},
+const types = [
+  {name: long},
+  {name: short},
+  {name: stuffed},
 ]
+
+const tags = [
+  {name: tag1},
+  {name: tag2},
+  {name: tag3},
+  {name: tag4},
+  {name: tag5},
+]
+
+// const items = [
+//   { orderId: 1, productId: 1},
+//   { orderId: 1, productId: 2},
+//   { orderId: 1, productId: 3},
+//   { orderId: 1, productId: 4},
+//   { orderId: 1, productId: 5},
+//   { orderId: 2, productId: 1},
+//   { orderId: 3, productId: 2},
+//   { orderId: 3, productId: 3},
+// ]
 
 async function seed() {
   await db.sync({force: true})
@@ -73,7 +110,9 @@ async function seed() {
   await Promise.all( users.map(u => User.create(u)) )
   await Promise.all( orders.map(o => Product.create(o)) )
   await Promise.all( products.map(p => Product.create(p)) )
-  await Promise.all( items.map(i => Item.create(i)) )
+  // await Promise.all( items.map(i => Item.create(i)) )
+  await Promise.all( types.map(t => Type.create(t)) )
+  await Promise.all( tags.map(t => Tag.create(t)) )
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
