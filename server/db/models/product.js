@@ -21,7 +21,16 @@ const Product = db.define('product', {
       notEmpty: true,
     }
 
-	},
+  },
+  stock: {
+    type: Sequelize.INTEGER,
+    validate: {
+      notNull: false,
+      notEmpty: true,
+      min: 0,
+      max: 1000
+    }
+  }
 	price: {
     type: Sequelize.INTEGER,
     validate: {
