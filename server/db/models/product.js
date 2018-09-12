@@ -9,7 +9,8 @@ const ProductType = require('../models/ProductType');
 const Product = db.define('product', {
 	name: {
 		type: Sequelize.STRING,
-		allowNull: false
+    allowNull: false
+    //CG: prevent empty string here. 
 	},
 	description: {
 		type: Sequelize.TEXT,
@@ -17,11 +18,13 @@ const Product = db.define('product', {
 	},
 	price: {
 		type: Sequelize.INTEGER,
-		allowNull: false
-	},
+		allowNull: false //CG: This should have minimum and maximum
+  },
+  //CG: Consider adding quantity / stock. 
 	imgUrl: {
 		type: Sequelize.STRING,
-		allowNull: false
+    allowNull: false
+    //CG: Maybe have a default value representing some sort of placeholder image.
 	}
 });
 
@@ -35,6 +38,8 @@ ProductType.belongsTo(Product);
 //Class Methods
 //Find Products of a Tag
 //productTag is an Array of Tags
+
+//CG: We don't necessarily need this method it's made for us. 
 ProductTag.findProducts = function (productTag) {
   return Product.findAll({
       where: {

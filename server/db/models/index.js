@@ -8,7 +8,12 @@ const Address = require('./address')
  *
  *    BlogPost.belongsTo(User)
  */
+//CG: Maybe use prettier or something to deal with consistency for codebase.
 Order.hasMany(Item);
+
+//CG: Something like this would be better for using Item as a true through table.
+//Product.belongsToMany(Order, {through: Item});
+//Order.belongsToMany(Product, {through: Item});
 
 User.hasOne(Address)
 User.hasMany(Order)
