@@ -3,6 +3,9 @@ const Order = require('./order')
 const Item = require('./item')
 const Address = require('./address')
 const Product = require('./product')
+const ProductTag = require('./productTag')
+const ProductType = require('./productType')
+
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
@@ -14,6 +17,31 @@ Product.belongsToMany(Order, {through: 'item'});
 
 User.hasOne(Address)
 User.hasMany(Order)
+
+Product.hasMany(ProductTag);
+Product.hasMany(ProductType);
+
+ProductTag.belongsTo(Product);
+ProductType.belongsTo(Product);
+
+//Product Instance Methods:
+Product.prototype.findTags = function () {
+  return ProductTag.findAll({
+    where: {
+      ProductId: this.Id
+    }
+  })
+}
+
+Product.prototype.findTypes = function () {
+  return ProductType.findAll({
+    where: {
+      ProductId: this.Id
+    }
+  })
+}
+
+
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
@@ -24,5 +52,8 @@ module.exports = {
   User,
   Order,
   Item,
-  Address
+  Address,
+  Product,
+  ProductTag,
+  ProductType
 }
