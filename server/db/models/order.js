@@ -2,13 +2,14 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 const Order = db.define('order', {
-  dateCreated: {
+  datePurchased: {
     type: Sequelize.DATE,
     allowNull: false
   },
-  status: {
+  isPurchased: {
     type: Sequelize.BOOLEAN,
-    allowNull: false
+    allowNull: false,
+    defaultValue: false
   }
 })
 

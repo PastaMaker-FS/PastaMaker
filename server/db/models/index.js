@@ -12,7 +12,8 @@ const ProductType = require('./productType')
  *
  *    BlogPost.belongsTo(User)
  */
-Order.hasMany(Item);
+Order.belongsToMany(Product, {through: 'item'});
+Product.belongsToMany(Order, {through: 'item'});
 
 User.hasOne(Address)
 User.hasMany(Order)

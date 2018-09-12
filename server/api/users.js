@@ -1,6 +1,29 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Order} = require('../db/models')
 module.exports = router
+
+router.post('/', async (req, res, next) => {
+  try {
+    const users = await User.create({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      password: req.body.password
+    })
+    res.json(users)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/:userId', async (req, res, next) => {
+  try {
+    const users = await User.findById(req.params.userId)
+    res.json(users)
+  } catch (error) {
+    next(error)
+  }
+})
 
 router.get('/', async (req, res, next) => {
   try {
@@ -15,3 +38,45 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/:userId', async (req, res, next) => {
+  try {
+    const users = await User.findById(req.params.userId)
+    await users.update({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      password: req.body.password
+    })
+    res.json(users)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// get items for user (in cart)
+router.get('/:userId/orders', async (req, res, next) => {
+  try {
+    const productsByOrder = [];
+    const orders = findAll({ where: {
+      userId: req.params.userId
+    }})
+    orders.forEach(order => {
+      const products = order.getProducts();
+      productsByOrder.push({order, products})
+    })
+    res.send(productsByOrder)
+  } catch (error) {
+    console.error(error);
+    next(error)
+  }
+})
+
+// add item to cart
+// router.post('/:userId/orders', async (req, res, next) => {
+//   try {
+
+//   } catch (error) {
+
+//   }
+// })
