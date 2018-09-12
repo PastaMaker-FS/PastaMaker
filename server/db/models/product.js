@@ -7,23 +7,22 @@ const db = require('../db');
 const Product = db.define('product', {
 	name: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
-    notNull: false,
-    notEmpty: true
+      notEmpty: true
     }
 	},
 	description: {
     type: Sequelize.TEXT,
     validate: {
-      notNull: false,
       notEmpty: true,
     }
 
   },
   stock: {
     type: Sequelize.INTEGER,
+    allowNull: false,
     validate: {
-      notNull: false,
       notEmpty: true,
       min: 0,
       max: 1000
@@ -31,8 +30,8 @@ const Product = db.define('product', {
   },
 	price: {
     type: Sequelize.INTEGER,
+    allowNull: false,
     validate: {
-      notNull: false,
       notEmpty: true,
       min: 0,
       max: 1000000
