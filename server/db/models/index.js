@@ -8,7 +8,7 @@ const Address = require('./address')
  *
  *    BlogPost.belongsTo(User)
  */
-Order.hasMany(Item);
+Order.hasMany(Item)
 
 User.hasOne(Address)
 User.hasMany(Order)
