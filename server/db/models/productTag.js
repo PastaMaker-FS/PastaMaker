@@ -5,7 +5,10 @@ const db = require('../db');
 const ProductTag = db.define('ProductTag', {
 	name: {
 		type: Sequelize.STRING,
-		allowNull: false
+    validate: {
+      notNull: false,
+      notEmpty: true
+      }
 	}
 });
 
