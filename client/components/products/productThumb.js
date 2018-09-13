@@ -1,13 +1,13 @@
 import React from 'react';
 
 
-function ProductThumb({ productArray, selectProduct, addToCart }) {
+function ProductThumb({ product, addToCart, selectProduct, deselectProduct}) {
 
-	const enumeratedProducts = productArray.map((product) => (
-    <div></div>
-	));
-
-	return <div>{enumeratedProducts}</div>;
+	return (<React.Fragment>
+    <img className="img" src={product.imgUrl} width="125px" onClick={() => selectProduct(product)}/>
+    <div>{product.name}</div>
+    <div className="addToCart" onClick={() => addToCart(product)}> Add to cart</div>
+  </React.Fragment>);
 }
 
 export default ProductThumb;
