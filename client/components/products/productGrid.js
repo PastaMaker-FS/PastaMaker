@@ -1,18 +1,44 @@
-import React from 'react';
-import SingleProduct from './singleProduct';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import ProductThumb from './productThumb';
 
-function ProductGrid({ productArray, selectProduct, addToCart }) {
-	//This component takes in three items on props
-	//1: Array of Products as "productArray"
-	//2: Click handler for select Product as "selectProduct"
-	//3: Click handler for AddToCart as "addToCart"
+class ProductGrid extends Component {
+	constructor() {
+		super();
+		this.state = { showProduct: false };
 
-	const enumeratedProducts = productArray.map((product) => (
-    <div></div>
-	));
+		this.showProduct = this.showProduct.bind(this);
+		this.hideProduct = this.hideProduct.bind(this);
+	}
 
-	return <div>{enumeratedProducts}</div>;
+	showProduct() {
+		this.setState({ showProduct: true });
+	}
+
+	hideProduct() {
+		this.setState({ showProduct: false });
+	}
+
+ selectProduct = (product) => {
+    this.showProduct();
+    console.log('Product grid props are', this.props);
+    this.props.selectProduct(product);
+    console.log('The show product', this.state);
+  }
+
+	render() {
+
+		const enumeratedProducts = this.props.productState.products.map((product) => (
+			<ProductThumb
+				key={product.id}
+				product={product}
+				selectProduct={this.selectProduct}
+        addToCart={this.props.addToCart}
+        deselectProduct={this.hideProduct}
+			/>
+		));
+
+		return <div className="productGrid">{enumeratedProducts}</div>;
+	}
 }
-
 export default ProductGrid;
