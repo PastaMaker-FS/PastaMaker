@@ -24,7 +24,7 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => {
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
-            <Link to="/home">
+            <Link to="/">
               <Button
                 variant="outlined"
                 color="primary"
@@ -64,7 +64,7 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => {
         ) : (
           <div>
             {/* The navbar will show these links before you log in */}
-            <Link to="/home">
+            <Link to="/">
               <Button
                 variant="outlined"
                 color="primary"
