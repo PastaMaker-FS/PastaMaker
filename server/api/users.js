@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Order} = require('../db/models')
+const {User, Order, Item} = require('../db/models')
 module.exports = router
 
 router.post('/', async (req, res, next) => {
@@ -54,9 +54,11 @@ router.put('/:userId', async (req, res, next) => {
   }
 })
 
-// get items for user (in cart)
+// get all orders for user if auth user or admin
+// for cart/history --> filter by isPurchased
 router.get('/:userId/orders', async (req, res, next) => {
-  try {
+
+  const getOrders = async () => {
     const ordersWithProducts = [];
     const orders = await Order.findAll({ where: {
       userId: req.params.userId
@@ -64,14 +66,37 @@ router.get('/:userId/orders', async (req, res, next) => {
     await Promise.all(
       orders.map(async (order) => {
         const products = await order.getProducts();
+
+        const productsParsed = products.map(product => ({
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          stock: product.stock,
+          price: product.price,
+          purchasePrice: product.item.purchasePrice,
+          quantity: product.item.quantity,
+          imgUrl: product.item.imgUrl,
+        }))
+
         ordersWithProducts.push({
           id: order.id,
           datePurchased: order.datePurchased,
           isPurchased: order.isPurchased,
-          products})
+          products: productsParsed
+        })
       })
     )
-    res.send(ordersWithProducts)
+    return ordersWithProducts;
+  }
+
+  try {
+    // if ( req.params.userId === req.user.id || req.user.isAdmin || true ) {
+    if ( true ) {
+      const orders = await getOrders();
+      res.json(orders)
+    } else {
+      res.status(404).end()
+    }
   } catch (error) {
     console.error(error);
     next(error)
@@ -79,10 +104,33 @@ router.get('/:userId/orders', async (req, res, next) => {
 })
 
 // add item to cart
-// router.post('/:userId/orders', async (req, res, next) => {
-//   try {
+router.post('/:userId/orders', async (req, res, next) => {
 
-//   } catch (error) {
+  try {
+    // get user's cart if it exists
+    let cart = await Order.findOne({ where: {
+      userId: req.params.userId,
+      isPurchased: false
+    }})
 
-//   }
-// })
+    // create cart if it doesn't exist
+    if (!(cart)) {
+      cart = await Order.create({
+        // datePurchased: req.body.datePurchased,
+        userId: req.params.userId,
+      })
+    }
+
+    // add item to cart
+    const item = await Item.create({
+      orderId: cart.id,
+      productId: req.body.productId,
+    })
+
+    res.json(item);
+
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+})

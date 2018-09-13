@@ -4,7 +4,7 @@ const db = require('../db');
 const Order = db.define('order', {
   datePurchased: {
     type: Sequelize.DATE,
-    allowNull: false
+    allowNull: true
   },
   isPurchased: {
     type: Sequelize.BOOLEAN,
