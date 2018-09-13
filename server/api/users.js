@@ -57,7 +57,6 @@ router.put('/:userId', async (req, res, next) => {
 // get all orders for user if auth user or admin
 // for cart/history --> filter by isPurchased
 router.get('/:userId/orders', async (req, res, next) => {
-
   const getOrders = async () => {
     const ordersWithProducts = [];
     const orders = await Order.findAll({ where: {
