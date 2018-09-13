@@ -1,11 +1,11 @@
 const router = require('express').Router()
-const {product} = require('../db/models')
+const {Product} = require('../db/models')
 module.exports = router
 
 //gets all products including associated Types and Tags
 router.get('/', async (req, res, next) => {
   try {
-    const products = await product.findAll()
+    const products = await Product.findAll()
     res.json(products)
   } catch (error) {
     next(error)
@@ -16,7 +16,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:productId', async (req, res, next) => {
   const id = req.params.productId
   try {
-    const singleProduct = await product.findById(id)
+    const singleProduct = await Product.findById(id)
     res.json(singleProduct)
   } catch (error) {
     next(error)
@@ -32,7 +32,7 @@ router.post('/', async (req, res, next) => {
   const imgUrl = req.body.imgUrl
   try {
     if (checkAdmin) {
-      const newProduct = await product.findOrCreate({
+      const newProduct = await Product.findOrCreate({
         where: {
           name,
           description,
@@ -59,7 +59,7 @@ router.put('/:productId', async (req, res, next) => {
   const imgUrl = req.params.imgUrl
   try {
     if (checkAdmin) {
-      await product.update(
+      await Product.update(
         {
           name,
           description,
@@ -72,7 +72,7 @@ router.put('/:productId', async (req, res, next) => {
           }
         }
       )
-      const update = await product.findById(id)
+      const update = await Product.findById(id)
       res.json(update)
     } else {
       res.sendStatus(401)
@@ -85,12 +85,18 @@ router.put('/:productId', async (req, res, next) => {
 //delete product only allow by Admin
 router.delete('/:productId', async (req, res, next) => {
   const id = req.params.productId
+  const checkAdmin = req.body.user.isAdmin
   try {
-    await product.destroy({
-      where: {
-        id
-      }
-    })
+    if(checkAdmin){
+      const remove = await Product.destroy({
+        where: {
+          id
+        }
+      })
+      res.json(remove)
+    }else{
+      res.sendStatus(401)
+    }
   } catch (error) {
     next(error)
   }
