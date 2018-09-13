@@ -8,7 +8,8 @@ import Button from '@material-ui/core/Button'
 
 const styles = theme => ({
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
+    color: "red"
   },
   input: {
     display: 'none'
@@ -23,7 +24,7 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => {
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
-            <Link to="/home">
+            <Link to="/">
               <Button
                 variant="outlined"
                 color="primary"
@@ -32,15 +33,15 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => {
                 Home
               </Button>
             </Link>
-            <Button
-              variant="outlined"
-              color="primary"
-              className={classes.button}
-            >
-              <a href="#" onClick={handleClick}>
+            <a href="#" onClick={handleClick}>
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classes.button}
+              >
                 Logout
-              </a>
-            </Button>
+              </Button>
+            </a>
             <Link to="/user">
               <Button
                 variant="outlined"
@@ -63,7 +64,7 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => {
         ) : (
           <div>
             {/* The navbar will show these links before you log in */}
-            <Link to="/home">
+            <Link to="/">
               <Button
                 variant="outlined"
                 color="primary"
