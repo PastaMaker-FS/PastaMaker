@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getProductTHUNK, selectProduct} from '../store/product'
+//import ProductGrid from '../products/productGrid'
 
 class AllProducts extends Component {
   componentDidMount() {
@@ -10,7 +11,7 @@ class AllProducts extends Component {
   render() {
     const allProducts = this.props.products
     const selectedProduct = this.props.selectedProduct
-    return <div>{/* GRID GOES HERE */}</div>
+    return <div></div>
   }
 }
 
