@@ -33,15 +33,15 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => {
                 Home
               </Button>
             </Link>
-            <Button
-              variant="outlined"
-              color="primary"
-              className={classes.button}
-            >
-              <a href="#" onClick={handleClick}>
+            <a href="#" onClick={handleClick}>
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classes.button}
+              >
                 Logout
-              </a>
-            </Button>
+              </Button>
+            </a>
             <Link to="/user">
               <Button
                 variant="outlined"

@@ -31,5 +31,14 @@ const Address = db.define('address', {
     }
   }
 })
+  // hooks: {
+  //   beforeValidate: (address) => {
+  //     if(address.street && address.city && address.state && address.zip) {
+  //       return "Unique Address Required!"
+  //     }
+  //     if()
+  //   }
+  // }
+
 
 module.exports = Address

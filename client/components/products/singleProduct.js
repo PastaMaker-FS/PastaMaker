@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 class SingleProduct extends React.Component {
 	constructor(props) {
 		super(props);
@@ -16,14 +17,14 @@ class SingleProduct extends React.Component {
 	handleSubmit(event) {
 		console.log('The product quantity of ' + this.state.quanity + ' has been submited to cart');
 		event.preventDefault();
-		this.props.AddToCart(this.state.quantity);
+		this.props.addToCart(this.state.quantity);
 	}
 
 	render() {
 		return (
 			<div className="Product">
-				<div className="Image">
-					<img src="this.props.imgUrl" alt="Picture of the product" /> <br />
+				<div>
+					<img src="this.props.imgUrl" alt="Picture of the product" onClick={() => this.props.selectProduct}/> <br />
 					<span className="productName">Item: {this.props.name}</span>
 					<span className="productDescription">Description: {this.props.description}</span>
 					<span className="productStock">In stock {this.props.stock} units.</span>
