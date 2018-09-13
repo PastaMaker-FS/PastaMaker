@@ -53,10 +53,10 @@ const defaultProduct = {
  * ACTION CREATORS
  */
 // note how get all products takes in an array while others take objects.
-export const getAllProducts = products => ({ type: GET_ALL_PRODUCT, products })
+export const getAllProducts = products => ({type: GET_ALL_PRODUCT, products})
 
-export const selectProduct = product => ({ type: SELECT_PRODUCT, product })
-export const deselectProduct = product => ({ type: DESELECT_PRODUCT, product })
+export const selectProduct = product => ({type: SELECT_PRODUCT, product})
+export const deselectProduct = product => ({type: DESELECT_PRODUCT, product})
 
 export const getProductsByTags = productsByTag => ({
   type: GET_PRODUCTS_BY_TAG,
@@ -72,13 +72,18 @@ export const getProductsByType = productsByType => ({
  */
 
 // get product?
-export const getProductTHUNK = () => async dispatch => {
-  try {
-    // ???
-    const productArray = await axios.get('/product')
-    dispatch(getAllProducts(productArray))
-  } catch (err) {
-    console.error(err)
+export const getProductTHUNK = () => {
+  console.log("This is hit")
+  return async dispatch => {
+    try {
+      // ???
+      const productArray = await axios.get('/api/products')
+      const productData = productArray.data
+      console.log(productData)
+      dispatch(getAllProducts(productData))
+    } catch (err) {
+      console.error(err)
+    }
   }
 }
 
@@ -87,7 +92,7 @@ export const getProductTHUNK = () => async dispatch => {
 // Check these routes?
 export const getProductsByTagsTHUNK = tags => async dispatch => {
   try {
-    const productsByTags = await axios.get(`/product/${tags}`)
+    const productsByTags = await axios.get(`/api/products/${tags}`)
 
     dispatch(getProductsByTags(productsByTags))
   } catch (err) {
@@ -98,7 +103,7 @@ export const getProductsByTagsTHUNK = tags => async dispatch => {
 
 export const getProductsByTypesTHUNK = types => async dispatch => {
   try {
-    const productsByTypes = await axios.get(`/product/${types}`)
+    const productsByTypes = await axios.get(`/api/products/${types}`)
     dispatch(getProductsByType(productsByTypes))
   } catch (err) {
     console.error(err)
@@ -110,15 +115,15 @@ export const getProductsByTypesTHUNK = types => async dispatch => {
 export default function(state = defaultProduct, action) {
   switch (action.type) {
     case GET_ALL_PRODUCT:
-      return { ...state, products: action.products }
+      return {...state, products: action.products}
     case SELECT_PRODUCT:
-      return { ...state, product: action.product }
+      return {...state, product: action.product}
     case DESELECT_PRODUCT:
-      return { ...state, product: {} }
+      return {...state, product: {}}
     case GET_PRODUCTS_BY_TAG:
-      return { ...state, products: action.productsByTag }
+      return {...state, products: action.productsByTag}
     case GET_PRODUCTS_BY_TYPE:
-      return { ...state, products: action.productsByType }
+      return {...state, products: action.productsByType}
     case PRODUCT_IS_LOADING:
       return {
         ...state,
