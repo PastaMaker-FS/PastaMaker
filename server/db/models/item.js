@@ -9,7 +9,7 @@ const Order = db.define('item', {
   },
   quantity: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
     defaultValue: 1,
     validate: { min: 0 }
   }
