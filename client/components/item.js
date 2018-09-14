@@ -42,6 +42,8 @@ class Item extends React.Component {
     }
 
     this.handleIncrement = this.handleIncrement.bind(this)
+    this.handleDecrement = this.handleDecrement.bind(this)
+    this.handleRemove = this.handleRemove.bind(this)
   }
 
   componentDidMount() {
@@ -61,6 +63,30 @@ class Item extends React.Component {
         quantity: prevState.product.quantity + 1
       }
     }))
+  }
+
+  async handleDecrement(evt) {
+    evt.preventDefault();
+    await this.props.increment();
+    this.setState(prevState => ({
+      ...prevState,
+      product: {
+        ...prevState.product,
+        quantity: prevState.product.quantity - 1
+      }
+    }))
+  }
+
+  async handleRemove(evt) {
+    evt.preventDefault();
+    await this.props.remove();
+    // this.setState(prevState => ({
+    //   ...prevState,
+    //   product: {
+    //     ...prevState.product,
+    //     quantity: prevState.product.quantity - 1
+    //   }
+    // }))
   }
 
   // const cart = orders.filter(order => !order.isPurchased)[0]
@@ -113,7 +139,7 @@ class Item extends React.Component {
             className={classes.menuButton}
             color="inherit"
             aria-label="Menu"
-
+            onClick={this.handleDecrement}
           ><RemoveIcon />
           </IconButton>
 
@@ -121,7 +147,7 @@ class Item extends React.Component {
             className={classes.menuButton}
             color="inherit"
             aria-label="Menu"
-
+            onClick={this.handleRemove}
           ><ClearIcon />
           </IconButton>
         </TableCell>

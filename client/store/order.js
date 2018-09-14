@@ -16,6 +16,7 @@ const ORDERS = {
   SET: 'SET_ALL_ORDERS',
   ITEMS: {
     ADD: 'ADD_ITEM_TO_CART',
+    REMOVE: 'REMOVE_ITEM_FROM_CART',
     SET: 'SET_ONE_ITEM'
   },
   LOADING: 'LOADING_ORDERS',
@@ -37,6 +38,11 @@ const setItem = (item) => ({
 const addItem = (item) => ({
   type: ORDERS.ITEMS.ADD,
   item
+})
+const removeItem = (orderId, productId) => ({
+  type: ORDERS.ITEMS.REMOVE,
+  orderId,
+  productId
 })
 const loadingOrders = (loading) => ({
   type: ORDERS.LOADING,
@@ -68,6 +74,18 @@ export const createItem = (userId, productId) => async (dispatch) => {
   try {
     const {data: newItem} = await axios.post(`/api/users/${userId}/orders`, productId)
     dispatch(addItem(newItem))
+  } catch (err) {
+    dispatch(errorOrders(true))
+  }
+}
+
+
+
+export const destroyItem = (orderId, productId) => async (dispatch) => {
+  console.log(`--- destroyItem: ${orderId}, ${productId}`)
+  try {
+    await axios.delete(`/items/:${orderId}/:${productId}`, productId)
+    dispatch(removeItem(orderId, productId))
   } catch (err) {
     dispatch(errorOrders(true))
   }
@@ -110,36 +128,70 @@ export const decrementItem = (orderId, productId) => async (dispatch) => {
   }
 }
 
+
 /**
  * REDUCER
  */
 export default function(state = defaultOrders, action) {
+
+  let cart, idx, cartIdx, itemIdx;
+
   switch (action.type) {
     case ORDERS.SET:
-      console.log('ORDERS.SET')
+      // console.log('ORDERS.SET')
       return {
         ...state,
         list: action.orders,
         isLoading: false
       }
     case ORDERS.ITEMS.ADD:
-      let cart = state.orders
+      [cart] = state.list
         .filter(order => !order.isPurchased)
-      let idx = state.orders
+      idx = state.list
         .map(order => order.id)
         .indexOf(cart.id)
+
       return {
         ...state,
         list: [
-          ...state.orders.slice(0, idx),
+          ...state.list.slice(0, idx),
           {
-            ...state.orders[idx],
+            ...state.list[idx],
             products: [
-              ...state.order[idx].products,
+              ...state.list[idx].products,
               action.item
             ]
           },
-          ...state.orders.slice(idx + 1)
+          ...state.list.slice(idx + 1)
+        ]
+      }
+    case ORDERS.ITEMS.REMOVE:
+      // let [cart] = state.list
+      //   .filter(order => !order.isPurchased)
+
+      [cart2] = state.list
+      .filter(order => !order.isPurchased)
+
+      cartIdx = state.list
+      .map(order => order.id)
+      .indexOf(action.orderId)
+
+      itemIdx = cart2.products
+      .map(product => product.id)
+      .indexOf(action.productId)
+
+      return {
+        ...state,
+        list: [
+          ...state.list.slice(0, cartIdx),
+          {
+            ...state.list[cartIdx],
+            products: [
+              ...state.list[cartIdx].products.slice(0,itemIdx),
+              ...state.list[cartIdx].products.slice(itemIdx+1)
+            ]
+          },
+          ...state.list.slice(cartIdx + 1)
         ]
       }
     case ORDERS.LOADING:

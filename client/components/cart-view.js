@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {fetchOrders, incrementItem, decrementItem} from '../store/order'
+import {fetchOrders} from '../store/order'
 import {CartItems} from '../components'
 
 /**
@@ -25,26 +25,11 @@ class CartView extends React.Component {
     this.setState({
       ready: true
     })
-    // const cart = this.props.orders.filter(order => !order.isPurchased)[0]
-    // await this.setState({cart}, () => {
-    //   this.setState({ready: true})
-    // })
   }
-
-  // async handleIncrement(cartId, productId) {
-  //   await incrementItem(cartId, productId);
-    // this.setState(prevState => ({
-    //   ...prevState,
-    //   products: {
-    //     ...prevState.products,
-
-    //   }
-    // }))
-  // }
 
   render() {
 
-    const {orders, incrementItem, decrementItem, loading, error} = this.props
+    const {orders, loading, error} = this.props
     const cart = orders.filter(order => !order.isPurchased)[0]
     const {ready} = this.state
 
@@ -61,8 +46,10 @@ class CartView extends React.Component {
         <h3>Cart</h3>
         <CartItems
           cart={cart}
-          incrementItem={incrementItem}
-          update={this.props.fetchOrders}/>
+          // incrementItem={incrementItem}
+          // decrementItem={decrementItem}
+          // update={this.props.fetchOrders}
+        />
       </div>
     ): null;
   }
@@ -81,7 +68,7 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   fetchOrders: (userId) => dispatch(fetchOrders(userId)),
-  incrementItem: (orderId, productId) => dispatch(incrementItem(orderId, productId))
+  // incrementItem: (orderId, productId) => dispatch(incrementItem(orderId, productId))
 })
 
 export default connect(mapState, mapDispatch)(CartView)

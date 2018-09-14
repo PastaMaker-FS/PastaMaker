@@ -20,7 +20,7 @@ import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import EditIcon from '@material-ui/icons/Edit';
 import ClearIcon from '@material-ui/icons/Clear';
-import { fetchOrders } from '../store/order';
+import { decrementItem, incrementItem, destroyItem } from '../store/order';
 
 const styles = theme => ({
   root: {
@@ -36,7 +36,7 @@ const styles = theme => ({
 class CartItems extends React.Component {
 
   render() {
-    const {classes, cart, incrementItem} = this.props
+    const {classes, cart} = this.props
 
     console.log(`---------- cart ${JSON.stringify(cart)}`)
     return (
@@ -60,8 +60,17 @@ class CartItems extends React.Component {
                   key={product.id}
                   product={product}
                   increment={() => {
-                    incrementItem(cart.id, product.id)
-                  }} />
+                    this.props.incrementItem(cart.id, product.id)
+                  }}
+                  decrement={() => {
+                    this.props.decrementItem(cart.id, product.id)
+                  }}
+                  remove={() => {
+                    console.log(`--- remove: ${cart.id}, ${product.id}`)
+                    // console.log(`--- calls destroyItem: ${destroyItem}`)
+                    this.props.destroyItem(cart.id, product.id)
+                  }}
+                />
               )}
             </TableBody>
           </Table>
@@ -86,5 +95,16 @@ class CartItems extends React.Component {
 //   email: PropTypes.string
 // }
 
-// export default CartItems
-export default withStyles(styles)(CartItems);
+
+const mapDispatch = dispatch => ({
+  incrementItem: (orderId, productId) => dispatch(incrementItem(orderId, productId)),
+  decrementItem: (orderId, productId) => dispatch(decrementItem(orderId, productId)),
+  destroyItem: (orderId, productId) => dispatch(destroyItem(orderId, productId))
+})
+
+
+export default withStyles(styles)(connect(
+  null,
+  mapDispatch,
+)(CartItems));
+
