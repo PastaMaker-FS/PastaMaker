@@ -65,7 +65,7 @@ router.get('/:userId/orders', async (req, res, next) => {
     await Promise.all(
       orders.map(async (order) => {
         const products = await order.getProducts();
-
+        console.log(products)
         const productsParsed = products.map(product => ({
           id: product.id,
           name: product.name,
@@ -74,7 +74,7 @@ router.get('/:userId/orders', async (req, res, next) => {
           price: product.price,
           purchasePrice: product.item.purchasePrice,
           quantity: product.item.quantity,
-          imgUrl: product.item.imgUrl,
+          imgUrl: product.imgUrl,
         }))
 
         ordersWithProducts.push({
@@ -133,3 +133,5 @@ router.post('/:userId/orders', async (req, res, next) => {
     next(error);
   }
 })
+
+

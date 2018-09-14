@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {fetchOrders} from '../store/order'
+import {CartItems} from '../components'
 
 /**
  * COMPONENT
@@ -10,12 +11,13 @@ class CartView extends React.Component {
 
   componentDidMount() {
     // this.props.fetchOrders(this.props.user.id);
-    this.props.fetchOrders(2);
+    this.props.fetchOrders(1);
   }
 
   render() {
 
     const {orders, loading, error} = this.props
+    const cart = orders.filter(order => !order.isPurchased)[0]
 
     //check for loading and error states
     if (loading) {
@@ -24,14 +26,11 @@ class CartView extends React.Component {
     if (error) {
       return <div>error!</div>
     }
-    console.log(orders)
+    // console.log(`---------- cart ${JSON.stringify(cart)}`)
     return (
       <div>
         <h3>Cart</h3>
-        {orders.map(order => (
-          <li>{order.id}</li>
-        ))}
-        {/* <CartItems orders={orders}/> */}
+        <CartItems cart={cart}/>
       </div>
     )
   }
