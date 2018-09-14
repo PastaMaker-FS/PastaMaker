@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 class SingleProduct extends React.Component {
 	constructor(props) {
 		super(props);
@@ -11,6 +10,7 @@ class SingleProduct extends React.Component {
 	}
 
 	handleChange(event) {
+		console.log(event.target.value);
 		this.setState({ quantity: event.target.value });
 	}
 
@@ -21,19 +21,26 @@ class SingleProduct extends React.Component {
 	}
 
 	render() {
+		const { name, description, stock, price, imgUrl } = this.props.product;
+
+		console.log('IN Single PRoduct', this.props);
 		return (
 			<div className="Product">
 				<div>
-					<img src="this.props.imgUrl" alt="Picture of the product" onClick={() => this.props.selectProduct}/> <br />
-					<span className="productName">Item: {this.props.name}</span>
-					<span className="productDescription">Description: {this.props.description}</span>
-					<span className="productStock">In stock {this.props.stock} units.</span>
-					<span className="productName">Price: {this.props.price / 100}</span>
+					<img src={imgUrl} alt="Picture of the product" onClick={() => this.props.selectProduct} /> <br />
+					<span className="productName"> Item: {name}</span>
+					<span className="productDescription"> Description: {description}</span>
+					<span className="productStock"> In stock {stock} units.</span>
+					<span className="productName"> Price: {price / 100}</span>
 				</div>
-				<form className="form" onSubmit={this.handleSubmit}>
+				<form className="form" onSubmit={() => this.handleSubmit()}>
 					<label>
-						Quanitty
-						<input type="number" value={this.state.quantity} onChange={this.handleChange} />
+						Quanity
+						<input
+							type="number"
+							value={this.state.quantity}
+							onChange={(event) => this.handleChange(event)}
+						/>
 					</label>
 					<input type="submit" value="Add to Cart" />
 				</form>

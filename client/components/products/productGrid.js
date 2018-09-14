@@ -13,49 +13,48 @@ class ProductGrid extends Component {
 	}
 
 	showProduct() {
-		this.setState({ showProduct: true });
+		this.setState(() => {
+			return { showProduct: true };
+		});
 	}
 
 	hideProduct() {
-		this.setState({ showProduct: false });
+		this.setState(() => {
+			return { showProduct: false };
+		});
 	}
 
 	selectProduct = (product) => {
 		this.showProduct();
-		console.log('Product grid props are', this.props);
 		this.props.selectProduct(product);
-		console.log('The show product', this.state);
 	};
 
-  modalSingleProduct = () => {
-    const hidden = this.props.showProduct;
-    if (hidden) {
-      console.log("It's hidden!");
-      return <h1>it's hidden</h1>
-    } else {
-      console.log("It's showing!");
-      return <h1>it's showing</h1>
-    }
-  }
+	modalSingleProduct = () => {
+		if (this.state.showProduct) {
+			return (
+				<div>
+					<div onClick={() => this.hideProduct()}>return to all products</div>
+					<SingleProduct product={this.props.productState.product} />
+				</div>
+			);
+		}
+	};
 	render() {
 		const enumeratedProducts = this.props.productState.products.map((product) => (
 			<ProductThumb
+				className="box2"
 				key={product.id}
 				product={product}
 				selectProduct={this.selectProduct}
 				addToCart={this.props.addToCart}
-				deselectProduct={this.hideProduct} //Maybe we do want to deselect product from store?
+				deselectProduct={this.hideProduct} 
 			/>
 		));
 
-
-
 		return (
-			<div className="productGrid">
-				<div>
-					{this.modalSingleProduct()}
-				</div>
-				{enumeratedProducts}
+			<div>
+				<div>{this.modalSingleProduct()}</div>
+				<div className="productGrid">{this.state.showProduct ? <h3>Product</h3> : enumeratedProducts}</div>
 			</div>
 		);
 	}
