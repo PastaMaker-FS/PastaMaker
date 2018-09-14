@@ -1,4 +1,4 @@
-body {
+/* body {
   font-family: sans-serif;
 }
 
@@ -10,30 +10,35 @@ a {
   display: block;
 } */
 
-nav a {
+.box2 {
   display: inline-block;
+  width: 200px;
+  height: 100px;
   margin: 1em;
+}
+
+nav a {
+	display: inline-block;
+	margin: 1em;
 }
 
 form div {
-  margin: 1em;
-  display: inline-block;
+	margin: 1em;
+	display: inline-block;
 }
 
-
 allProducts {
-  display: flex;
-  flex-direction: column;
-  margin: 15px;
+	display: flex;
+	flex-direction: column;
+	margin: 15px;
 }
 
 productGrid {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 img {
-  margin: 10px;
+	margin: 10px;
 }
