@@ -76,7 +76,7 @@ router.get('/:userId/orders', async (req, res, next) => {
           price: product.price,
           purchasePrice: product.item.purchasePrice,
           quantity: product.item.quantity,
-          imgUrl: product.item.imgUrl
+          imgUrl: product.imgUrl,
         }))
 
         ordersWithProducts.push({
@@ -135,3 +135,5 @@ router.post('/:userId/orders', async (req, res, next) => {
     next(error)
   }
 })
+
+

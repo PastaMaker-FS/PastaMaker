@@ -16,6 +16,7 @@ const ORDERS = {
   SET: 'SET_ALL_ORDERS',
   ITEMS: {
     ADD: 'ADD_ITEM_TO_CART',
+    SET: 'SET_ONE_ITEM'
   },
   LOADING: 'LOADING_ORDERS',
   ERROR: 'ERROR_ORDERS'
@@ -28,6 +29,10 @@ const ORDERS = {
 const setAllOrders = (orders) => ({
   type: ORDERS.SET,
   orders
+})
+const setItem = (item) => ({
+  type: ORDERS.ITEMS.SET,
+  item
 })
 const addItem = (item) => ({
   type: ORDERS.ITEMS.ADD,
@@ -51,9 +56,9 @@ export const fetchOrders = (userId) => async (dispatch) => {
   dispatch(loadingOrders(true));
   try {
     const {data: orders} = await axios.get(`/api/users/${userId}/orders`);
-    console.log(`--- orders from db: ${JSON.stringify(orders)}`)
+    // console.log(`--- orders from db: ${JSON.stringify(orders)}`)
     dispatch(setAllOrders(orders));
-    dispatch(loadingOrders(false));
+    // dispatch(loadingOrders(false));
   } catch (error) {
     dispatch(errorOrders(true));
   }
@@ -68,6 +73,42 @@ export const createItem = (userId, productId) => async (dispatch) => {
   }
 }
 
+// export const updateItem = (orderId, productId, item) => async (dispatch) => {
+//   try {
+//     const {data: updatedItem} = await axios.put(`/api/items/${orderId}/${productId}`, item)
+//     dispatch(setItem(updatedItem))
+//   } catch (err) {
+//     dispatch(errorOrders(true))
+//   }
+// }
+
+export const incrementItem = (orderId, productId) => async (dispatch) => {
+  try {
+    const {data: item} = await axios.get(`/api/items/${orderId}/${productId}`)
+    const {data: updatedItem} = await axios.put(`/api/items/${orderId}/${productId}`,
+      {
+        quantity: item.quantity + 1,
+        purchasePrice: item.purchasePrice
+      })
+    dispatch(setItem(updatedItem))
+  } catch (err) {
+    dispatch(errorOrders(true))
+  }
+}
+
+export const decrementItem = (orderId, productId) => async (dispatch) => {
+  try {
+    const {data: item} = await axios.get(`/api/items/${orderId}/${productId}`)
+    const {data: updatedItem} = await axios.put(`/api/items/${orderId}/${productId}`,
+      {
+        quantity: item.quantity - 1,
+        purchasePrice: item.purchasePrice
+      })
+    dispatch(setItem(updatedItem))
+  } catch (err) {
+    dispatch(errorOrders(true))
+  }
+}
 
 /**
  * REDUCER
@@ -78,7 +119,8 @@ export default function(state = defaultOrders, action) {
       console.log('ORDERS.SET')
       return {
         ...state,
-        list: action.orders
+        list: action.orders,
+        isLoading: false
       }
     case ORDERS.ITEMS.ADD:
       let cart = state.orders
@@ -105,7 +147,7 @@ export default function(state = defaultOrders, action) {
         ...state,
         isLoading: action.loading
       }
-    case ORDERS.Error:
+    case ORDERS.ERROR:
       return {
         ...state,
         isError: action.error
