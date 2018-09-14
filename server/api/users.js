@@ -3,12 +3,16 @@ const {User, Order, Item} = require('../db/models')
 module.exports = router
 
 router.post('/', async (req, res, next) => {
+  const firstName = req.body.firstName
+  const lastName = req.body.lastName
+  const email = req.body.email
+  const password = req.body.password
   try {
     const users = await User.create({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      password: req.body.password
+      firstName,
+      lastName,
+      email,
+      password
     })
     res.json(users)
   } catch (error) {
@@ -76,7 +80,7 @@ router.get('/:userId/orders', async (req, res, next) => {
           price: product.price,
           purchasePrice: product.item.purchasePrice,
           quantity: product.item.quantity,
-          imgUrl: product.imgUrl,
+          imgUrl: product.imgUrl
         }))
 
         ordersWithProducts.push({
@@ -135,5 +139,3 @@ router.post('/:userId/orders', async (req, res, next) => {
     next(error)
   }
 })
-
-

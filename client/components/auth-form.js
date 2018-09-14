@@ -2,35 +2,57 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import Button from '@material-ui/core/Button'
+import {Link} from 'react-router-dom'
+import {withStyles} from '@material-ui/core/styles'
 
 /**
  * COMPONENT
  */
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+    color: 'red'
+  },
+  input: {
+    display: 'none'
+  }
+})
+
 const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+  const {name, displayName, handleSubmit, error, classes} = props
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
-    </div>
+    <React.Fragment>
+      <div>
+        <form onSubmit={handleSubmit} name={name}>
+          <div>
+            <label htmlFor="email">
+              <small>Email</small>
+            </label>
+            <input name="email" type="text" />
+          </div>
+          <div>
+            <label htmlFor="password">
+              <small>Password</small>
+            </label>
+            <input name="password" type="password" />
+          </div>
+          <div>
+            <button type="submit">{displayName}</button>
+          </div>
+          {error && error.response && <div> {error.response.data} </div>}
+        </form>
+        <a href="/auth/google">{displayName} with Google</a>
+      </div>
+
+      <Link to="/signup">
+        <Button variant="outlined" color="primary" className={classes.button}>
+          Sign Up
+        </Button>
+      </Link>
+    </React.Fragment>
   )
 }
 
@@ -69,7 +91,9 @@ const mapDispatch = dispatch => {
   }
 }
 
-export const Login = connect(mapLogin, mapDispatch)(AuthForm)
+export const Login = connect(mapLogin, mapDispatch)(
+  withStyles(styles)(AuthForm)
+)
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
 
 /**
@@ -79,5 +103,6 @@ AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  error: PropTypes.object
+  error: PropTypes.object,
+  classes: PropTypes.object.isRequired
 }

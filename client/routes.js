@@ -5,9 +5,9 @@ import PropTypes from 'prop-types'
 import {me} from './store'
 import AllProducts from './components/products/allProducts'
 import AboutUs from './components/aboutus'
+import Signup from './components/sign-form'
 import {
   Login,
-  Signup,
   UserHome,
   CartView
 } from './components'
