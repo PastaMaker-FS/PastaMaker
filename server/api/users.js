@@ -57,15 +57,16 @@ router.put('/:userId', async (req, res, next) => {
 // get all orders for user if auth user or admin
 // for cart/history --> filter by isPurchased
 router.get('/:userId/orders', async (req, res, next) => {
-
   const getOrders = async () => {
-    const ordersWithProducts = [];
-    const orders = await Order.findAll({ where: {
-      userId: req.params.userId
-    }})
+    const ordersWithProducts = []
+    const orders = await Order.findAll({
+      where: {
+        userId: req.params.userId
+      }
+    })
     await Promise.all(
-      orders.map(async (order) => {
-        const products = await order.getProducts();
+      orders.map(async order => {
+        const products = await order.getProducts()
 
         const productsParsed = products.map(product => ({
           id: product.id,
@@ -75,7 +76,7 @@ router.get('/:userId/orders', async (req, res, next) => {
           price: product.price,
           purchasePrice: product.item.purchasePrice,
           quantity: product.item.quantity,
-          imgUrl: product.item.imgUrl,
+          imgUrl: product.item.imgUrl
         }))
 
         ordersWithProducts.push({
@@ -86,51 +87,51 @@ router.get('/:userId/orders', async (req, res, next) => {
         })
       })
     )
-    return ordersWithProducts;
+    return ordersWithProducts
   }
 
   try {
     // if ( req.params.userId === req.user.id || req.user.isAdmin || true ) {
-    if ( true ) {
-      const orders = await getOrders();
+    if (true) {
+      const orders = await getOrders()
       res.json(orders)
     } else {
       res.status(404).end()
     }
   } catch (error) {
-    console.error(error);
+    console.error(error)
     next(error)
   }
 })
 
 // add item to cart
 router.post('/:userId/orders', async (req, res, next) => {
-
   try {
     // get user's cart if it exists
-    let cart = await Order.findOne({ where: {
-      userId: req.params.userId,
-      isPurchased: false
-    }})
+    let cart = await Order.findOne({
+      where: {
+        userId: req.params.userId,
+        isPurchased: false
+      }
+    })
 
     // create cart if it doesn't exist
-    if (!(cart)) {
+    if (!cart) {
       cart = await Order.create({
         // datePurchased: req.body.datePurchased,
-        userId: req.params.userId,
+        userId: req.params.userId
       })
     }
 
     // add item to cart
     const item = await Item.create({
       orderId: cart.id,
-      productId: req.body.productId,
+      productId: req.body.productId
     })
 
-    res.json(item);
-
+    res.json(item)
   } catch (error) {
-    console.error(error);
-    next(error);
+    console.error(error)
+    next(error)
   }
 })
