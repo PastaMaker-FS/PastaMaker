@@ -47,7 +47,7 @@ class ProductGrid extends Component {
 				product={product}
 				selectProduct={this.selectProduct}
 				addToCart={this.props.addToCart}
-				deselectProduct={this.hideProduct} //Maybe we do want to deselect product from store?
+				deselectProduct={this.hideProduct} 
 			/>
 		));
 
