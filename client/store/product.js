@@ -73,7 +73,6 @@ export const getProductsByType = productsByType => ({
 
 // get product?
 export const getProductTHUNK = () => {
-  console.log("This is hit")
   return async dispatch => {
     try {
       // ???
