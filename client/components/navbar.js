@@ -82,15 +82,6 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => {
                 Login
               </Button>
             </Link>
-            <Link to="/signup">
-              <Button
-                variant="outlined"
-                color="primary"
-                className={classes.button}
-              >
-                Sign Up
-              </Button>
-            </Link>
             <Link to="/aboutus">
               <Button
                 variant="outlined"
