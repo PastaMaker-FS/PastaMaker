@@ -2,17 +2,29 @@ const router = require('express').Router()
 const {Order, Item} = require('../db/models')
 module.exports = router
 
+router.get('/:orderId/:productId', async (req, res, next) => {
+  try {
+    // get item
+    const item = await Item.findOne({ where: {
+      orderId: req.params.orderId,
+      productId: req.params.productId,
+    }})
+
+    res.json(item);
+
+  } catch (error) {
+    console.error(error);
+    next(error)
+  }
+})
+
 // edit item
 router.put('/:orderId/:productId', async (req, res, next) => {
 
   try {
-    // get item in cart
-    const cart = await Order.findOne({ where: {
-      userId: req.params.userId,
-      isPurchased: false
-    }})
+    // get item
     const item = await Item.findOne({ where: {
-      orderId: cart.id,
+      orderId: req.params.orderId,
       productId: req.params.productId,
     }})
 

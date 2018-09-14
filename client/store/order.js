@@ -56,7 +56,7 @@ export const fetchOrders = (userId) => async (dispatch) => {
   dispatch(loadingOrders(true));
   try {
     const {data: orders} = await axios.get(`/api/users/${userId}/orders`);
-    console.log(`--- orders from db: ${JSON.stringify(orders)}`)
+    // console.log(`--- orders from db: ${JSON.stringify(orders)}`)
     dispatch(setAllOrders(orders));
     // dispatch(loadingOrders(false));
   } catch (error) {
@@ -73,16 +73,42 @@ export const createItem = (userId, productId) => async (dispatch) => {
   }
 }
 
-export const updateItem = (orderId, productId, item) => async (dispatch) => {
+// export const updateItem = (orderId, productId, item) => async (dispatch) => {
+//   try {
+//     const {data: updatedItem} = await axios.put(`/api/items/${orderId}/${productId}`, item)
+//     dispatch(setItem(updatedItem))
+//   } catch (err) {
+//     dispatch(errorOrders(true))
+//   }
+// }
+
+export const incrementItem = (orderId, productId) => async (dispatch) => {
   try {
-    const {data: updatedItem} = await axios.put(`/api/items/${orderId}/${productId}`, item)
+    const {data: item} = await axios.get(`/api/items/${orderId}/${productId}`)
+    const {data: updatedItem} = await axios.put(`/api/items/${orderId}/${productId}`,
+      {
+        quantity: item.quantity + 1,
+        purchasePrice: item.purchasePrice
+      })
     dispatch(setItem(updatedItem))
   } catch (err) {
     dispatch(errorOrders(true))
   }
 }
 
-
+export const decrementItem = (orderId, productId) => async (dispatch) => {
+  try {
+    const {data: item} = await axios.get(`/api/items/${orderId}/${productId}`)
+    const {data: updatedItem} = await axios.put(`/api/items/${orderId}/${productId}`,
+      {
+        quantity: item.quantity - 1,
+        purchasePrice: item.purchasePrice
+      })
+    dispatch(setItem(updatedItem))
+  } catch (err) {
+    dispatch(errorOrders(true))
+  }
+}
 
 /**
  * REDUCER

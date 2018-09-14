@@ -3,6 +3,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+import {Item} from '../components'
 
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
@@ -19,6 +20,7 @@ import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import EditIcon from '@material-ui/icons/Edit';
 import ClearIcon from '@material-ui/icons/Clear';
+import { fetchOrders } from '../store/order';
 
 const styles = theme => ({
   root: {
@@ -33,13 +35,11 @@ const styles = theme => ({
 // const CartItems = props => {
 class CartItems extends React.Component {
 
-  // const cart = orders.filter(order => !order.isPurchased)[0]
-
   render() {
-    const {classes, cart} = this.props
+    const {classes, cart, incrementItem} = this.props
 
     console.log(`---------- cart ${JSON.stringify(cart)}`)
-    return (cart) ? (
+    return (
       <React.Fragment>
 
         <Paper className={classes.root}>
@@ -55,79 +55,19 @@ class CartItems extends React.Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {cart.products.map(product => {
-                return (
-                  <TableRow
-                    hover
-                    key={product.id}
-                    // component={Link}
-                    // to={`/students/${student.id}`}
-                  >
-                    <TableCell>
-                      <Avatar
-                        // alt="Adelle Charles"
-                        src={product.imgUrl}
-                        className={classNames(classes.avatar, classes.bigAvatar)}
-                      />
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                    {product.name}
-                    </TableCell>
-
-                    <TableCell numeric>
-                      {product.quantity}
-
-                    </TableCell>
-
-                    <TableCell numeric>{product.price}</TableCell>
-
-                    <TableCell numeric>{product.quantity * product.price}</TableCell>
-
-                    <TableCell>
-                    <IconButton
-                        raised
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="Menu"
-                        // component={Link}
-                        // to={`/students/${student.id}/edit`}
-                      ><AddIcon />
-                      </IconButton>
-
-                      <IconButton
-                        raised
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="Menu"
-                        // component={Link}
-                        // to={`/students/${student.id}/edit`}
-                      ><RemoveIcon />
-                      </IconButton>
-
-                      <IconButton
-                        raised
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="Menu"
-                        // onClick={(evt) => {
-                        //   evt.preventDefault();
-                        //   deleteStudent(student.id)
-                        // }}
-                      ><ClearIcon />
-                      </IconButton>
-                    </TableCell>
-
-
-                  </TableRow>
-                );
-              })}
-
+              {cart.products.map(product =>
+                <Item
+                  key={product.id}
+                  product={product}
+                  increment={() => {
+                    incrementItem(cart.id, product.id)
+                  }} />
+              )}
             </TableBody>
           </Table>
         </Paper>
 
         <Button
-          raised
           // className={classes.button}
           color="inherit"
           aria-label="Menu"
@@ -135,7 +75,7 @@ class CartItems extends React.Component {
         </Button>
 
       </React.Fragment>
-    ) : null
+    )
   }
 }
 

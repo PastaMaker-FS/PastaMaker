@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {fetchOrders} from '../store/order'
+import {fetchOrders, incrementItem, decrementItem} from '../store/order'
 import {CartItems} from '../components'
 
 /**
@@ -9,15 +9,44 @@ import {CartItems} from '../components'
  */
 class CartView extends React.Component {
 
-  componentDidMount() {
-    // this.props.fetchOrders(this.props.user.id);
-    this.props.fetchOrders(1);
+  constructor(props) {
+    super(props);
+    this.state = {
+      // cart: {},
+      ready: false
+    }
+    // this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleIncrement = this.handleIncrement.bind(this);
   }
+
+  async componentDidMount() {
+    // this.props.fetchOrders(this.props.user.id);
+    await this.props.fetchOrders(1);
+    this.setState({
+      ready: true
+    })
+    // const cart = this.props.orders.filter(order => !order.isPurchased)[0]
+    // await this.setState({cart}, () => {
+    //   this.setState({ready: true})
+    // })
+  }
+
+  // async handleIncrement(cartId, productId) {
+  //   await incrementItem(cartId, productId);
+    // this.setState(prevState => ({
+    //   ...prevState,
+    //   products: {
+    //     ...prevState.products,
+
+    //   }
+    // }))
+  // }
 
   render() {
 
-    const {orders, loading, error} = this.props
+    const {orders, incrementItem, decrementItem, loading, error} = this.props
     const cart = orders.filter(order => !order.isPurchased)[0]
+    const {ready} = this.state
 
     //check for loading and error states
     if (loading) {
@@ -27,12 +56,15 @@ class CartView extends React.Component {
       return <div>error!</div>
     }
     // console.log(`---------- cart ${JSON.stringify(cart)}`)
-    return (
+    return (ready) ? (
       <div>
         <h3>Cart</h3>
-        <CartItems cart={cart}/>
+        <CartItems
+          cart={cart}
+          incrementItem={incrementItem}
+          update={this.props.fetchOrders}/>
       </div>
-    )
+    ): null;
   }
 }
 
@@ -49,6 +81,7 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   fetchOrders: (userId) => dispatch(fetchOrders(userId)),
+  incrementItem: (orderId, productId) => dispatch(incrementItem(orderId, productId))
 })
 
 export default connect(mapState, mapDispatch)(CartView)
