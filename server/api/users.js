@@ -64,6 +64,24 @@ router.put('/:userId', async (req, res, next) => {
 router.get('/:userId/orders', async (req, res, next) => {
 
   const getOrders = async () => {
+
+    // get user's cart if it exists
+    let cart = await Order.findOne({
+      where: {
+        userId: req.params.userId,
+        isPurchased: false
+      }
+    })
+
+    // create cart if it doesn't exist
+    if (!cart) {
+      cart = await Order.create({
+        // datePurchased: req.body.datePurchased,
+        userId: req.params.userId
+      })
+    }
+
+    // then get all orders
     const ordersWithProducts = []
     const orders = await Order.findAll({
       where: {
