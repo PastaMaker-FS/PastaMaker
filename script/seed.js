@@ -32,12 +32,12 @@ const users = [
 ]
 
 const orders = [
-  { datePurchased: Date.now(), userId: 1 },
-  { datePurchased: Date.now(), userId: 1 },
-  { datePurchased: Date.now(), userId: 2 },
-  { datePurchased: Date.now(), userId: 3 },
-  { datePurchased: Date.now(), userId: 3 },
-  { datePurchased: Date.now(), userId: 3 },
+  { datePurchased: Date.now(), userId: 1, isPurchased: false },
+  { datePurchased: Date.now(), userId: 1, isPurchased: true },
+  { datePurchased: Date.now(), userId: 2, isPurchased: true },
+  { datePurchased: Date.now(), userId: 3, isPurchased: false },
+  { datePurchased: Date.now(), userId: 3, isPurchased: true },
+  { datePurchased: Date.now(), userId: 3, isPurchased: true },
 ]
 
 const products = [
@@ -98,7 +98,11 @@ const items = [
   { orderId: 1, productId: 3},
   { orderId: 1, productId: 4},
   { orderId: 1, productId: 5},
-  { orderId: 2, productId: 1},
+  { orderId: 4, productId: 3},
+  { orderId: 4, productId: 4},
+  { orderId: 4, productId: 5},
+  { orderId: 2, productId: 3},
+  { orderId: 2, productId: 4},
   { orderId: 3, productId: 2},
   { orderId: 3, productId: 3},
 ]
