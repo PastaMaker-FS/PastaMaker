@@ -3,6 +3,7 @@
 const db = require('../server/db')
 const {
   User,
+  Address,
   Order,
   Product,
   Item,
@@ -31,13 +32,37 @@ const users = [
   },
 ]
 
+const addresses = [
+  {
+  street: `40 Fairfield St.`,
+  city: `Bayonne`,
+  state: `NJ`,
+  zip: '07002',
+  userId: 1
+  },
+  {
+  street: `69 Briarwood St.`,
+  city: `Halethorpe`,
+  state: `MD`,
+  zip: '21227',
+  userId: 2
+  },
+  {
+  street: `2 Old Hartford Lane`,
+  city: `Bethpage`,
+  state: `NY`,
+  zip: '11714',
+  userId: 3
+  }
+]
+
 const orders = [
-  { datePurchased: Date.now(), userId: 1 },
-  { datePurchased: Date.now(), userId: 1 },
-  { datePurchased: Date.now(), userId: 2 },
-  { datePurchased: Date.now(), userId: 3 },
-  { datePurchased: Date.now(), userId: 3 },
-  { datePurchased: Date.now(), userId: 3 },
+  { datePurchased: Date.now(), userId: 1, isPurchased: false },
+  { datePurchased: Date.now(), userId: 1, isPurchased: true },
+  { datePurchased: Date.now(), userId: 2, isPurchased: true },
+  { datePurchased: Date.now(), userId: 3, isPurchased: false },
+  { datePurchased: Date.now(), userId: 3, isPurchased: true },
+  { datePurchased: Date.now(), userId: 3, isPurchased: true },
 ]
 
 const products = [
@@ -98,7 +123,11 @@ const items = [
   { orderId: 1, productId: 3},
   { orderId: 1, productId: 4},
   { orderId: 1, productId: 5},
-  { orderId: 2, productId: 1},
+  { orderId: 4, productId: 3},
+  { orderId: 4, productId: 4},
+  { orderId: 4, productId: 5},
+  { orderId: 2, productId: 3},
+  { orderId: 2, productId: 4},
   { orderId: 3, productId: 2},
   { orderId: 3, productId: 3},
 ]
@@ -108,6 +137,7 @@ async function seed() {
   console.log('db synced!')
 
   await Promise.all( users.map(u => User.create(u)) )
+  await Promise.all( addresses.map(a => Address.create(a)) )
   await Promise.all( products.map(p => Product.create(p)) )
   await Promise.all( orders.map(o => Order.create(o)) )
   await Promise.all( items.map(i => Item.create(i)) )

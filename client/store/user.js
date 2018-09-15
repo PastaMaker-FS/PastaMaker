@@ -32,7 +32,7 @@ export const getUser = user => ({type: GET_USER, user})
 export const removeUser = () => ({type: REMOVE_USER})
 export const addUser = user => ({type: ADD_USER, user})
 export const updateUser = user => ({type: UPDATE_USER, user})
-export const singleUser = user => ({type:GET_ONE_USER , user})
+export const singleUser = user => ({type: GET_ONE_USER, user})
 export const getAllUser = users => ({tye: GET_ALL_USER, users})
 
 /**
@@ -75,7 +75,7 @@ export const logout = () => async dispatch => {
 
 export const allUsers = () => async dispatch => {
   try {
-    const res = await axios.get('/users')
+    const res = await axios.get('/api/users')
     dispatch(getAllUser(res.data))
   } catch (err) {
     console.error(err)
@@ -84,17 +84,32 @@ export const allUsers = () => async dispatch => {
 
 export const update = userId => async dispatch => {
   try {
-    const res = await axios.put(`/users/${userId}`)
+    const res = await axios.put(`/api/users/${userId}`)
     await dispatch(updateUser(res.data))
   } catch (err) {
     console.error(err)
   }
 }
+
+export const newUser = user => {
+  const content = user
+  return async dispatch => {
+    try {
+      const res = await axios.post('/api/users', content)
+      console.log(res.data)
+      await dispatch(addUser(res.data))
+      history.push('/home')
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 //Not sure if we need this since auth has api/auth/me which gets a single user
 
 export const oneUser = userId => async dispatch => {
   try {
-    const res = await axios.get(`/users/${userId}`)
+    const res = await axios.get(`/api/users/${userId}`)
     dispatch(singleUser(res.data))
   } catch (err) {
     console.error(err)
@@ -109,6 +124,8 @@ export default function(state = defaultUser, action) {
     case GET_USER:
       return action.user
     case GET_ONE_USER:
+      return {...state, user: action.user}
+    case ADD_USER:
       return {...state, user: action.user}
     case REMOVE_USER:
       return defaultUser
