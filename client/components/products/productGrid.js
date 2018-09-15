@@ -6,22 +6,12 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import createItem from '../../store/order';
 
-<<<<<<< HEAD
-const styles = (theme) => ({
-	productsStyle: {
-		display: 'flex',
-		justifyContent: 'space-around',
-		flexWrap: 'wrap'
-	}
-});
-=======
 const styles = theme => ({
   productsStyle: {
     display: 'flex',
     flexWrap: 'wrap'
   }
 })
->>>>>>> 9a2bd91a08e9b36bc5c49a6993083fd0874ea026
 
 class ProductGrid extends Component {
 	constructor() {
@@ -49,30 +39,6 @@ class ProductGrid extends Component {
 		this.props.selectProduct(product);
 	};
 
-<<<<<<< HEAD
-	modalSingleProduct = () => {
-		if (this.state.showProduct) {
-			return (
-				<div>
-					<div onClick={() => this.hideProduct()}>return to all products</div>
-					<SingleProduct product={this.props.productState.product} addToCard={createItem} />
-				</div>
-			);
-		}
-	};
-	render() {
-		const { classes } = this.props;
-		const enumeratedProducts = this.props.productState.products.map((product) => (
-			<ProductThumb
-				className="box2"
-				key={product.id}
-				product={product}
-				selectProduct={this.selectProduct}
-				addToCart={createItem}
-				deselectProduct={this.hideProduct}
-			/>
-		));
-=======
   modalSingleProduct = () => {
     if (this.state.showProduct) {
       return (
@@ -101,7 +67,6 @@ class ProductGrid extends Component {
         addToCart={this.props.addToCart}
       />
     ))
->>>>>>> 9a2bd91a08e9b36bc5c49a6993083fd0874ea026
 
 		console.log('The add to cart function is: ', createItem);
 		return (
