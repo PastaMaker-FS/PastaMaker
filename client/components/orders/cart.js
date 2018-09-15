@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchOrders} from '../store/order'
-import {CartItems} from '../components'
+import {fetchOrders} from '../../store'
+import {CartView} from '../../components'
 
 class Cart extends React.Component {
 
@@ -37,7 +37,7 @@ class Cart extends React.Component {
     }
 
     // render cart
-    return <CartItems cart={cart} />
+    return <CartView cart={cart} />
   }
 }
 

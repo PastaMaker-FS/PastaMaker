@@ -1,25 +1,16 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
 
+// material ui
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
-
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import EditIcon from '@material-ui/icons/Edit';
 import ClearIcon from '@material-ui/icons/Clear';
-// import { incrementItem } from '../store/order';
 
 const styles = theme => ({
   root: {
@@ -31,7 +22,6 @@ const styles = theme => ({
   },
 });
 
-// const CartItems = props => {
 class Item extends React.Component {
 
   constructor(props) {
@@ -80,24 +70,16 @@ class Item extends React.Component {
   async handleRemove(evt) {
     evt.preventDefault();
     await this.props.remove();
-    // this.setState(prevState => ({
-    //   ...prevState,
-    //   product: {
-    //     ...prevState.product,
-    //     quantity: prevState.product.quantity - 1
-    //   }
-    // }))
   }
-
-  // const cart = orders.filter(order => !order.isPurchased)[0]
 
   render() {
     const {classes} = this.props;
     const {product, ready} = this.state;
 
-    // console.log(`---------- cart ${JSON.stringify(product)}`)
-
-    // if (!(ready)) return null;
+    // check for data ready
+    if (!(ready)) {
+      return null;
+    }
 
     return (
       <TableRow
@@ -108,7 +90,6 @@ class Item extends React.Component {
       >
         <TableCell>
           <Avatar
-            // alt="Adelle Charles"
             src={product.imgUrl}
             className={classNames(classes.avatar, classes.bigAvatar)}
           />
@@ -122,9 +103,13 @@ class Item extends React.Component {
           {product.quantity}
         </TableCell>
 
-        <TableCell numeric>{product.price}</TableCell>
+        <TableCell numeric>
+          {product.price}
+        </TableCell>
 
-        <TableCell numeric>{product.quantity * product.price}</TableCell>
+        <TableCell numeric>
+          {product.quantity * product.price}
+        </TableCell>
 
         <TableCell>
           <IconButton

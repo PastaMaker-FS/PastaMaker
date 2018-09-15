@@ -169,14 +169,14 @@ export default function(state = defaultOrders, action) {
       // let [cart] = state.list
       //   .filter(order => !order.isPurchased)
 
-      [cart2] = state.list
+      [cart] = state.list
       .filter(order => !order.isPurchased)
 
       cartIdx = state.list
       .map(order => order.id)
       .indexOf(action.orderId)
 
-      itemIdx = cart2.products
+      itemIdx = cart.products
       .map(product => product.id)
       .indexOf(action.productId)
 
