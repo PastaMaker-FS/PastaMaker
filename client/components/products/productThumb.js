@@ -1,14 +1,33 @@
-import React from 'react';
+`import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 
+const styles = (theme) => ({
+	img: {
+		height: 200,
+		width: 125
+	},
+	divStyle: {
+		textAlign: 'center'
+	}
+});
 
-function ProductThumb({ product, addToCart, selectProduct, deselectProduct}) {
-
-	return (<React.Fragment>
-    <img className="img" src={product.imgUrl} width="125px" onClick={() => selectProduct(product)}/>
-    <div>{product.name}</div>
-    <div className="addToCart" onClick={() => addToCart(product)}> Add to cart</div>
-  </React.Fragment>);
+function ProductThumb({ product, addToCart, selectProduct, deselectProduct, classes }) {
+	console.log('In PRoduct Thumb, addToCart is:', addToCart);
+	return (
+		<div className={classes.divStyle}>
+			<img className={classes.img} src={product.imgUrl} onClick={() => selectProduct(product)} />
+			<div>{product.name}</div>
+			<div className="addToCart" onClick={() => addToCart(1, 2)}>
+				{' '}
+				Add to cart
+			</div>
+		</div>
+	);
 }
 
-export default ProductThumb;
+export default withStyles(styles)(ProductThumb);
 
+ProductThumb.propTypes = {
+	classes: PropTypes.object.isRequired
+};
