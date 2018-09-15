@@ -131,6 +131,8 @@ router.get('/:userId/orders', async (req, res, next) => {
 // add item to cart
 router.post('/:userId/orders', async (req, res, next) => {
 
+  console.log(`-------- req.body.productId: ${JSON.stringify(req.body.productId)}`)
+
   try {
     // get user's cart if it exists
     let cart = await Order.findOne({

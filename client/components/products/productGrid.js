@@ -54,7 +54,7 @@ class ProductGrid extends Component {
       <ProductThumb
         className="box2"
         key={product.id}
-        product={this.props.product}
+        product={product}
         selectProduct={this.selectProduct}
         deselectProduct={this.hideProduct}
 

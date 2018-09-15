@@ -69,7 +69,7 @@ export const fetchOrders = (userId) => async (dispatch) => {
 
 export const createItem = (userId, productId) => async (dispatch) => {
   try {
-    const {data: newItem} = await axios.post(`/api/users/${userId}/orders`, productId)
+    const {data: newItem} = await axios.post(`/api/users/${userId}/orders`, {productId})
     dispatch(addItem(newItem))
   } catch (err) {
     dispatch(errorOrders(true))
