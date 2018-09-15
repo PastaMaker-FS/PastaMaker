@@ -1,18 +1,27 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getProductTHUNK, selectProduct} from '../../store/product'
+import {createItem, fetchOrders} from '../../store'
 import ProductGrid from '../products/productGrid'
 
 class AllProducts extends Component {
-	componentDidMount() {
-		this.props.fetchAllProducts();
+
+	async componentDidMount() {
+    await this.props.fetchAllProducts();
+    this.props.fetchOrders(this.props.user.id);
 	}
 
 	render() {
 
 		return (
 			<div className="allProducts">
-				<ProductGrid productState={this.props.products} selectProduct={this.props.selectProduct} />
+        <ProductGrid
+          productState={this.props.products}
+          selectProduct={this.props.selectProduct}
+
+          user={this.props.user}
+          addToCart={this.props.addToCart}
+        />
 			</div>
 		);
 	}
@@ -20,15 +29,17 @@ class AllProducts extends Component {
 
 const mapStoreToProps = (store) => {
 	return {
-		products: store.product
+    products: store.product,
+    user: store.user
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		fetchAllProducts: () => dispatch(getProductTHUNK()),
-		selectProduct: (product) => dispatch(selectProduct(product))
-	//addToCart: product => dispatch()
+    fetchAllProducts: () => dispatch(getProductTHUNK()),
+    fetchOrders: (userId) => dispatch(fetchOrders(userId)),
+		selectProduct: (product) => dispatch(selectProduct(product)),
+	  addToCart: (userId, productId, quantity) => dispatch(createItem(userId, productId, quantity))
 	};
 };
 

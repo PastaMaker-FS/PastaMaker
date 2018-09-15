@@ -17,11 +17,15 @@ class SingleProduct extends React.Component {
 	handleSubmit(event) {
 		console.log('The product quantity of ' + this.state.quanity + ' has been submited to cart');
 		event.preventDefault();
-		this.props.addToCart(this.state.quantity);
+		this.props.addToCart(
+      this.props.user.id,
+      this.props.product.id,
+      this.state.quantity
+    );
 	}
 
 	render() {
-		const { name, description, stock, price, imgUrl } = this.props.product;
+    const { name, description, stock, price, imgUrl } = this.props.product;
 
 		console.log('IN Single PRoduct', this.props);
 		return (
@@ -33,7 +37,7 @@ class SingleProduct extends React.Component {
 					<span className="productStock"> In stock {stock} units.</span>
 					<span className="productName"> Price: {price / 100}</span>
 				</div>
-				<form className="form" onSubmit={() => this.handleSubmit()}>
+				<form className="form" onSubmit={(event) => this.handleSubmit(event)}>
 					<label>
 						Quanity
 						<input

@@ -157,6 +157,7 @@ router.get('/:userId/orders', async (req, res, next) => {
 
 // add item to cart
 router.post('/:userId/orders', async (req, res, next) => {
+  console.log(`-------- req.body: ${JSON.stringify(req.body)}`)
   try {
     // get user's cart if it exists
     let cart = await Order.findOne({
@@ -177,7 +178,8 @@ router.post('/:userId/orders', async (req, res, next) => {
     // add item to cart
     const item = await Item.create({
       orderId: cart.id,
-      productId: req.body.productId
+      productId: req.body.productId,
+      quantity: req.body.quantity
     })
 
     res.json(item)
