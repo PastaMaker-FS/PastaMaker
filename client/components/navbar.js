@@ -60,6 +60,15 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => {
                 About Us
               </Button>
             </Link>
+            <Link to="/cart">
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classes.button}
+              >
+                Cart
+              </Button>
+            </Link>
           </div>
         ) : (
           <div>
@@ -80,6 +89,15 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => {
                 className={classes.button}
               >
                 Login
+              </Button>
+            </Link>
+            <Link to="/cart">
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classes.button}
+              >
+                Cart
               </Button>
             </Link>
             <Link to="/aboutus">
