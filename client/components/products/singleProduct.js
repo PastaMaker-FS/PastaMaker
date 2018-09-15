@@ -3,7 +3,9 @@ import React from 'react';
 class SingleProduct extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { quantity: 0 };
+		this.state = {
+			quantity: 0
+		};
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -15,17 +17,23 @@ class SingleProduct extends React.Component {
 	}
 
 	handleSubmit(event) {
-		console.log('The product quantity of ' + this.state.quanity + ' has been submited to cart');
 		event.preventDefault();
-		this.props.addToCart(
-      this.props.user.id,
-      this.props.product.id,
-      this.state.quantity
-    );
+		// Check to ensure quantity is not negative
+		if (this.state.quantity <= 0) {
+			this.setState(() => {
+				return { quantity: 0 };
+			});
+			alert('Please enter a Quantity greater than Zero');
+			console.log('An invalid quantity was submitted. No change to state.');
+		} else {
+			console.log('The product quantity of ' + this.state.quanity + ' has been submited to cart');
+
+			this.props.addToCart(this.props.user.id, this.props.product.id, this.state.quantity);
+		}
 	}
 
 	render() {
-    const { name, description, stock, price, imgUrl } = this.props.product;
+		const { name, description, stock, price, imgUrl } = this.props.product;
 
 		console.log('IN Single PRoduct', this.props);
 		return (

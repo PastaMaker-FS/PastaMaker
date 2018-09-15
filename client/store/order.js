@@ -1,13 +1,13 @@
-import axios from 'axios'
+import axios from 'axios';
 
 /**
  * INITIAL STATE
  */
 const defaultOrders = {
-  list: [],
-  isLoading: false,
-  isError: false,
-}
+	list: [],
+	isLoading: false,
+	isError: false
+};
 
 /**
  * ACTION TYPES
@@ -28,13 +28,13 @@ const ORDERS = {
  */
 
 const setAllOrders = (orders) => ({
-  type: ORDERS.SET,
-  orders
-})
+	type: ORDERS.SET,
+	orders
+});
 const setItem = (item) => ({
-  type: ORDERS.ITEMS.SET,
-  item
-})
+	type: ORDERS.ITEMS.SET,
+	item
+});
 const addItem = (item) => ({
   type: ORDERS.ITEMS.ADD,
   item
@@ -45,13 +45,13 @@ const removeItem = (orderId, productId) => ({
   productId
 })
 const loadingOrders = (loading) => ({
-  type: ORDERS.LOADING,
-  loading
-})
+	type: ORDERS.LOADING,
+	loading
+});
 const errorOrders = (error) => ({
-  type: ORDERS.ERROR,
-  error
-})
+	type: ORDERS.ERROR,
+	error
+});
 
 /**
  * THUNK CREATORS
