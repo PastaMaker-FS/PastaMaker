@@ -13,12 +13,12 @@ const styles = theme => ({
   }
 })
 
-function ProductThumb({ product, addToCart, selectProduct, deselectProduct, classes}) {
+function ProductThumb({ product, user, addToCart, selectProduct, deselectProduct, classes}) {
 	return (
   <div className={classes.divStyle}>
     <img className={classes.img} src={product.imgUrl} onClick={() => selectProduct(product)}/>
     <div>{product.name}</div>
-    <div className="addToCart" onClick={() => addToCart(product)}> Add to cart</div>
+    <div className="addToCart" onClick={() => addToCart(user.id, product.id)}> Add to cart</div>
   </div>);
 }
 

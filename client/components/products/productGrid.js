@@ -55,10 +55,12 @@ class ProductGrid extends Component {
       <ProductThumb
         className="box2"
         key={product.id}
-        product={product}
+        product={this.props.product}
         selectProduct={this.selectProduct}
-        addToCart={this.props.addToCart}
         deselectProduct={this.hideProduct}
+
+        user={this.props.user}
+        addToCart={this.props.addToCart}
       />
     ))
 
