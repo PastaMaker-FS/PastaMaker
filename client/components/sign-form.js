@@ -88,6 +88,43 @@ class SignForm extends Component {
             onChange={this.handleChange('password')}
             margin="normal"
           />
+          <TextField
+            id="street"
+            label="Street"
+            required
+            className={classes.textField}
+            value={this.state.street}
+            onChange={this.handleChange('street')}
+            margin="normal"
+          />
+          <TextField
+            id="city"
+            label="City"
+            required
+            className={classes.textField}
+            value={this.state.city}
+            onChange={this.handleChange('city')}
+            margin="normal"
+          />
+          <TextField
+            id="state"
+            label="State"
+            required
+            type="password"
+            className={classes.textField}
+            value={this.state.state}
+            onChange={this.handleChange('state')}
+            margin="normal"
+          />
+          <TextField
+            id="zip"
+            label="Zip"
+            required
+            className={classes.textField}
+            value={this.state.zip}
+            onChange={this.handleChange('zip')}
+            margin="normal"
+          />
           <Button variant="contained" type="submit" className={classes.button}>
             SUBMIT
           </Button>
@@ -105,33 +142,28 @@ const mapDispatchToProps = dispatch => {
       const lastName = evt.target.lastName.value
       const email = evt.target.email.value
       const password = evt.target.password.value
-      dispatch(newUser({firstName, lastName, email, password}))
+      const street = evt.target.street.value
+      const city = evt.target.city.value
+      const state = evt.target.state.value
+      const zip = evt.target.zip.value
+      dispatch(
+        newUser({
+          firstName,
+          lastName,
+          email,
+          password,
+          street,
+          city,
+          state,
+          zip
+        })
+      )
     }
   }
 }
-
-
-//Updating sign up form after I create the routes
-
-// const mapDispatch = dispatch => {
-//   return {
-//     handleSubmit(evt) {
-//       evt.preventDefault()
-//       const street = evt.target.street.value
-//       const city = evt.target.city.value
-//       const state = evt.target.state.value
-//       const zip = evt.target.zip.value
-//       dispatch()
-//     }
-//   }
-// }
 
 SignForm.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-// export default connect(null, mapDispatchToProps)(withStyles(styles)(SignForm))
-export const UpdatedUser = connect(null, mapDispatchToProps)(withStyles(styles)(SignForm))
-
-//will finish this after routes are updated
-// export const UpdatedAddress = connect(null, mapDispatch)(withStyles(styles)(SignForm))
+export default connect(null, mapDispatchToProps)(withStyles(styles)(SignForm))
