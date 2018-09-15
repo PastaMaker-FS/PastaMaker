@@ -23,7 +23,7 @@ const mapState = state => {
   return {
     email: state.user.email,
     firstName: state.user.firstName,
-    lastName: state.user.lastName
+    lastName: state.user.lastName,
   }
 }
 

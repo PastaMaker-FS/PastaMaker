@@ -68,38 +68,38 @@ const orders = [
 const products = [
   {
   name: `Bucatini`,
-  description: `description of Bucatini`,
+  description: `This straw-like pasta is shaped like thick Spaghetti but is hollow in the center. Bucatini is the perfect choice for nearly any sauce, or it can be baked in casseroles or stirfried in dishes. Try it with different lean proteins and sauces for a change of pace.`,
   price: 1298,
   stock: 300,
-  imgUrl: `https://www.fillmurray.com/300/400`
+  imgUrl: `https://i.imgur.com/Eku46Gj.png`
   },
   {
   name: `Scialatelli`,
-  description: `description of Scialatelli`,
+  description: `The Scialatelli pasta is a type of thick and short fettuccine or linguine-like pasta featuring a rectangular cross section. This pasta has long been recognized as a PAT food in Campania meaning a Traditional Agri-food Product.`,
   price: 2350,
   stock: 400,
-  imgUrl: `https://www.fillmurray.com/300/500`
+  imgUrl: `https://i.imgur.com/2dXuBmf.png`
   },
   {
   name: `Tagliatelle`,
-  description: `description of Tagliatelle`,
+  description: `The Tagliatelle pasta is long and ribbon-like in shape, very similar to the fettuccine. It can be served with an array of sauces but a classic meat sauce tends to be the way to go.`,
   price: 1475,
   stock: 500,
-  imgUrl: `https://www.fillmurray.com/300/600`
+  imgUrl: `https://i.imgur.com/T8UFkRN.png`
   },
   {
   name: `Mafalde`,
-  description: `description of Mafalde`,
+  description: `This flat wide ribbon pasta is said to be similar in shape to the lasagne noodle but with a slightly narrower in size. The pasta come`,
   price: 1678,
   stock: 600,
-  imgUrl: `https://www.fillmurray.com/300/700`
+  imgUrl: `https://i.imgur.com/LtcixHR.png`
   },
   {
   name: `Spaghetti`,
-  description: `description of Spaghetti`,
+  description: `(“A length of cord”) America’s favorite shape, Spaghetti is the perfect choice for nearly any sauce, or it can be used to make casseroles or stir-fry dishes. Go beyond tomato sauce and see what your favorite becomes.`,
   price: 1399,
   stock: 700,
-  imgUrl: `https://www.fillmurray.com/300/800`
+  imgUrl: `https://i.imgur.com/G47BV0I.png`
   },
 ]
 

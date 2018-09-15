@@ -63,9 +63,12 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.put('/', async (req, res, next) => {
+
+// update user information route may need to fix this up?
+router.put('/:id', async (req, res, next) => {
   try {
-    const users = await User.findById(req.params.userId)
+    const users = await User.findById(req.params.id)
+    console.log('THIS IS USERS', users)
     const firstName = req.body.firstName
     const lastName = req.body.lastName
     const email = req.body.email
@@ -74,14 +77,42 @@ router.put('/', async (req, res, next) => {
     const city = req.body.city
     const state = req.body.state
     const zip = req.body.zip
-    await users.update({
-      firstName,
-      lastName,
-      email,
-      password
-    })
 
-    res.json(users)
+    if (!users) res.status(404)
+    // await users.update({
+    //   firstName,
+    //   lastName,
+    //   email,
+    //   password
+    // })
+    const updatedUser = await User.update(
+      {
+        firstName,
+        lastName,
+        email,
+        password
+      },
+      {
+        where: {
+          id: users.id
+        }
+      }
+    )
+    const updatedAddress = await Address.update(
+      {
+        userId: updatedUser.id,
+        street,
+        city,
+        state,
+        zip
+      },
+      {
+        where: {
+          userId: updatedUser.id
+        }
+      }
+    )
+    res.json(updatedUser)
   } catch (error) {
     next(error)
   }

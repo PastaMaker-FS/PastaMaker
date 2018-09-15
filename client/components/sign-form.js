@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {newUser} from '../store/user'
+import {newUser, update} from '../store/user'
 import {withStyles} from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -161,9 +161,38 @@ const mapDispatchToProps = dispatch => {
     }
   }
 }
+const mapDispatch = dispatch => {
+  return {
+    handleSubmit(evt) {
+      evt.preventDefault()
+      const firstName = evt.target.firstName.value
+      const lastName = evt.target.lastName.value
+      const email = evt.target.email.value
+      const password = evt.target.password.value
+      const street = evt.target.street.value
+      const city = evt.target.city.value
+      const state = evt.target.state.value
+      const zip = evt.target.zip.value
+      dispatch(
+        update({
+          firstName,
+          lastName,
+          email,
+          password,
+          street,
+          city,
+          state,
+          zip
+        })
+      )
+    }
+  }
+}
+
+
+export const UserSign = connect(null, mapDispatchToProps)(withStyles(styles)(SignForm))
+export const UserUpdate = connect(null, mapDispatch)(withStyles(styles)(SignForm))
 
 SignForm.propTypes = {
   classes: PropTypes.object.isRequired
 }
-
-export default connect(null, mapDispatchToProps)(withStyles(styles)(SignForm))
