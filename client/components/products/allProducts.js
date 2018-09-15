@@ -1,12 +1,14 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getProductTHUNK, selectProduct} from '../../store/product'
-import {createItem} from '../../store'
+import {createItem, fetchOrders} from '../../store'
 import ProductGrid from '../products/productGrid'
 
 class AllProducts extends Component {
-	componentDidMount() {
-		this.props.fetchAllProducts();
+
+	async componentDidMount() {
+    await this.props.fetchAllProducts();
+    this.props.fetchOrders(this.props.user.id);
 	}
 
 	render() {
@@ -34,9 +36,10 @@ const mapStoreToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		fetchAllProducts: () => dispatch(getProductTHUNK()),
+    fetchAllProducts: () => dispatch(getProductTHUNK()),
+    fetchOrders: (userId) => dispatch(fetchOrders(userId)),
 		selectProduct: (product) => dispatch(selectProduct(product)),
-	  addToCart: (userId, productId) => dispatch(createItem(userId, productId))
+	  addToCart: (userId, productId, quantity) => dispatch(createItem(userId, productId, quantity))
 	};
 };
 
