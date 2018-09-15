@@ -18,6 +18,8 @@ Product.belongsToMany(Order, {through: 'item'});
 User.hasOne(Address)
 User.hasMany(Order)
 
+Address.belongsTo(User)
+
 Product.hasMany(ProductTag);
 Product.hasMany(ProductType);
 
