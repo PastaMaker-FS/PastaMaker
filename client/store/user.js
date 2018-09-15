@@ -82,15 +82,16 @@ export const allUsers = () => async dispatch => {
   }
 }
 
-export const update = userId => async dispatch => {
-  try {
-    const res = await axios.put(`/api/users/${userId}`)
-    await dispatch(updateUser(res.data))
-  } catch (err) {
-    console.error(err)
+export const update = user => {
+  return async dispatch => {
+    try {
+      const res = await axios.put(`/api/users/`)
+      await dispatch(updateUser(res.data))
+    } catch (err) {
+      console.error(err)
+    }
   }
 }
-
 export const newUser = user => {
   const content = user
   return async dispatch => {
