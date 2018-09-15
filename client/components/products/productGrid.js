@@ -8,7 +8,6 @@ import PropTypes from 'prop-types'
 const styles = theme => ({
   productsStyle: {
     display: 'flex',
-    justifyContent: 'space-around',
     flexWrap: 'wrap'
   }
 })
