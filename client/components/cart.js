@@ -1,26 +1,19 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {fetchOrders} from '../store/order'
 import {CartItems} from '../components'
 
-/**
- * COMPONENT
- */
-class CartView extends React.Component {
+class Cart extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      // cart: {},
       ready: false
     }
   }
 
   async componentDidMount() {
-    console.log(`---------- user ${JSON.stringify(this.props.user)}`)
     await this.props.fetchOrders(this.props.user);
-    //await this.props.fetchOrders(1);
     this.setState({
       ready: true
     })
@@ -39,24 +32,14 @@ class CartView extends React.Component {
     if (error) {
       return <div>error!</div>
     }
-    // console.log(`---------- cart ${JSON.stringify(cart)}`)
-    return (ready) ? (
-      <div>
-        <h3>Cart</h3>
-        <CartItems
-          cart={cart}
-          // incrementItem={incrementItem}
-          // decrementItem={decrementItem}
-          // update={this.props.fetchOrders}
-        />
-      </div>
-    ): null;
+    if (!(ready)) {
+      return null;
+    }
+
+    // render cart
+    return <CartItems cart={cart} />
   }
 }
-
-/**
- * CONTAINER
- */
 
 const mapState = state => ({
   orders: state.orders.list,
@@ -67,15 +50,6 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   fetchOrders: (userId) => dispatch(fetchOrders(userId)),
-  // incrementItem: (orderId, productId) => dispatch(incrementItem(orderId, productId))
 })
 
-export default connect(mapState, mapDispatch)(CartView)
-
-/**
- * PROP TYPES
- */
-// CartView.propTypes = {
-//   loading: PropTypes.boolean,
-//   error: PropTypes.boolean
-// }
+export default connect(mapState, mapDispatch)(Cart)
