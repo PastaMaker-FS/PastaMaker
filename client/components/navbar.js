@@ -14,7 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
-    color: "white"
+    color: 'white'
   },
   input: {
     display: 'none'
@@ -41,13 +41,6 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Menu"
-            >
-              <MenuIcon />
-            </IconButton>
             <Typography
               variant="title"
               color="inherit"
