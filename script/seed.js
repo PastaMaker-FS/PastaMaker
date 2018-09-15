@@ -3,6 +3,7 @@
 const db = require('../server/db')
 const {
   User,
+  Address,
   Order,
   Product,
   Item,
@@ -29,6 +30,30 @@ const users = [
   email: `dino@sor.com`,
   password: `789`,
   },
+]
+
+const addresses = [
+  {
+  street: `40 Fairfield St.`,
+  city: `Bayonne`,
+  state: `NJ`,
+  zip: '07002',
+  userId: 1
+  },
+  {
+  street: `69 Briarwood St.`,
+  city: `Halethorpe`,
+  state: `MD`,
+  zip: '21227',
+  userId: 2
+  },
+  {
+  street: `2 Old Hartford Lane`,
+  city: `Bethpage`,
+  state: `NY`,
+  zip: '11714',
+  userId: 3
+  }
 ]
 
 const orders = [
@@ -112,6 +137,7 @@ async function seed() {
   console.log('db synced!')
 
   await Promise.all( users.map(u => User.create(u)) )
+  await Promise.all( addresses.map(a => Address.create(a)) )
   await Promise.all( products.map(p => Product.create(p)) )
   await Promise.all( orders.map(o => Order.create(o)) )
   await Promise.all( items.map(i => Item.create(i)) )

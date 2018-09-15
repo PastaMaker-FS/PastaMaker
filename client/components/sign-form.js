@@ -30,7 +30,11 @@ class SignForm extends Component {
       firstName: '',
       lastName: '',
       email: '',
-      password: ''
+      password: '',
+      street: '',
+      city: '',
+      state: '',
+      zip: ''
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -106,8 +110,28 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
+
+//Updating sign up form after I create the routes
+
+// const mapDispatch = dispatch => {
+//   return {
+//     handleSubmit(evt) {
+//       evt.preventDefault()
+//       const street = evt.target.street.value
+//       const city = evt.target.city.value
+//       const state = evt.target.state.value
+//       const zip = evt.target.zip.value
+//       dispatch()
+//     }
+//   }
+// }
+
 SignForm.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(SignForm))
+// export default connect(null, mapDispatchToProps)(withStyles(styles)(SignForm))
+export const UpdatedUser = connect(null, mapDispatchToProps)(withStyles(styles)(SignForm))
+
+//will finish this after routes are updated
+export const UpdatedAddress = connect(null, mapDispatch)(withStyles(styles)(SignForm))
