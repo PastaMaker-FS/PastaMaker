@@ -10,7 +10,7 @@ import Home from './components'
 import {
   Login,
   UserHome,
-  CartView
+  Cart
 } from './components'
 
 /**
@@ -38,7 +38,7 @@ class Routes extends Component {
             <Route exact path="/" component={AllProducts} />
             <Route exact path="/aboutus" component={AboutUs} />
             <Route exact path="/user" component={UserHome} />
-            <Route exact path="/cart" component={CartView} />
+            <Route exact path="/cart" component={Cart} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

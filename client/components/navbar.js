@@ -38,14 +38,6 @@ const styles = theme => ({
 const Navbar = ({handleClick, isLoggedIn, classes}) => {
   return (
     <div>
-      <div>
-        {/* <img
-          className={classes.img}
-          src="https://image.flaticon.com/icons/svg/468/468774.svg"
-        />
-        <h2>PastaMaker</h2> */}
-      </div>
-
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
