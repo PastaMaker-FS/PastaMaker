@@ -58,13 +58,10 @@ const errorOrders = (error) => ({
  */
 
 export const fetchOrders = (userId) => async (dispatch) => {
-  console.log('---------------- fetchOrders')
   dispatch(loadingOrders(true));
   try {
     const {data: orders} = await axios.get(`/api/users/${userId}/orders`);
-    // console.log(`--- orders from db: ${JSON.stringify(orders)}`)
     dispatch(setAllOrders(orders));
-    // dispatch(loadingOrders(false));
   } catch (error) {
     dispatch(errorOrders(true));
   }
@@ -79,26 +76,14 @@ export const createItem = (userId, productId) => async (dispatch) => {
   }
 }
 
-
-
-export const destroyItem = (orderId, productId) => async (dispatch) => {
-  console.log(`--- destroyItem: ${orderId}, ${productId}`)
+export const destroyItem = (userId, orderId, productId) => async (dispatch) => {
   try {
-    await axios.delete(`/items/:${orderId}/:${productId}`, productId)
+    await axios.delete(`/api/users/${userId}/orders/${orderId}/${productId}`, productId)
     dispatch(removeItem(orderId, productId))
   } catch (err) {
     dispatch(errorOrders(true))
   }
 }
-
-// export const updateItem = (orderId, productId, item) => async (dispatch) => {
-//   try {
-//     const {data: updatedItem} = await axios.put(`/api/items/${orderId}/${productId}`, item)
-//     dispatch(setItem(updatedItem))
-//   } catch (err) {
-//     dispatch(errorOrders(true))
-//   }
-// }
 
 export const incrementItem = (orderId, productId) => async (dispatch) => {
   try {
@@ -137,16 +122,19 @@ export default function(state = defaultOrders, action) {
   let cart, idx, cartIdx, itemIdx;
 
   switch (action.type) {
+
     case ORDERS.SET:
-      // console.log('ORDERS.SET')
       return {
         ...state,
         list: action.orders,
         isLoading: false
       }
+
     case ORDERS.ITEMS.ADD:
+
       [cart] = state.list
         .filter(order => !order.isPurchased)
+
       idx = state.list
         .map(order => order.id)
         .indexOf(cart.id)
@@ -165,9 +153,8 @@ export default function(state = defaultOrders, action) {
           ...state.list.slice(idx + 1)
         ]
       }
+
     case ORDERS.ITEMS.REMOVE:
-      // let [cart] = state.list
-      //   .filter(order => !order.isPurchased)
 
       [cart] = state.list
       .filter(order => !order.isPurchased)
@@ -194,16 +181,19 @@ export default function(state = defaultOrders, action) {
           ...state.list.slice(cartIdx + 1)
         ]
       }
+
     case ORDERS.LOADING:
       return {
         ...state,
         isLoading: action.loading
       }
+
     case ORDERS.ERROR:
       return {
         ...state,
         isError: action.error
       }
+
     default:
       return state
   }

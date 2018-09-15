@@ -42,21 +42,4 @@ router.put('/:orderId/:productId', async (req, res, next) => {
   }
 })
 
-// delete item
-router.delete('/:orderId/:productId', async (req, res, next) => {
 
-  try {
-    const numAffectedRows = await Item.destroy({
-      where: {
-        orderId: req.params.orderId,
-        productId: req.params.productId
-      }
-    })
-    const status = numAffectedRows > 0 ? 204 : 404;
-    res.status(status).end()
-  } catch (err) {
-    console.error(err)
-    next(err)
-  }
-
-})

@@ -38,7 +38,7 @@ const styles = theme => ({
 class CartView extends React.Component {
 
   render() {
-    const {classes, cart} = this.props
+    const {classes, cart, user} = this.props
 
     return (
       <React.Fragment>
@@ -69,7 +69,7 @@ class CartView extends React.Component {
                     this.props.decrementItem(cart.id, product.id)
                   }}
                   remove={() => {
-                    this.props.destroyItem(cart.id, product.id)
+                    this.props.destroyItem(user.id, cart.id, product.id)
                   }}
                 />
               )}
@@ -90,14 +90,18 @@ class CartView extends React.Component {
   }
 }
 
+const mapState = state => ({
+  user: state.user
+})
+
 const mapDispatch = dispatch => ({
   incrementItem: (orderId, productId) => dispatch(incrementItem(orderId, productId)),
   decrementItem: (orderId, productId) => dispatch(decrementItem(orderId, productId)),
-  destroyItem: (orderId, productId) => dispatch(destroyItem(orderId, productId))
+  destroyItem: (userId, orderId, productId) => dispatch(destroyItem(userId, orderId, productId))
 })
 
 export default withStyles(styles)(connect(
-  null,
+  mapState,
   mapDispatch,
 )(CartView));
 

@@ -44,6 +44,7 @@ router.get('/', async (req, res, next) => {
 })
 
 router.put('/:userId', async (req, res, next) => {
+
   try {
     const users = await User.findById(req.params.userId)
     await users.update({
@@ -61,6 +62,7 @@ router.put('/:userId', async (req, res, next) => {
 // get all orders for user if auth user or admin
 // for cart/history --> filter by isPurchased
 router.get('/:userId/orders', async (req, res, next) => {
+
   const getOrders = async () => {
     const ordersWithProducts = []
     const orders = await Order.findAll({
@@ -68,6 +70,7 @@ router.get('/:userId/orders', async (req, res, next) => {
         userId: req.params.userId
       }
     })
+
     await Promise.all(
       orders.map(async order => {
         const products = await order.getProducts()
@@ -95,12 +98,11 @@ router.get('/:userId/orders', async (req, res, next) => {
   }
 
   try {
-    // if ( req.params.userId === req.user.id || req.user.isAdmin || true ) {
-    if (true) {
+    if ( req.params.userId == req.user.id ) { //|| req.user.isAdmin
       const orders = await getOrders()
       res.json(orders)
     } else {
-      res.status(404).end()
+      res.status(403).end()
     }
   } catch (error) {
     console.error(error)
@@ -110,6 +112,7 @@ router.get('/:userId/orders', async (req, res, next) => {
 
 // add item to cart
 router.post('/:userId/orders', async (req, res, next) => {
+
   try {
     // get user's cart if it exists
     let cart = await Order.findOne({
@@ -138,4 +141,26 @@ router.post('/:userId/orders', async (req, res, next) => {
     console.error(error)
     next(error)
   }
+})
+
+// delete item
+router.delete('/:userId/orders/:orderId/:productId', async (req, res, next) => {
+  try {
+    if ( req.params.userId == req.user.id ) { //|| req.user.isAdmin
+      const numAffectedRows = await Item.destroy({
+        where: {
+          orderId: req.params.orderId,
+          productId: req.params.productId
+        }
+      })
+      const status = numAffectedRows > 0 ? 204 : 404;
+      res.status(status).end()
+    } else {
+      res.status(403).end()
+    }
+  } catch (err) {
+    console.error(err)
+    next(err)
+  }
+
 })
