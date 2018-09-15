@@ -145,6 +145,7 @@ router.post('/:userId/orders', async (req, res, next) => {
 
 // delete item
 router.delete('/:userId/orders/:orderId/:productId', async (req, res, next) => {
+
   try {
     if ( req.params.userId == req.user.id ) { //|| req.user.isAdmin
       const numAffectedRows = await Item.destroy({
@@ -163,4 +164,51 @@ router.delete('/:userId/orders/:orderId/:productId', async (req, res, next) => {
     next(err)
   }
 
+})
+
+router.get('/:userId/orders/:orderId/:productId', async (req, res, next) => {
+
+  try {
+    if ( req.params.userId == req.user.id ) { //|| req.user.isAdmin
+      // get item
+      const item = await Item.findOne({ where: {
+        orderId: req.params.orderId,
+        productId: req.params.productId,
+      }})
+
+      res.json(item);
+    } else {
+      res.status(403).end()
+    }
+  } catch (error) {
+    console.error(error);
+    next(error)
+  }
+})
+
+// edit item
+router.put('/:userId/orders/:orderId/:productId', async (req, res, next) => {
+
+  try {
+    if ( req.params.userId == req.user.id ) { //|| req.user.isAdmin
+      // get item
+      const item = await Item.findOne({ where: {
+        orderId: req.params.orderId,
+        productId: req.params.productId,
+      }})
+
+      // update item
+      const updatedItem = await item.update({
+        quantity: req.body.quantity,
+        purchasePrice: req.body.purchasePrice,
+      })
+
+      res.json(updatedItem);
+    } else {
+      res.status(403).end()
+    }
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
 })

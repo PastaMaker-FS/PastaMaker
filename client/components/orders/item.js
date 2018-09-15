@@ -40,7 +40,7 @@ class Item extends React.Component {
 
   async handleDecrement(evt) {
     evt.preventDefault();
-    await this.props.increment();
+    await this.props.decrement();
     this.setState(prevState => ({
       ...prevState,
       product: {

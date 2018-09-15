@@ -85,10 +85,10 @@ export const destroyItem = (userId, orderId, productId) => async (dispatch) => {
   }
 }
 
-export const incrementItem = (orderId, productId) => async (dispatch) => {
+export const incrementItem = (userId, orderId, productId) => async (dispatch) => {
   try {
-    const {data: item} = await axios.get(`/api/items/${orderId}/${productId}`)
-    const {data: updatedItem} = await axios.put(`/api/items/${orderId}/${productId}`,
+    const {data: item} = await axios.get(`/api/users/${userId}/orders/${orderId}/${productId}`)
+    const {data: updatedItem} = await axios.put(`/api/users/${userId}/orders/${orderId}/${productId}`,
       {
         quantity: item.quantity + 1,
         purchasePrice: item.purchasePrice
@@ -99,10 +99,10 @@ export const incrementItem = (orderId, productId) => async (dispatch) => {
   }
 }
 
-export const decrementItem = (orderId, productId) => async (dispatch) => {
+export const decrementItem = (userId, orderId, productId) => async (dispatch) => {
   try {
-    const {data: item} = await axios.get(`/api/items/${orderId}/${productId}`)
-    const {data: updatedItem} = await axios.put(`/api/items/${orderId}/${productId}`,
+    const {data: item} = await axios.get(`/api/users/${userId}/orders/${orderId}/${productId}`)
+    const {data: updatedItem} = await axios.put(`/api/users/${userId}/orders/${orderId}/${productId}`,
       {
         quantity: item.quantity - 1,
         purchasePrice: item.purchasePrice

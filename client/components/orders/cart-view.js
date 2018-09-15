@@ -63,10 +63,10 @@ class CartView extends React.Component {
                   key={product.id}
                   product={product}
                   increment={() => {
-                    this.props.incrementItem(cart.id, product.id)
+                    this.props.incrementItem(user.id, cart.id, product.id)
                   }}
                   decrement={() => {
-                    this.props.decrementItem(cart.id, product.id)
+                    this.props.decrementItem(user.id, cart.id, product.id)
                   }}
                   remove={() => {
                     this.props.destroyItem(user.id, cart.id, product.id)
@@ -95,8 +95,8 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  incrementItem: (orderId, productId) => dispatch(incrementItem(orderId, productId)),
-  decrementItem: (orderId, productId) => dispatch(decrementItem(orderId, productId)),
+  incrementItem: (userId, orderId, productId) => dispatch(incrementItem(userId, orderId, productId)),
+  decrementItem: (userId, orderId, productId) => dispatch(decrementItem(userId, orderId, productId)),
   destroyItem: (userId, orderId, productId) => dispatch(destroyItem(userId, orderId, productId))
 })
 
