@@ -15,13 +15,12 @@ class CartView extends React.Component {
       // cart: {},
       ready: false
     }
-    // this.handleSubmit = this.handleSubmit.bind(this);
-    // this.handleIncrement = this.handleIncrement.bind(this);
   }
 
   async componentDidMount() {
-    // this.props.fetchOrders(this.props.user.id);
-    await this.props.fetchOrders(1);
+    console.log(`---------- user ${JSON.stringify(this.props.user)}`)
+    await this.props.fetchOrders(this.props.user);
+    //await this.props.fetchOrders(1);
     this.setState({
       ready: true
     })
