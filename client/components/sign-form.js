@@ -134,4 +134,4 @@ SignForm.propTypes = {
 export const UpdatedUser = connect(null, mapDispatchToProps)(withStyles(styles)(SignForm))
 
 //will finish this after routes are updated
-export const UpdatedAddress = connect(null, mapDispatch)(withStyles(styles)(SignForm))
+// export const UpdatedAddress = connect(null, mapDispatch)(withStyles(styles)(SignForm))
