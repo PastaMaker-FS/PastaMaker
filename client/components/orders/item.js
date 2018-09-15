@@ -1,26 +1,9 @@
 import React from 'react'
-import {connect} from 'react-redux'
 
-// material ui
-import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
-import IconButton from '@material-ui/core/IconButton';
-import Avatar from '@material-ui/core/Avatar';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
-import ClearIcon from '@material-ui/icons/Clear';
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-    overflowX: 'auto',
-  },
-  table: {
-    minWidth: 700,
-  },
-});
+// components
+import {
+  ItemView
+} from '../../components'
 
 class Item extends React.Component {
 
@@ -73,7 +56,6 @@ class Item extends React.Component {
   }
 
   render() {
-    const {classes} = this.props;
     const {product, ready} = this.state;
 
     // check for data ready
@@ -82,85 +64,14 @@ class Item extends React.Component {
     }
 
     return (
-      <TableRow
-        hover
-        key={product.id}
-        // component={Link}
-        // to={`/product/${product.id}`}
-      >
-        <TableCell>
-          <Avatar
-            src={product.imgUrl}
-            className={classNames(classes.avatar, classes.bigAvatar)}
-          />
-        </TableCell>
-
-        <TableCell component="th" scope="row">
-        {product.name}
-        </TableCell>
-
-        <TableCell numeric>
-          {product.quantity}
-        </TableCell>
-
-        <TableCell numeric>
-          {product.price}
-        </TableCell>
-
-        <TableCell numeric>
-          {product.quantity * product.price}
-        </TableCell>
-
-        <TableCell>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-            onClick={this.handleIncrement}
-          ><AddIcon />
-          </IconButton>
-
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-            onClick={this.handleDecrement}
-          ><RemoveIcon />
-          </IconButton>
-
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-            onClick={this.handleRemove}
-          ><ClearIcon />
-          </IconButton>
-        </TableCell>
-
-      </TableRow>
+      <ItemView
+        product={product}
+        handleDecrement={this.handleDecrement}
+        handleIncrement={this.handleIncrement}
+        handleRemove={this.handleRemove}
+      />
     );
   }
 }
 
-/**
- * PROP TYPES
- */
-// UserHome.propTypes = {
-//   email: PropTypes.string
-// }
-
-
-// const mapState = state => ({
-
-// })
-
-// const mapDispatch = dispatch => {
-//   return {
-//     incrementItem: (orderId, productId) => dispatch(incrementItem(orderId, productId))
-//   }
-// }
-
-export default withStyles(styles)(connect(
-  null,
-  null,
-)(Item));
+export default Item
