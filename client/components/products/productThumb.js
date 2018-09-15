@@ -26,6 +26,7 @@ const styles = theme => ({
 
 function ProductThumb({
   product,
+  user,
   addToCart,
   selectProduct,
   deselectProduct,
@@ -56,7 +57,7 @@ function ProductThumb({
           <Button
             size="small"
             color="primary"
-            onClick={() => addToCart(product)}
+            onClick={() => addToCart(user.id, product.id, 1)}
           >
             Add to Cart
           </Button>

@@ -67,11 +67,19 @@ export const fetchOrders = (userId) => async (dispatch) => {
   }
 }
 
-export const createItem = (userId, productId) => async (dispatch) => {
+export const createItem = (userId, productId, quantity) => async (dispatch) => {
+  console.log(`creatItem with userId, productId, and qty: ${userId}, ${productId}, ${quantity}`)
   try {
-    const {data: newItem} = await axios.post(`/api/users/${userId}/orders`, productId)
+    const {data: newItem} = await axios.post(`/api/users/${userId}/orders`, {
+      productId,
+      quantity
+    })
+    console.log(`hereeeeeeeeeeeee?`)
+    console.log(newItem)
     dispatch(addItem(newItem))
+    console.log(`or hereeeeeeeeeeeee?`)
   } catch (err) {
+    console.log(`or errrooorr?`)
     dispatch(errorOrders(true))
   }
 }
@@ -132,12 +140,12 @@ export default function(state = defaultOrders, action) {
 
     case ORDERS.ITEMS.ADD:
 
-      [cart] = state.list
-        .filter(order => !order.isPurchased)
+      cart = state.list
+      .filter(order => order.isPurchased === false)[0]
 
       idx = state.list
-        .map(order => order.id)
-        .indexOf(cart.id)
+      .map(order => order.id)
+      .indexOf(cart.id)
 
       return {
         ...state,
@@ -156,8 +164,8 @@ export default function(state = defaultOrders, action) {
 
     case ORDERS.ITEMS.REMOVE:
 
-      [cart] = state.list
-      .filter(order => !order.isPurchased)
+      cart = state.list
+      .filter(order => order.isPurchased === false)[0]
 
       cartIdx = state.list
       .map(order => order.id)

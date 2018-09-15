@@ -43,7 +43,11 @@ class ProductGrid extends Component {
       return (
         <div>
           <div onClick={() => this.hideProduct()}>return to all products</div>
-          <SingleProduct product={this.props.productState.product} />
+          <SingleProduct
+            product={this.props.productState.product}
+            user={this.props.user}
+            addToCart={this.props.addToCart}
+          />
         </div>
       )
     }
@@ -56,8 +60,10 @@ class ProductGrid extends Component {
         key={product.id}
         product={product}
         selectProduct={this.selectProduct}
-        addToCart={this.props.addToCart}
         deselectProduct={this.hideProduct}
+
+        user={this.props.user}
+        addToCart={this.props.addToCart}
       />
     ))
 
