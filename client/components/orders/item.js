@@ -32,7 +32,8 @@ class Item extends React.Component {
 				...prevState.product,
 				quantity: prevState.product.quantity + 1
 			}
-		}));
+    }));
+    this.props.incrementPending(this.state.product.price);
 	}
 
 	async handleDecrement(evt) {
@@ -45,13 +46,15 @@ class Item extends React.Component {
 					...prevState.product,
 					quantity: prevState.product.quantity - 1
 				}
-			}));
+      }));
+      this.props.decrementPending(this.state.product.price);
 		}
 	}
 
 	async handleRemove(evt) {
 		evt.preventDefault();
-		await this.props.remove();
+    await this.props.remove();
+    this.props.decrementPending(this.state.product.price * this.state.product.quantity);
 	}
 
 	render() {
