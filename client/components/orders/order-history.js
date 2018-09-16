@@ -1,9 +1,16 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchOrders, me} from '../../store'
-import {CartView} from '../../components'
+import {fetchOrders} from '../../store'
+import {OrderView} from '../../components'
 
-class Cart extends React.Component {
+const PurchasedOrders = ({orders}) => (
+    <React.Fragment>
+      {orders.map(order =>
+        <OrderView key={order.id} order={order} /> )}
+    </React.Fragment>
+)
+
+class OrderHistory extends React.Component {
 
   constructor(props) {
     super(props);
@@ -13,7 +20,6 @@ class Cart extends React.Component {
   }
 
   async componentDidMount() {
-    await this.props.fetchUser();
     await this.props.fetchOrders(this.props.user);
     this.setState({
       ready: true
@@ -23,7 +29,7 @@ class Cart extends React.Component {
   render() {
 
     const {orders, loading, error} = this.props
-    const cart = orders.filter(order => order.isPurchased === false)[0]
+    const purchasedOrders = orders.filter(order => order.isPurchased)
     const {ready} = this.state
 
     //check for loading and error states
@@ -37,8 +43,8 @@ class Cart extends React.Component {
       return null;
     }
 
-    // render cart
-    return <CartView cart={cart} />
+    // render order history
+    return <PurchasedOrders orders={purchasedOrders} />
   }
 }
 
@@ -50,8 +56,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  fetchUser: () => dispatch(me()),
   fetchOrders: (userId) => dispatch(fetchOrders(userId)),
 })
 
-export default connect(mapState, mapDispatch)(Cart)
+export default connect(mapState, mapDispatch)(OrderHistory)
