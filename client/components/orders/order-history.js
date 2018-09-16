@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchOrders} from '../../store'
-import {Cart, OrderView} from '../../components'
+import {OrderView} from '../../components'
 
 const PurchasedOrders = ({orders}) => (
     <React.Fragment>

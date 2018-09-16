@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchOrders} from '../../store'
+import {fetchOrders, me} from '../../store'
 import {CartView} from '../../components'
 
 class Cart extends React.Component {
@@ -13,6 +13,7 @@ class Cart extends React.Component {
   }
 
   async componentDidMount() {
+    await this.props.fetchUser();
     await this.props.fetchOrders(this.props.user);
     this.setState({
       ready: true
@@ -23,7 +24,6 @@ class Cart extends React.Component {
 
     const {orders, loading, error} = this.props
     const cart = orders.filter(order => order.isPurchased === false)[0]
-    console.log(`------------ cart: ${JSON.stringify(cart)}`)
     const {ready} = this.state
 
     //check for loading and error states
@@ -50,6 +50,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
+  fetchUser: () => dispatch(me()),
   fetchOrders: (userId) => dispatch(fetchOrders(userId)),
 })
 
