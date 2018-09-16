@@ -1,6 +1,6 @@
 import React from 'react';
 
-class SingleProduct extends React.Component {
+export class SingleProduct extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -35,7 +35,7 @@ class SingleProduct extends React.Component {
 	render() {
 		const { name, description, stock, price, imgUrl } = this.props.product;
 
-		console.log('IN Single PRoduct', this.props);
+		// console.log('IN Single PRoduct', this.props);
 		return (
 			<div className="Product">
 				<div>

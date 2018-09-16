@@ -24,7 +24,7 @@ const styles = theme => ({
   }
 })
 
-function ProductThumb({
+export function ProductThumb({
   product,
   user,
   addToCart,
