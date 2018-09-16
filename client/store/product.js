@@ -91,7 +91,7 @@ export const getProductTHUNK = () => {
 // Check these routes?
 export const getProductsByTagsTHUNK = tags => async dispatch => {
   try {
-    const productsByTags = await axios.get(`/api/products/${tags}`)
+    const productsByTags = await axios.get(`/api/products/tag/${tags}`)
 
     dispatch(getProductsByTags(productsByTags))
   } catch (err) {
@@ -99,10 +99,10 @@ export const getProductsByTagsTHUNK = tags => async dispatch => {
   }
 }
 // get types?
-
+//We need a TYPE ROUTE
 export const getProductsByTypesTHUNK = types => async dispatch => {
   try {
-    const productsByTypes = await axios.get(`/api/products/${types}`)
+    const productsByTypes = await axios.get(`/api/products/type/${types}`)
     dispatch(getProductsByType(productsByTypes))
   } catch (err) {
     console.error(err)
