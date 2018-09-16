@@ -33,11 +33,13 @@ export class SingleProduct extends React.Component {
 	}
 
 	render() {
-		const { name, description, stock, price, imgUrl } = this.props.product;
+    const { name, description, stock, price, imgUrl } = this.props.product;
+    const hideProduct = this.props.hide;
 
 		// console.log('IN Single PRoduct', this.props);
 		return (
 			<div className="Product">
+      <span onClick={() => hideProduct()}>Close X</span>
 				<div>
 					<img src={imgUrl} alt="Picture of the product" onClick={() => this.props.selectProduct} /> <br />
 					<span className="productName"> Item: {name}</span>

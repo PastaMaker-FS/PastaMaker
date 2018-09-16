@@ -18,3 +18,4 @@ export { default as AllProducts } from './products/allProducts';
 export { default as ProductGrid } from './products/productGrid';
 export { default as ProductThumb } from './products/productThumb';
 export { default as SingleProduct } from './products/singleProduct';
+export { default as History } from './history';
