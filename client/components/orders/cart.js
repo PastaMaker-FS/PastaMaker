@@ -24,6 +24,7 @@ class Cart extends React.Component {
 
     const {orders, loading, error} = this.props
     const cart = orders.filter(order => order.isPurchased === false)[0]
+    console.log(`---cart: ${JSON.stringify(cart)}`)
     const {ready} = this.state
 
     //check for loading and error states

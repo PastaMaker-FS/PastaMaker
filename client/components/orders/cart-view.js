@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import { Link } from 'react-router-dom';
 
 // material ui
 import Button from '@material-ui/core/Button';
@@ -82,6 +83,8 @@ class CartView extends React.Component {
           // className={classes.button}
           color="inherit"
           aria-label="Menu"
+          component={Link}
+          to="/checkout"
         >Submit
         </Button>
 
