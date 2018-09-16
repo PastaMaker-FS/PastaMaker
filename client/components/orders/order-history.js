@@ -3,8 +3,35 @@ import {connect} from 'react-redux'
 import {fetchOrders, me} from '../../store'
 import {OrderView} from '../../components'
 
+import { withStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+
+// styles
+const styles = theme => ({
+  root: {
+    width: '100%',
+    overflowX: 'auto',
+  },
+  flex: {
+    flexGrow: 1,
+  },
+  table: {
+    minWidth: 700,
+  },
+});
+
 const PurchasedOrders = ({orders}) => (
     <React.Fragment>
+
+      <Toolbar>
+        <Typography
+          variant="title"
+          color="inherit"
+        >Your Order History
+        </Typography>
+      </Toolbar>
+
       {orders.map(order =>
         <OrderView key={order.id} order={order} /> )}
     </React.Fragment>
@@ -61,4 +88,8 @@ const mapDispatch = dispatch => ({
   fetchOrders: (userId) => dispatch(fetchOrders(userId)),
 })
 
-export default connect(mapState, mapDispatch)(OrderHistory)
+// export default connect(mapState, mapDispatch)(OrderHistory)
+export default withStyles(styles)(connect(
+  mapState,
+  mapDispatch,
+)(OrderHistory));

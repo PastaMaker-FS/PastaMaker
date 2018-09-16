@@ -8,22 +8,48 @@ class Cart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      // cart: {},
+      totalPending: -1,
       ready: false
     }
+
+    this.incrementPending = this.incrementPending.bind(this);
+    this.decrementPending = this.decrementPending.bind(this);
   }
+
+
 
   async componentDidMount() {
     await this.props.fetchUser();
     await this.props.fetchOrders(this.props.user);
+    const cart = this.props.orders.filter(order => order.isPurchased === false)[0]
     this.setState({
+      // cart: orders.filter(order => order.isPurchased === false)[0],
+      totalPending: cart.products.reduce((a,b) => a + (b.price * b.quantity), 0),
       ready: true
     })
   }
 
+  incrementPending(amount) {
+    this.setState((prevState) => ({
+      ...prevState,
+      totalPending: prevState.totalPending + amount
+    }))
+  }
+
+  decrementPending(amount) {
+    this.setState((prevState) => ({
+      ...prevState,
+      totalPending: prevState.totalPending - amount
+    }))
+  }
+
   render() {
 
-    const {orders, loading, error} = this.props
-    const cart = orders.filter(order => order.isPurchased === false)[0]
+    const {orders, loading, error} = this.props;
+    const {totalPending} = this.state;
+    // const cart = orders.filter(order => order.isPurchased === false)[0]
+    // console.log(`---cart: ${JSON.stringify(cart)}`)
     const {ready} = this.state
 
     //check for loading and error states
@@ -38,7 +64,14 @@ class Cart extends React.Component {
     }
 
     // render cart
-    return <CartView cart={cart} />
+    // const totalPrice = cart.products.reduce((a,b)=>a+b.price,0)
+    return <CartView
+      cart={orders.filter(order => order.isPurchased === false)[0]}
+      totalPending={totalPending}
+      incrementPending={this.incrementPending}
+      decrementPending={this.decrementPending}
+    />
+    //totalPrice={totalPrice}
   }
 }
 
