@@ -16,3 +16,8 @@ export {default as CheckoutForm} from './orders/checkout-form'
 export {default as Confirmation} from './orders/confirmation'
 export {default as Home} from './home'
 export {Login, Signup} from './auth-form'
+export { default as AllProducts } from './products/allProducts';
+export { default as ProductGrid } from './products/productGrid';
+export { default as ProductThumb } from './products/productThumb';
+export { default as SingleProduct } from './products/singleProduct';
+export { default as History } from './history';

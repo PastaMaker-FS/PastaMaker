@@ -12,7 +12,7 @@ export class SingleProduct extends React.Component {
 	}
 
 	handleChange(event) {
-		console.log(event.target.value);
+		//console.log(event.target.value);
 		this.setState({ quantity: event.target.value });
 	}
 
@@ -24,20 +24,22 @@ export class SingleProduct extends React.Component {
 				return { quantity: 0 };
 			});
 			alert('Please enter a Quantity greater than Zero');
-			console.log('An invalid quantity was submitted. No change to state.');
+			//console.log('An invalid quantity was submitted. No change to state.');
 		} else {
-			console.log('The product quantity of ' + this.state.quanity + ' has been submited to cart');
+			//console.log('The product quantity of ' + this.state.quanity + ' has been submited to cart');
 
 			this.props.addToCart(this.props.user.id, this.props.product.id, this.state.quantity);
 		}
 	}
 
 	render() {
-		const { name, description, stock, price, imgUrl } = this.props.product;
+    const { name, description, stock, price, imgUrl } = this.props.product;
+    const hideProduct = this.props.hide;
 
 		// console.log('IN Single PRoduct', this.props);
 		return (
 			<div className="Product">
+      <span onClick={() => hideProduct()}>Close X</span>
 				<div>
 					<img src={imgUrl} alt="Picture of the product" onClick={() => this.props.selectProduct} /> <br />
 					<span className="productName"> Item: {name}</span>
