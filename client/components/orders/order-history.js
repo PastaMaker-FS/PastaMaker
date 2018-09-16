@@ -1,9 +1,16 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchOrders} from '../../store'
-import {CartView} from '../../components'
+import {Cart, OrderView} from '../../components'
 
-class Cart extends React.Component {
+const PurchasedOrders = ({orders}) => (
+    <React.Fragment>
+      {orders.map(order =>
+        <OrderView key={order.id} order={order} /> )}
+    </React.Fragment>
+)
+
+class OrderHistory extends React.Component {
 
   constructor(props) {
     super(props);
@@ -36,8 +43,8 @@ class Cart extends React.Component {
       return null;
     }
 
-    // render cart
-    // return <CartView cart={cart} />
+    // render order history
+    return <PurchasedOrders orders={purchasedOrders} />
   }
 }
 
@@ -52,4 +59,4 @@ const mapDispatch = dispatch => ({
   fetchOrders: (userId) => dispatch(fetchOrders(userId)),
 })
 
-export default connect(mapState, mapDispatch)(Cart)
+export default connect(mapState, mapDispatch)(OrderHistory)

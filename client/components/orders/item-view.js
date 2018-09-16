@@ -63,6 +63,8 @@ class ItemView extends React.Component {
           {product.quantity * product.price}
         </TableCell>
 
+        {!product.purchasePrice && (
+
         <TableCell>
           <IconButton
             className={classes.menuButton}
@@ -88,6 +90,9 @@ class ItemView extends React.Component {
           ><ClearIcon />
           </IconButton>
         </TableCell>
+
+        )}
+
 
       </TableRow>
     );

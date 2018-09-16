@@ -126,10 +126,10 @@ const items = [
   { orderId: 4, productId: 3},
   { orderId: 4, productId: 4},
   { orderId: 4, productId: 5},
-  { orderId: 2, productId: 3},
-  { orderId: 2, productId: 4},
-  { orderId: 3, productId: 2},
-  { orderId: 3, productId: 3},
+  { orderId: 2, productId: 3, purchasePrice: 1223},
+  { orderId: 2, productId: 4, purchasePrice: 1487},
+  { orderId: 3, productId: 2, purchasePrice: 1550},
+  { orderId: 3, productId: 3, purchasePrice: 925},
 ]
 
 async function seed() {
