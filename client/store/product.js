@@ -78,7 +78,7 @@ export const getProductTHUNK = () => {
       // ???
       const productArray = await axios.get('/api/products')
       const productData = productArray.data
-      console.log(productData)
+      //console.log(productData)
       dispatch(getAllProducts(productData))
     } catch (err) {
       console.error(err)
