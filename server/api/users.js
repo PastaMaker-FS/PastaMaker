@@ -173,8 +173,7 @@ router.get('/:userId/orders', async (req, res, next) => {
   }
 
   try {
-    if (req.params.userId == req.user.id) {
-      //|| req.user.isAdmin
+    if (req.params.userId == req.user.id) { //|| req.user.isAdmin
       const orders = await getOrders()
       res.json(orders)
     } else {
@@ -223,8 +222,7 @@ router.post('/:userId/orders', async (req, res, next) => {
 // delete item
 router.delete('/:userId/orders/:orderId/:productId', async (req, res, next) => {
   try {
-    if (req.params.userId == req.user.id) {
-      //|| req.user.isAdmin
+    if (req.params.userId == req.user.id) { //|| req.user.isAdmin
       const numAffectedRows = await Item.destroy({
         where: {
           orderId: req.params.orderId,
@@ -244,8 +242,7 @@ router.delete('/:userId/orders/:orderId/:productId', async (req, res, next) => {
 
 router.get('/:userId/orders/:orderId/:productId', async (req, res, next) => {
   try {
-    if (req.params.userId == req.user.id) {
-      //|| req.user.isAdmin
+    if (req.params.userId == req.user.id) { //|| req.user.isAdmin
       // get item
       const item = await Item.findOne({
         where: {
