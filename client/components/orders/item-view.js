@@ -56,11 +56,11 @@ class ItemView extends React.Component {
         </TableCell>
 
         <TableCell numeric>
-          {product.price}
+          ${(product.price/100).toFixed(2)}
         </TableCell>
 
         <TableCell numeric>
-          {product.quantity * product.price}
+          ${((product.quantity * product.price)/100).toFixed(2)}
         </TableCell>
 
         {!product.purchasePrice && (
