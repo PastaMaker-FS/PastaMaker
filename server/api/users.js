@@ -64,9 +64,14 @@ router.get('/', async (req, res, next) => {
 })
 
 // update user information route may need to fix this up?
-router.put('/:id', async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   try {
-    const users = await User.findById(req.params.id)
+    const users = await User.find({
+      where: {
+        email: req.body.email
+      }
+    })
+
     const name = req.body.name
     const email = req.body.email
     const password = req.body.password
@@ -85,13 +90,13 @@ router.put('/:id', async (req, res, next) => {
       },
       {
         where: {
-          id: users.id
+          email: req.body.email
         }
       }
     )
+
     const updatedAddress = await Address.update(
       {
-        userId: updatedUser.id,
         street,
         city,
         state,
@@ -99,11 +104,20 @@ router.put('/:id', async (req, res, next) => {
       },
       {
         where: {
-          userId: updatedUser.id
+          userId: users.id
         }
       }
     )
-    res.json(updatedUser)
+
+    const user = await User.findOne({
+      where: {
+        id: updatedUser.id
+      },
+      include: {
+        model: Address
+      }
+    })
+    res.json(user)
   } catch (error) {
     next(error)
   }

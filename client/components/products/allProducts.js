@@ -1,9 +1,10 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {getProductTHUNK, selectProduct} from '../../store/product'
-import {createItem, fetchOrders} from '../../store'
-import ProductGrid from '../products/productGrid'
-import history from '../history'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getProductTHUNK, selectProduct } from '../../store/product';
+import { createItem, fetchOrders } from '../../store';
+import ProductGrid from '../products/productGrid';
+//import history from '../history'
+import STRIPE from '../payments/stripe';
 
 class AllProducts extends Component {
   async componentDidMount() {
@@ -12,7 +13,10 @@ class AllProducts extends Component {
   }
 
   render() {
+<<<<<<< HEAD
     console.log('this is users', this.props.user)
+=======
+>>>>>>> 3e52d43d70a78cdcf3dcf09e3e6a1b1d2d40c6b7
     return (
       <div>
         <h1> ALL PRODUCTS</h1>
