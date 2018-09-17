@@ -126,9 +126,6 @@ class SignForm extends Component {
             SUBMIT
           </Button>
         </form>
-        {this.props.newUser.message ? (
-          <h1>{this.props.newUser.message}</h1>
-        ) : null}
       </div>
     )
   }

@@ -13,9 +13,6 @@ class AllProducts extends Component {
   }
 
   render() {
-    //LOAD THIS PAGE INTO HISTORY TWICE
-    // history.push('/allproducts')
-
     return (
       <div>
         <h1> ALL PRODUCTS</h1>
