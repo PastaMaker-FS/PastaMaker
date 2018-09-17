@@ -9,7 +9,7 @@ const User = db.define('user', {
     allowNull: false,
     defaultValue: false
   },
-  name: {
+  firstName: {
     type: Sequelize.STRING,
     validate: {
       is: ['^[a-z]+$', 'i']
