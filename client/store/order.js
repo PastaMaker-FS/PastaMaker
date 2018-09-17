@@ -122,7 +122,7 @@ export const decrementItem = (userId, orderId, productId) => async (dispatch) =>
   }
 }
 
-export const purchaserOrder = (userId, orderId, price) => async (dispatch) => {
+export const purchaseOrder = (userId, orderId, price) => async (dispatch) => {
   try {
     const {data: updateOrder} = await axios.put(`/api/users/${userId}/orders/${orderId}`, {
       totalPrice: price,

@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
-import {fetchOrders, me, purchaserOrder} from '../../store'
+import {fetchOrders, me, purchaseOrder} from '../../store'
 
 const styles = theme => ({
   button: {
@@ -53,11 +53,11 @@ class CheckoutForm extends React.Component {
 
   async componentDidMount() {
     await this.props.fetchUser();
-    await this.props.fetchOrders(this.props.user);
+    await this.props.fetchOrders(this.props.user.id);
     const cart = this.props.orders.filter(order => order.isPurchased === false)[0];
     this.setState({
       userId: this.props.user.id,
-      cartId: cart.id,
+      orderId: cart.id,
       totalPrice: cart.products.reduce((a,b) => a + (b.price * b.quantity), 0)
     })
     // const cart = orders.filter(order => order.isPurchased === false)[0];
@@ -74,12 +74,22 @@ class CheckoutForm extends React.Component {
     evt.preventDefault();
     try {
 
-      await this.props.chargeCard({
-        name: this.state.name,                  // required
-        address: this.state.address,            // required
-        description: this.state.description     //
-      })
-      await this.props.purchaserOrder(userId, orderId, price)
+      // await this.props.chargeCard({
+      //   name: this.state.name,                  // required
+      //   address: this.state.address,            // required
+      //   description: this.state.description     //
+      // })
+
+      // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      // NEED TO SET PURCHASE PRICE ON ALL ORDER ITEMS HERE !!!!!!!
+      // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+      await this.props.purchaseOrder(
+        this.state.userId,
+        this.state.orderId,
+        this.state.totalPrice
+      )
+
       this.setState({
         submitted: true
       })
@@ -93,7 +103,8 @@ class CheckoutForm extends React.Component {
     const { name, email, card, submitted } = this.state;
 
     if (submitted) {
-      return <Redirect to={`/confirmation`} />
+      return <div>confirmed</div>
+      // return <Redirect to={`/confirmation`} />
     }
 
     // check for loading and error states
@@ -186,7 +197,7 @@ class CheckoutForm extends React.Component {
 
 const mapState = state => ({
   orders: state.orders.list,
-  user: state.user.id,
+  user: state.user,
   loading: state.orders.loading,
   error: state.orders.error
 })
@@ -195,7 +206,7 @@ const mapDispatch = dispatch => ({
   fetchUser: () => dispatch(me()),
   fetchOrders: (userId) => dispatch(fetchOrders(userId)),
   // chargeCard: (card) => dispatch(chargeCard(card)),
-  purchaseOrder: (userId, orderId, price) => dispatch(purchaserOrder(userId, orderId, price)),
+  purchaseOrder: (userId, orderId, price) => dispatch(purchaseOrder(userId, orderId, price)),
 })
 
 export default withStyles(styles)(connect(

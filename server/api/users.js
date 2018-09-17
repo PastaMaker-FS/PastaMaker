@@ -187,7 +187,7 @@ router.get('/:userId/orders', async (req, res, next) => {
 
 // add item to cart
 router.post('/:userId/orders', async (req, res, next) => {
-  console.log(`-------- req.body: ${JSON.stringify(req.body)}`)
+  // console.log(`-------- req.body: ${JSON.stringify(req.body)}`)
   try {
     // get user's cart if it exists
     let cart = await Order.findOne({
@@ -265,13 +265,14 @@ router.get('/:userId/orders/:orderId/', async (req, res, next) => {
 router.put('/:userId/orders/:orderId/', async (req, res, next) => {
   try {
     if (req.params.userId == req.user.id) { //|| req.user.isAdmin
-
+      // console.log(`---------hi`)
       // get order
       const order = await Order.findOne({
         where: {
-          orderId: req.params.orderId
+          id: req.params.orderId
         }
       })
+      // console.log(`---------order: ${order}`)
 
       // update order
       const updatedOrder = await order.update({
@@ -279,6 +280,7 @@ router.put('/:userId/orders/:orderId/', async (req, res, next) => {
         isPurchased: req.body.isPurchased,
         datePurchased: req.body.datePurchased
       })
+      // console.log(`---------updated: ${updatedOrder}`)
 
       res.json(updatedOrder)
     } else {
