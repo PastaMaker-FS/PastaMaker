@@ -8,7 +8,6 @@ class Cart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // cart: {},
       totalPending: -1,
       ready: false
     }
@@ -16,8 +15,6 @@ class Cart extends React.Component {
     this.incrementPending = this.incrementPending.bind(this);
     this.decrementPending = this.decrementPending.bind(this);
   }
-
-
 
   async componentDidMount() {
     await this.props.fetchUser();

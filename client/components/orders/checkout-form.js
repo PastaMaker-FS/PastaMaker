@@ -11,8 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
-// import { createCampus } from '../../reducers';
-import { Cart } from '../../components'
+import {fetchOrders, me, purchaserOrder} from '../../store'
 
 const styles = theme => ({
   button: {
@@ -43,10 +42,26 @@ class CheckoutForm extends React.Component {
       name: '',
       email: '',
       card: '',
+      userId: -1,
+      orderId: -1,
+      totalPrice: -1,
       submitted: false
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  async componentDidMount() {
+    await this.props.fetchUser();
+    await this.props.fetchOrders(this.props.user);
+    const cart = this.props.orders.filter(order => order.isPurchased === false)[0];
+    this.setState({
+      userId: this.props.user.id,
+      cartId: cart.id,
+      totalPrice: cart.products.reduce((a,b) => a + (b.price * b.quantity), 0)
+    })
+    // const cart = orders.filter(order => order.isPurchased === false)[0];
+    // const totalPrice = cart.products.reduce((a,b) => a + (b.price * b.quantity), 0);
   }
 
   handleInputChange({target: {name, value}}) {
@@ -55,30 +70,46 @@ class CheckoutForm extends React.Component {
     })
   }
 
-  handleSubmit(evt) {
+  async handleSubmit(evt) {
     evt.preventDefault();
-    this.props.createCampus({
-      name: this.state.name,                  // required
-      address: this.state.address,            // required
-      description: this.state.description     //
-    })
-    this.setState({
-      submitted: true
-    })
+    try {
+
+      await this.props.chargeCard({
+        name: this.state.name,                  // required
+        address: this.state.address,            // required
+        description: this.state.description     //
+      })
+      await this.props.purchaserOrder(userId, orderId, price)
+      this.setState({
+        submitted: true
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   render() {
-    const { classes } = this.props;
+    const {classes, loading, error} = this.props;
     const { name, email, card, submitted } = this.state;
 
     if (submitted) {
       return <Redirect to={`/confirmation`} />
     }
 
+    // check for loading and error states
+    if (loading) {
+      return <div>loading...</div>
+    }
+    if (error) {
+      return <div>error!</div>
+    }
+
+
+
     return (
-      <React.Fragment>
+
       <form onSubmit={this.handleSubmit}>
-        <div className={classes.container}></div>
+        {/* <div className={classes.container}></div> */}
 
       <Paper className={classes.root}>
 
@@ -141,24 +172,33 @@ class CheckoutForm extends React.Component {
         <Button
           variant="contained"
           color="secondary"
-          className={classes.button}
-        >
+          className={classes.button} >
           Cancel Order
         </Button>
 
         </Paper>
 
       </form>
-      </React.Fragment>
+
     )
   }
 }
 
+const mapState = state => ({
+  orders: state.orders.list,
+  user: state.user.id,
+  loading: state.orders.loading,
+  error: state.orders.error
+})
+
 const mapDispatch = dispatch => ({
-    createCampus: (campus) => dispatch(createCampus(campus))
+  fetchUser: () => dispatch(me()),
+  fetchOrders: (userId) => dispatch(fetchOrders(userId)),
+  // chargeCard: (card) => dispatch(chargeCard(card)),
+  purchaseOrder: (userId, orderId, price) => dispatch(purchaserOrder(userId, orderId, price)),
 })
 
 export default withStyles(styles)(connect(
-  null,
+  mapState,
   mapDispatch
 )(CheckoutForm));

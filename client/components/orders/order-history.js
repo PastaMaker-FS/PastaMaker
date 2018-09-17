@@ -34,6 +34,7 @@ const PurchasedOrders = ({orders}) => (
 
       {orders.map(order =>
         <OrderView key={order.id} order={order} /> )}
+
     </React.Fragment>
 )
 

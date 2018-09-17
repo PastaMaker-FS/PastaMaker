@@ -240,6 +240,57 @@ router.delete('/:userId/orders/:orderId/:productId', async (req, res, next) => {
   }
 })
 
+// get an order
+router.get('/:userId/orders/:orderId/', async (req, res, next) => {
+  try {
+    if (req.params.userId == req.user.id) { //|| req.user.isAdmin
+      // get order
+      const order = await Order.findOne({
+        where: {
+          orderId: req.params.orderId
+        }
+      })
+
+      res.json(order)
+    } else {
+      res.status(403).end()
+    }
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+// edit an order
+router.put('/:userId/orders/:orderId/', async (req, res, next) => {
+  try {
+    if (req.params.userId == req.user.id) { //|| req.user.isAdmin
+
+      // get order
+      const order = await Order.findOne({
+        where: {
+          orderId: req.params.orderId
+        }
+      })
+
+      // update order
+      const updatedOrder = await order.update({
+        totalPrice: req.body.totalPrice,
+        isPurchased: req.body.isPurchased,
+        datePurchased: req.body.datePurchased
+      })
+
+      res.json(updatedOrder)
+    } else {
+      res.status(403).end()
+    }
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+// get an item
 router.get('/:userId/orders/:orderId/:productId', async (req, res, next) => {
   try {
     if (req.params.userId == req.user.id) { //|| req.user.isAdmin
