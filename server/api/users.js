@@ -167,6 +167,8 @@ router.get('/:userId/orders', async (req, res, next) => {
           id: order.id,
           datePurchased: order.datePurchased,
           isPurchased: order.isPurchased,
+          totalPrice: order.totalPrice,
+          orderNumber: order.orderNumber,
           products: productsParsed
         })
       })

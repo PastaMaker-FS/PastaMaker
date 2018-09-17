@@ -86,13 +86,13 @@ const addresses = [
 
 const orders = [
   // { datePurchased: Date.now(), userId: 1, isPurchased: true },
-  { datePurchased: Date.now(), userId: 1, isPurchased: true },
-  { datePurchased: Date.now(), userId: 1, isPurchased: true },
-  { datePurchased: Date.now(), userId: 1, isPurchased: true },
-  { datePurchased: Date.now(), userId: 2, isPurchased: true },
-  { datePurchased: Date.now(), userId: 3, isPurchased: true },
-  { datePurchased: Date.now(), userId: 3, isPurchased: true },
-  { datePurchased: Date.now(), userId: 3, isPurchased: true },
+  { datePurchased: Date.now(), userId: 1, isPurchased: true, totalPrice: 5423 },
+  { datePurchased: Date.now(), userId: 1, isPurchased: true, totalPrice: 4523  },
+  { datePurchased: Date.now(), userId: 1, isPurchased: true, totalPrice: 6723  },
+  { datePurchased: Date.now(), userId: 2, isPurchased: true, totalPrice: 1223  },
+  { datePurchased: Date.now(), userId: 3, isPurchased: true, totalPrice: 2423  },
+  { datePurchased: Date.now(), userId: 3, isPurchased: true, totalPrice: 4523  },
+  { datePurchased: Date.now(), userId: 3, isPurchased: true, totalPrice: 3423  },
 ]
 
 const products = [
