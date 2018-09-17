@@ -54,22 +54,18 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => {
         <MuiThemeProvider theme={theme}>
           <AppBar position="static" color="secondary">
             <Toolbar>
-              <Typography
-                variant="title"
-                color="textSecondary"
+              <Link
+                to="/"
+                style={{textDecoration: 'none'}}
                 className={classes.grow}
               >
-                Pasta
-              </Typography>
-
+                <Button color="primary" className={classes.button}>
+                  Home
+                </Button>
+              </Link>
               {isLoggedIn ? (
                 <div>
                   {/* The navbar will show these links after you log in */}
-                  <Link to="/" style={{textDecoration: 'none'}}>
-                    <Button color="primary" className={classes.button}>
-                      Home
-                    </Button>
-                  </Link>
                   <Link to="/allproducts" style={{textDecoration: 'none'}}>
                     <Button color="primary" className={classes.button}>
                       All Products
@@ -107,11 +103,6 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => {
               ) : (
                 <div>
                   {/* The navbar will show these links before you log in */}
-                  <Link to="/" style={{textDecoration: 'none'}}>
-                    <Button color="primary" className={classes.button}>
-                      Home
-                    </Button>
-                  </Link>
                   <Link to="/allproducts" style={{textDecoration: 'none'}}>
                     <Button color="primary" className={classes.button}>
                       All Products
