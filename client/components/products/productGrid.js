@@ -1,11 +1,10 @@
-import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
-import ProductThumb from './productThumb'
-import SingleProduct from './singleProduct'
-import {withStyles} from '@material-ui/core/styles'
-import PropTypes from 'prop-types'
-import createItem from '../../store/order'
-import Modal from '@material-ui/core/Modal'
+import React, { Component } from 'react';
+import ProductThumb from './productThumb';
+import SingleProduct from './singleProduct';
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import createItem from '../../store/order';
+import Modal from '@material-ui/core/Modal';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10
