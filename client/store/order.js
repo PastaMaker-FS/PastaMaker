@@ -124,12 +124,29 @@ export const decrementItem = (userId, orderId, productId) => async (dispatch) =>
 
 export const purchaseOrder = (userId, orderId, price) => async (dispatch) => {
   try {
-    const {data: updateOrder} = await axios.put(`/api/users/${userId}/orders/${orderId}`, {
+
+    // get the items for order
+    const {data: orders} = await axios.get(`/api/users/${userId}/orders`);
+    const cart = orders.filter(order => order.isPurchased === false)[0];
+
+    // update items in order
+    await Promise.all(
+      cart.products.map(async product => {
+        const {data: updatedItem} = await axios.put(`/api/users/${userId}/orders/${orderId}/${product.id}`, {
+          purchasePrice: product.price,
+        })
+        dispatch(setItem(updatedItem))
+      })
+    )
+
+    // update order
+    const {data: updatedOrder} = await axios.put(`/api/users/${userId}/orders/${orderId}`, {
       totalPrice: price,
       isPurchased: true,
       datePurchased: Date.now()
     })
-    dispatch(setOrder(updateOrder))
+    dispatch(setOrder(updatedOrder))
+
   } catch (error) {
     dispatch(errorOrders(true))
   }
