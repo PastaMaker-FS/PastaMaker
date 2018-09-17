@@ -16,6 +16,10 @@
   font-size: 140pt;
   color: #7D4600;
 }
+.img{
+  max-width: 300px;
+
+}
 .box2 {
   display: inline-block;
   width: 200px;
@@ -26,7 +30,4 @@ form div {
   margin: 1em;
   display: inline-block;
 }
-.MuiAppBar-colorPrimary-014 {
-  color: #fff;
-  background-color: green;
-}
+

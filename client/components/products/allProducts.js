@@ -17,6 +17,7 @@ class AllProducts extends Component {
 
     return (
       <div>
+        <h1> ALL PRODUCTS</h1>
         <ProductGrid
           productState={this.props.products}
           selectProduct={this.props.selectProduct}

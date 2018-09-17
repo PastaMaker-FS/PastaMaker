@@ -14,20 +14,17 @@ const {
 
 const users = [
   {
-  firstName: `Jelly`,
-  lastName: `Fish`,
+  name: `Jelly Fish`,
   email: `jelly@fish.com`,
   password: `123`,
   },
   {
-  firstName: `Square`,
-  lastName: `Brackets`,
+  name: `Square Brackets`,
   email: `sqr@braks.com`,
   password: `456`,
   },
   {
-  firstName: `Dino`,
-  lastName: `Sor`,
+  name: `Dino Sor`,
   email: `dino@sor.com`,
   password: `789`,
   },

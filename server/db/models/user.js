@@ -3,7 +3,6 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
-
   isAdmin: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
@@ -11,23 +10,12 @@ const User = db.define('user', {
   },
   name: {
     type: Sequelize.STRING,
-    validate: {
-      is: ['^[a-z]+$', 'i']
-    }
-  },
-  lastName: {
-    type: Sequelize.STRING,
-    validate: {
-      is: ['^[a-z]+$', 'i']
-    }
+    allowNull: false,
   },
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false,
-    validate: {
-      isEmail: true
-    }
+    allowNull: false
   },
   password: {
     type: Sequelize.STRING,
