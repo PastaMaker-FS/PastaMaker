@@ -51,12 +51,12 @@ class OrderView extends React.Component {
           <Typography
             color="inherit"
             className={classes.flex}
-          >Order #: 03245235-34534-345 Order Placed: {order.datePurchased}
+          >Order #: {order.orderNumber} Order Placed: {order.datePurchased}
           </Typography>
 
           <Typography
             color="inherit"
-          >Total Price: $123.45
+          >Total Price: ${order.totalPrice}
           </Typography>
 
         </Toolbar>
