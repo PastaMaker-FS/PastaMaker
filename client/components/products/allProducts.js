@@ -1,9 +1,10 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {getProductTHUNK, selectProduct} from '../../store/product'
-import {createItem, fetchOrders} from '../../store'
-import ProductGrid from '../products/productGrid'
-import history from '../history'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getProductTHUNK, selectProduct } from '../../store/product';
+import { createItem, fetchOrders } from '../../store';
+import ProductGrid from '../products/productGrid';
+//import history from '../history'
+import STRIPE from '../payments/stripe';
 
 class AllProducts extends Component {
   async componentDidMount() {
