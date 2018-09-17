@@ -8,7 +8,8 @@ const {
   Product,
   Item,
   ProductType,
-  ProductTag
+  ProductTag,
+  About
 } = require('../server/db/models')
 
 const users = [
@@ -30,6 +31,33 @@ const users = [
   email: `dino@sor.com`,
   password: `789`,
   },
+]
+
+const abouts = [
+  {
+  firstName: 'Dennison',
+  lastName: 'Bertram',
+  description: 'Using blockchain to source the best pasta in the world!',
+  imgUrl: 'https://i.imgur.com/l58tugl.png'
+  },
+  {
+  firstName: 'Kevin',
+  lastName: 'Duarte',
+  description: 'Engineering the best pasta for you!',
+  imgUrl: 'https://i.imgur.com/qAPBu3Y.png'
+  },
+  {
+  firstName: 'Josh',
+  lastName: 'Parker',
+  description: `They call me the professor. Let me teach you a thing or two about pasta.`,
+  imgUrl: 'https://i.imgur.com/O0qiIAK.png'
+  },
+  {
+  firstName: 'Joe',
+  lastName: 'Lee',
+  description: 'Bringing you pasta at the right price.',
+  imgUrl: 'https://i.imgur.com/bwkzYyw.png'
+  }
 ]
 
 const addresses = [
@@ -140,6 +168,7 @@ async function seed() {
   console.log('db synced!')
 
   await Promise.all( users.map(u => User.create(u)) )
+  await Promise.all( abouts.map(a => About.create(a)) )
   await Promise.all( addresses.map(a => Address.create(a)) )
   await Promise.all( products.map(p => Product.create(p)) )
   await Promise.all( orders.map(o => Order.create(o)) )

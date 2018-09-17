@@ -5,6 +5,7 @@ const Address = require('./address')
 const Product = require('./product')
 const ProductTag = require('./productTag')
 const ProductType = require('./productType')
+const About = require('./about')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -57,5 +58,6 @@ module.exports = {
   Address,
   Product,
   ProductTag,
-  ProductType
+  ProductType,
+  About
 }
