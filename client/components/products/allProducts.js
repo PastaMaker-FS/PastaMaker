@@ -13,7 +13,6 @@ class AllProducts extends Component {
   }
 
   render() {
-    console.log("this is users", this.props)
     return (
       <div>
         <h1> ALL PRODUCTS</h1>
