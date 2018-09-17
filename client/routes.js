@@ -4,7 +4,7 @@ import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {me} from './store'
 import AllProducts from './components/products/allProducts'
-import AboutUs from './components/aboutus'
+import {AboutUs} from './components/aboutus'
 import {UserSign, UserUpdate} from './components/sign-form'
 import Home from './components/home'
 import {
