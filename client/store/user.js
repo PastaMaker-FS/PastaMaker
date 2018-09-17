@@ -97,9 +97,9 @@ export const newUser = (user) => {
 	return async (dispatch) => {
 		try {
 			const res = await axios.post('/api/users', content);
-			console.log(res.data);
+			console.log('AFter posting to /api/users', res.data);
 			await dispatch(addUser(res.data));
-			history.push('/home');
+			// history.push('/home');
 		} catch (err) {
 			console.error(err);
 		}

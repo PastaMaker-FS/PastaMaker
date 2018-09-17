@@ -3,7 +3,8 @@ import axios from 'axios'
 const GET_ALL = 'GET_ALL'
 
 const defaultAbout = {
-  abouts: []
+  abouts: [],
+  test: "INSIDE ABOUT STORE/REDUCER"
 }
 
 export const getAbouts = abouts => ({type: GET_ALL, abouts})
@@ -21,7 +22,7 @@ export const allAbouts = () => async dispatch => {
 export default function(state = defaultAbout, action) {
   switch (action.type) {
     case GET_ALL:
-    console.log("HIT THUNK")
+      console.log("HIT THUNK")
       return {...state, abouts: action.abouts}
     default:
       return state

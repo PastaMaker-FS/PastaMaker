@@ -46,6 +46,7 @@ class SignForm extends Component {
   }
 
   render() {
+    console.log('SIGN-FORM COMPONENT: ', this.props)
     const {classes, handleSubmit} = this.props
     return (
       <div>
@@ -129,8 +130,20 @@ class SignForm extends Component {
             SUBMIT
           </Button>
         </form>
+        {
+          this.props.newUser.message ?
+          <h1>{this.props.newUser.message}</h1>
+          :
+          null
+        }
       </div>
     )
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    newUser: state.user.user
   }
 }
 
@@ -190,7 +203,7 @@ const mapDispatch = dispatch => {
 }
 
 
-export const UserSign = connect(null, mapDispatchToProps)(withStyles(styles)(SignForm))
+export const UserSign = connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SignForm))
 export const UserUpdate = connect(null, mapDispatch)(withStyles(styles)(SignForm))
 
 SignForm.propTypes = {
