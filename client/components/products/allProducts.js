@@ -6,45 +6,43 @@ import ProductGrid from '../products/productGrid'
 import history from '../history'
 
 class AllProducts extends Component {
+  async componentDidMount() {
+    await this.props.fetchAllProducts()
+    this.props.fetchOrders(this.props.user.id)
+  }
 
-	async componentDidMount() {
-    await this.props.fetchAllProducts();
-    this.props.fetchOrders(this.props.user.id);
-	}
-
-	render() {
-
+  render() {
     //LOAD THIS PAGE INTO HISTORY TWICE
     history.push('/allproducts')
 
-		return (
-			<div className="allProducts">
+    return (
+      <div>
         <ProductGrid
           productState={this.props.products}
           selectProduct={this.props.selectProduct}
-
           user={this.props.user}
           addToCart={this.props.addToCart}
         />
-			</div>
-		);
-	}
+      </div>
+    )
+  }
 }
 
-const mapStoreToProps = (store) => {
-	return {
+const mapStoreToProps = store => {
+  return {
     products: store.product,
     user: store.user
-	};
-};
+  }
+}
 
-const mapDispatchToProps = (dispatch) => {
-	return {
+const mapDispatchToProps = dispatch => {
+  return {
     fetchAllProducts: () => dispatch(getProductTHUNK()),
-    fetchOrders: (userId) => dispatch(fetchOrders(userId)),
-		selectProduct: (product) => dispatch(selectProduct(product)),
-	  addToCart: (userId, productId, quantity) => dispatch(createItem(userId, productId, quantity))
-	};
-};
+    fetchOrders: userId => dispatch(fetchOrders(userId)),
+    selectProduct: product => dispatch(selectProduct(product)),
+    addToCart: (userId, productId, quantity) =>
+      dispatch(createItem(userId, productId, quantity))
+  }
+}
 
-export default connect(mapStoreToProps, mapDispatchToProps)(AllProducts);
+export default connect(mapStoreToProps, mapDispatchToProps)(AllProducts)
