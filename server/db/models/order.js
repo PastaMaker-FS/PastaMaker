@@ -17,7 +17,7 @@ const Order = db.define('order', {
   },
   isPurchased: {
     type: Sequelize.BOOLEAN,
-    allowNull: false,
+    allowNull: true,
     defaultValue: false
   }
 })

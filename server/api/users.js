@@ -187,7 +187,7 @@ router.get('/:userId/orders', async (req, res, next) => {
 
 // add item to cart
 router.post('/:userId/orders', async (req, res, next) => {
-  console.log(`-------- req.body: ${JSON.stringify(req.body)}`)
+  // console.log(`-------- req.body: ${JSON.stringify(req.body)}`)
   try {
     // get user's cart if it exists
     let cart = await Order.findOne({
@@ -240,6 +240,59 @@ router.delete('/:userId/orders/:orderId/:productId', async (req, res, next) => {
   }
 })
 
+// get an order
+router.get('/:userId/orders/:orderId/', async (req, res, next) => {
+  try {
+    if (req.params.userId == req.user.id) { //|| req.user.isAdmin
+      // get order
+      const order = await Order.findOne({
+        where: {
+          orderId: req.params.orderId
+        }
+      })
+
+      res.json(order)
+    } else {
+      res.status(403).end()
+    }
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+// edit an order
+router.put('/:userId/orders/:orderId/', async (req, res, next) => {
+  try {
+    if (req.params.userId == req.user.id) { //|| req.user.isAdmin
+      // console.log(`---------hi`)
+      // get order
+      const order = await Order.findOne({
+        where: {
+          id: req.params.orderId
+        }
+      })
+      // console.log(`---------order: ${order}`)
+
+      // update order
+      const updatedOrder = await order.update({
+        totalPrice: req.body.totalPrice,
+        isPurchased: req.body.isPurchased,
+        datePurchased: req.body.datePurchased
+      })
+      // console.log(`---------updated: ${updatedOrder}`)
+
+      res.json(updatedOrder)
+    } else {
+      res.status(403).end()
+    }
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+// get an item
 router.get('/:userId/orders/:orderId/:productId', async (req, res, next) => {
   try {
     if (req.params.userId == req.user.id) { //|| req.user.isAdmin

@@ -3,9 +3,6 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {OrderHistory, Cart} from '../components'
 
-/**
- * COMPONENT
- */
 export const UserHome = props => {
   const {firstName, lastName, email} = props
 
