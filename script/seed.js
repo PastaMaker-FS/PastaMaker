@@ -8,28 +8,53 @@ const {
   Product,
   Item,
   ProductType,
-  ProductTag
+  ProductTag,
+  About
 } = require('../server/db/models')
 
 const users = [
   {
-  firstName: `Jelly`,
-  lastName: `Fish`,
+  name: `Jelly Fish`,
   email: `jelly@fish.com`,
   password: `123`,
   },
   {
-  firstName: `Square`,
-  lastName: `Brackets`,
+  name: `Square Brackets`,
   email: `sqr@braks.com`,
   password: `456`,
   },
   {
-  firstName: `Dino`,
-  lastName: `Sor`,
+  name: `Dino Sor`,
   email: `dino@sor.com`,
   password: `789`,
   },
+]
+
+const abouts = [
+  {
+  firstName: 'Dennison',
+  lastName: 'Bertram',
+  description: 'Using blockchain to source the best pasta in the world!',
+  imgUrl: 'https://i.imgur.com/l58tugl.png'
+  },
+  {
+  firstName: 'Kevin',
+  lastName: 'Duarte',
+  description: 'Engineering the best pasta for you!',
+  imgUrl: 'https://i.imgur.com/qAPBu3Y.png'
+  },
+  {
+  firstName: 'Josh',
+  lastName: 'Parker',
+  description: `They call me the professor. Let me teach you a thing or two about pasta.`,
+  imgUrl: 'https://i.imgur.com/O0qiIAK.png'
+  },
+  {
+  firstName: 'Joe',
+  lastName: 'Lee',
+  description: 'Bringing you pasta at the right price.',
+  imgUrl: 'https://i.imgur.com/bwkzYyw.png'
+  }
 ]
 
 const addresses = [
@@ -57,14 +82,14 @@ const addresses = [
 ]
 
 const orders = [
-  { datePurchased: Date.now(), userId: 1, isPurchased: true },
-  { datePurchased: Date.now(), userId: 1, isPurchased: false },
-  { datePurchased: Date.now(), userId: 1, isPurchased: true },
-  { datePurchased: Date.now(), userId: 1, isPurchased: true },
-  { datePurchased: Date.now(), userId: 2, isPurchased: true },
-  { datePurchased: Date.now(), userId: 3, isPurchased: false },
-  { datePurchased: Date.now(), userId: 3, isPurchased: true },
-  { datePurchased: Date.now(), userId: 3, isPurchased: true },
+  // { datePurchased: Date.now(), userId: 1, isPurchased: true },
+  { datePurchased: Date.now(), userId: 1, isPurchased: true, totalPrice: 5423 },
+  { datePurchased: Date.now(), userId: 1, isPurchased: true, totalPrice: 4523  },
+  { datePurchased: Date.now(), userId: 1, isPurchased: true, totalPrice: 6723  },
+  { datePurchased: Date.now(), userId: 2, isPurchased: true, totalPrice: 1223  },
+  { datePurchased: Date.now(), userId: 3, isPurchased: true, totalPrice: 2423  },
+  { datePurchased: Date.now(), userId: 3, isPurchased: true, totalPrice: 4523  },
+  { datePurchased: Date.now(), userId: 3, isPurchased: true, totalPrice: 3423  },
 ]
 
 const products = [
@@ -125,9 +150,9 @@ const items = [
   { orderId: 1, productId: 3, purchasePrice: 1487},
   { orderId: 1, productId: 4, purchasePrice: 1487},
   { orderId: 1, productId: 5, purchasePrice: 1487},
-  { orderId: 2, productId: 3},
-  { orderId: 2, productId: 4},
-  { orderId: 2, productId: 5},
+  { orderId: 2, productId: 3, purchasePrice: 1487},
+  { orderId: 2, productId: 4, purchasePrice: 1487},
+  { orderId: 2, productId: 5, purchasePrice: 1487},
   { orderId: 3, productId: 2, purchasePrice: 1550},
   { orderId: 3, productId: 3, purchasePrice: 925},
   { orderId: 4, productId: 1, purchasePrice: 1223},
@@ -140,6 +165,7 @@ async function seed() {
   console.log('db synced!')
 
   await Promise.all( users.map(u => User.create(u)) )
+  await Promise.all( abouts.map(a => About.create(a)) )
   await Promise.all( addresses.map(a => Address.create(a)) )
   await Promise.all( products.map(p => Product.create(p)) )
   await Promise.all( orders.map(o => Order.create(o)) )

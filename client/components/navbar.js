@@ -3,15 +3,27 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
-import {withStyles} from '@material-ui/core/styles'
+import {
+  withStyles,
+  createMuiTheme,
+  MuiThemeProvider
+} from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 
-const styles = theme => ({
+const theme = createMuiTheme({
+  palette: {
+    secondary: {
+      main: '#F58F29'
+    }
+  }
+})
+
+const styles = {
   button: {
     margin: theme.spacing.unit,
     color: 'white'
@@ -33,132 +45,93 @@ const styles = theme => ({
     marginLeft: -12,
     marginRight: 20
   }
-})
+}
 
 const Navbar = ({handleClick, isLoggedIn, classes}) => {
   return (
     <div>
       <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography
-              variant="title"
-              color="inherit"
-              className={classes.grow}
-            >
-              News
-            </Typography>
-
-            {isLoggedIn ? (
-              <div>
-                {/* The navbar will show these links after you log in */}
-                <Link to="/">
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    className={classes.button}
+        <MuiThemeProvider theme={theme}>
+          <AppBar position="static" color="secondary">
+            <Toolbar>
+              <Link
+                to="/"
+                style={{textDecoration: 'none'}}
+                className={classes.grow}
+              >
+                <Button color="primary" className={classes.button}>
+                  Home
+                </Button>
+              </Link>
+              {isLoggedIn ? (
+                <div>
+                  {/* The navbar will show these links after you log in */}
+                  <Link to="/allproducts" style={{textDecoration: 'none'}}>
+                    <Button color="primary" className={classes.button}>
+                      All Products
+                    </Button>
+                  </Link>
+                  <a
+                    href="#"
+                    onClick={handleClick}
+                    style={{textDecoration: 'none'}}
                   >
-                    Home
-                  </Button>
-                </Link>
-                <Link to="/allproducts">
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    className={classes.button}
+                    <Button color="primary" className={classes.button}>
+                      Logout
+                    </Button>
+                  </a>
+                  <Link to="/user" style={{textDecoration: 'none'}}>
+                    <Button color="primary" className={classes.button}>
+                      User Info
+                    </Button>
+                  </Link>
+                  <Link to="/aboutus" style={{textDecoration: 'none'}}>
+                    <Button color="primary" className={classes.button}>
+                      About Us
+                    </Button>
+                  </Link>
+                  <IconButton
+                    className={classes.menuButton}
+                    color="inherit"
+                    aria-label="Menu"
+                    component={Link}
+                    to="/cart"
                   >
-                    All Products
-                  </Button>
-                </Link>
-                <a href="#" onClick={handleClick}>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    className={classes.button}
+                    <ShoppingCartIcon />
+                  </IconButton>
+                </div>
+              ) : (
+                <div>
+                  {/* The navbar will show these links before you log in */}
+                  <Link to="/allproducts" style={{textDecoration: 'none'}}>
+                    <Button color="primary" className={classes.button}>
+                      All Products
+                    </Button>
+                  </Link>
+                  <Link to="/login" style={{textDecoration: 'none'}}>
+                    <Button color="primary" className={classes.button}>
+                      Login
+                    </Button>
+                  </Link>
+                  <Link to="/aboutus" style={{textDecoration: 'none'}}>
+                    <Button color="primary" className={classes.button}>
+                      About Us
+                    </Button>
+                  </Link>
+                  <IconButton
+                    className={classes.menuButton}
+                    color="inherit"
+                    aria-label="Menu"
+                    component={Link}
+                    to="/cart"
                   >
-                    Logout
-                  </Button>
-                </a>
-                <Link to="/user">
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    className={classes.button}
-                  >
-                    User Info
-                  </Button>
-                </Link>
-                <Link to="/aboutus">
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    className={classes.button}
-                  >
-                    About Us
-                  </Button>
-                </Link>
-                <IconButton
-                  className={classes.menuButton}
-                  color="inherit"
-                  aria-label="Menu"
-                  component={Link}
-                  to="/cart"
-                >
-                  <ShoppingCartIcon />
-                </IconButton>
-              </div>
-            ) : (
-              <div>
-                {/* The navbar will show these links before you log in */}
-                <Link to="/">
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    className={classes.button}
-                  >
-                    Home
-                  </Button>
-                </Link>
-                <Link to="/allproducts">
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    className={classes.button}
-                  >
-                    All Products
-                  </Button>
-                </Link>
-                <Link to="/login">
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    className={classes.button}
-                  >
-                    Login
-                  </Button>
-                </Link>
-                <Link to="/aboutus">
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    className={classes.button}
-                  >
-                    About Us
-                  </Button>
-                </Link>
-                <IconButton
-                  className={classes.menuButton}
-                  color="inherit"
-                  aria-label="Menu"
-                  component={Link}
-                  to="/cart"
-                >
-                  <ShoppingCartIcon />
-                </IconButton>
-              </div>
-            )}
-          </Toolbar>
-        </AppBar>
+                    <ShoppingCartIcon />
+                  </IconButton>
+                </div>
+              )}
+            </Toolbar>
+          </AppBar>
+        </MuiThemeProvider>
       </div>
     </div>
   )

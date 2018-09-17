@@ -47,22 +47,18 @@ class OrderView extends React.Component {
         <Paper className={classes.root}>
 
           <Toolbar>
+
           <Typography
-            variant="title"
             color="inherit"
-            className={classes.flex}>
-            Order #: 03245235-34534-345
+            className={classes.flex}
+          >Order #: {order.orderNumber} Order Placed: {order.datePurchased}
           </Typography>
-          <Button
+
+          <Typography
             color="inherit"
-          >
-            Order Placed: {order.datePurchased}
-          </Button>
-          <Button
-            color="inherit"
-          >
-            Total Price: $123.45
-          </Button>
+          >Total Price: ${order.totalPrice}
+          </Typography>
+
         </Toolbar>
 
           <Table className={classes.table}>

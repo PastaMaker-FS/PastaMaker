@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button'
 import MenuItem from '@material-ui/core/MenuItem'
 import TextField from '@material-ui/core/TextField'
 import {Signup} from './auth-form'
+import states from './states'
 
 const styles = theme => ({
   container: {
@@ -27,8 +28,7 @@ class SignForm extends Component {
   constructor() {
     super()
     this.state = {
-      firstName: '',
-      lastName: '',
+      name: '',
       email: '',
       password: '',
       street: '',
@@ -39,33 +39,25 @@ class SignForm extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange = name => event => {
+  handleChange = label => event => {
     this.setState({
-      [name]: event.target.value
+      [label]: event.target.value
     })
   }
 
   render() {
     const {classes, handleSubmit} = this.props
+    console.log(this.state)
     return (
       <div>
         <form onSubmit={handleSubmit} className={classes.container}>
           <TextField
-            id="firstName"
-            label="First Name"
-            required
-            className={classes.textField}
-            value={this.state.firstName}
-            onChange={this.handleChange('firstName')}
-            margin="normal"
-          />
-          <TextField
-            id="lastName"
-            label="Last Name"
+            id="name"
+            label="Name"
             required
             className={classes.textField}
             value={this.state.lastName}
-            onChange={this.handleChange('lastName')}
+            onChange={this.handleChange('name')}
             margin="normal"
           />
           <TextField
@@ -110,12 +102,18 @@ class SignForm extends Component {
             id="state"
             label="State"
             required
-            type="password"
+            select
             className={classes.textField}
             value={this.state.state}
             onChange={this.handleChange('state')}
             margin="normal"
-          />
+          >
+            {states.map(option => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.value}
+              </MenuItem>
+            ))}
+          </TextField>
           <TextField
             id="zip"
             label="Zip"
@@ -129,8 +127,17 @@ class SignForm extends Component {
             SUBMIT
           </Button>
         </form>
+        {this.props.newUser.message ? (
+          <h1>{this.props.newUser.message}</h1>
+        ) : null}
       </div>
     )
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    newUser: state.user.user
   }
 }
 
@@ -189,9 +196,12 @@ const mapDispatch = dispatch => {
   }
 }
 
-
-export const UserSign = connect(null, mapDispatchToProps)(withStyles(styles)(SignForm))
-export const UserUpdate = connect(null, mapDispatch)(withStyles(styles)(SignForm))
+export const UserSign = connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(styles)(SignForm)
+)
+export const UserUpdate = connect(null, mapDispatch)(
+  withStyles(styles)(SignForm)
+)
 
 SignForm.propTypes = {
   classes: PropTypes.object.isRequired

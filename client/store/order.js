@@ -14,6 +14,7 @@ const defaultOrders = {
  */
 const ORDERS = {
   SET: 'SET_ALL_ORDERS',
+  SET_ONE: 'SET_ONE_ORDER',
   ITEMS: {
     ADD: 'ADD_ITEM_TO_CART',
     REMOVE: 'REMOVE_ITEM_FROM_CART',
@@ -30,6 +31,10 @@ const ORDERS = {
 const setAllOrders = (orders) => ({
 	type: ORDERS.SET,
 	orders
+});
+const setOrder = (order) => ({
+	type: ORDERS.SET_ONE,
+	order
 });
 const setItem = (item) => ({
 	type: ORDERS.ITEMS.SET,
@@ -74,12 +79,8 @@ export const createItem = (userId, productId, quantity) => async (dispatch) => {
       productId,
       quantity
     })
-    //console.log(`hereeeeeeeeeeeee?`)
-    //console.log(newItem)
     dispatch(addItem(newItem))
-    //console.log(`or hereeeeeeeeeeeee?`)
   } catch (err) {
-    //console.log(`or errrooorr?`)
     dispatch(errorOrders(true))
   }
 }
@@ -121,6 +122,36 @@ export const decrementItem = (userId, orderId, productId) => async (dispatch) =>
   }
 }
 
+export const purchaseOrder = (userId, orderId, price) => async (dispatch) => {
+  try {
+
+    // get the items for order
+    const {data: orders} = await axios.get(`/api/users/${userId}/orders`);
+    const cart = orders.filter(order => order.isPurchased === false)[0];
+
+    // update items in order
+    await Promise.all(
+      cart.products.map(async product => {
+        const {data: updatedItem} = await axios.put(`/api/users/${userId}/orders/${orderId}/${product.id}`, {
+          purchasePrice: product.price,
+        })
+        dispatch(setItem(updatedItem))
+      })
+    )
+
+    // update order
+    const {data: updatedOrder} = await axios.put(`/api/users/${userId}/orders/${orderId}`, {
+      totalPrice: price,
+      isPurchased: true,
+      datePurchased: Date.now()
+    })
+    dispatch(setOrder(updatedOrder))
+
+  } catch (error) {
+    dispatch(errorOrders(true))
+  }
+}
+
 
 /**
  * REDUCER
@@ -138,14 +169,32 @@ export default function(state = defaultOrders, action) {
         isLoading: false
       }
 
+    case ORDERS.SET_ONE:
+
+      cart = state.list
+        .filter(order => order.isPurchased === false)[0]
+
+      idx = state.list
+        .map(order => order.id)
+        .indexOf(cart.id)
+
+      return {
+        ...state,
+        list: [
+          ...state.list.slice(0, idx),
+          action.order,
+          ...state.list.slice(idx + 1)
+        ]
+      }
+
     case ORDERS.ITEMS.ADD:
 
       cart = state.list
-      .filter(order => order.isPurchased === false)[0]
+        .filter(order => order.isPurchased === false)[0]
 
       idx = state.list
-      .map(order => order.id)
-      .indexOf(cart.id)
+        .map(order => order.id)
+        .indexOf(cart.id)
 
       return {
         ...state,

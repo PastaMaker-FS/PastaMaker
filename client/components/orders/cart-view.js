@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import { Link } from 'react-router-dom';
 
 // material ui
 import Button from '@material-ui/core/Button';
@@ -11,6 +12,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
 // thunks
 import {
@@ -30,6 +33,9 @@ const styles = theme => ({
     width: '100%',
     overflowX: 'auto',
   },
+  flex: {
+    flexGrow: 1,
+  },
   table: {
     minWidth: 700,
   },
@@ -38,12 +44,31 @@ const styles = theme => ({
 class CartView extends React.Component {
 
   render() {
-    const {classes, cart, user} = this.props
+    const {classes, cart, totalPending, user, incrementPending, decrementPending} = this.props
 
     return (
       <React.Fragment>
 
+        <Toolbar>
+          <Typography
+            variant="title"
+            color="inherit"
+          >Your Cart
+          </Typography>
+        </Toolbar>
+
         <Paper className={classes.root}>
+
+          <Toolbar>
+
+            <Typography
+              color="inherit"
+              className={classes.flex}
+            >Pending Order
+            </Typography>
+
+          </Toolbar>
+
           <Table className={classes.table}>
 
             <TableHead>
@@ -71,19 +96,43 @@ class CartView extends React.Component {
                   remove={() => {
                     this.props.destroyItem(user.id, cart.id, product.id)
                   }}
+                  incrementPending={incrementPending}
+                  decrementPending={decrementPending}
                 />
               )}
             </TableBody>
 
           </Table>
-        </Paper>
 
-        <Button
-          // className={classes.button}
-          color="inherit"
-          aria-label="Menu"
-        >Submit
-        </Button>
+          <Toolbar>
+
+          <Typography
+              color="secondary"
+              className={classes.flex}
+            >Total Price: ${totalPending}
+            </Typography>
+
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+              component={Link}
+              to="/checkout"
+            >Checkout
+            </Button>
+
+            <Button
+              variant="contained"
+              color="inherit"
+              className={classes.button}
+              component={Link}
+              to="/allproducts"
+            >Continue Shopping
+            </Button>
+
+          </Toolbar>
+
+      </Paper>
 
       </React.Fragment>
     )

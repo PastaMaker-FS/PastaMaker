@@ -7,7 +7,13 @@ import AllProducts from './components/products/allProducts'
 import AboutUs from './components/aboutus'
 import {UserSign, UserUpdate} from './components/sign-form'
 import Home from './components/home'
-import {Login, UserHome, Cart, OrderHistory} from './components'
+import {
+  Login,
+  UserHome,
+  Cart,
+  CheckoutForm,
+  Confirmation
+} from './components'
 
 /**
  * COMPONENT
@@ -29,11 +35,13 @@ class Routes extends Component {
         <Route exact path="/aboutus" component={AboutUs} />
         <Route exact path="/allproducts" component={AllProducts} />
         <Route exact path="/cart" component={Cart} />
+        <Route exact path="/checkout" component={CheckoutForm} />
+        <Route exact path="/confirmation" component={Confirmation} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/" component={AllProducts} />
-            <Route exact path="/aboutus" component={AboutUs} />
+            {/* <Route exact path="/aboutus" component={AboutUs} /> */}
             <Route exact path="/user" component={UserHome} />
           </Switch>
         )}
