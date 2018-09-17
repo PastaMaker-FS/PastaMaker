@@ -24,7 +24,7 @@ const styles = theme => ({
 })
 
 export const UserHome = props => {
-  const {firstName, lastName, email, classes} = props
+  const {name, email, classes} = props
 
   return (
     <div>
@@ -37,18 +37,14 @@ export const UserHome = props => {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <TableCell>First Name</TableCell>
-              <TableCell>Last Name</TableCell>
+              <TableCell>Name</TableCell>
               <TableCell>Email</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
               <TableCell component="th" scope="row">
-                {firstName}
-              </TableCell>
-              <TableCell component="th" scope="row">
-                {lastName}
+                {name}
               </TableCell>
               <TableCell component="th" scope="row">
                 {email}
@@ -57,10 +53,6 @@ export const UserHome = props => {
           </TableBody>
         </Table>
       </Paper>
-      {/* <h3>
-        Welcome, {firstName} {lastName}
-      </h3>
-      <h3>{email}</h3> */}
       <Cart />
       <OrderHistory />
     </div>
@@ -73,8 +65,7 @@ export const UserHome = props => {
 const mapState = state => {
   return {
     email: state.user.email,
-    firstName: state.user.firstName,
-    lastName: state.user.lastName
+    name: state.user.name
   }
 }
 

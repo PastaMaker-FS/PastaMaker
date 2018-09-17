@@ -3,8 +3,7 @@ const {User, Order, Item, Address} = require('../db/models')
 module.exports = router
 
 router.post('/', async (req, res, next) => {
-  const firstName = req.body.firstName
-  const lastName = req.body.lastName
+  const name = req.body.name
   const email = req.body.email
   const password = req.body.password
   const street = req.body.street
@@ -13,8 +12,7 @@ router.post('/', async (req, res, next) => {
   const zip = req.body.zip
   try {
     const newUser = await User.create({
-      firstName,
-      lastName,
+      name,
       email,
       password
     })
@@ -70,9 +68,7 @@ router.get('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const users = await User.findById(req.params.id)
-    console.log('THIS IS USERS', users)
-    const firstName = req.body.firstName
-    const lastName = req.body.lastName
+    const name = req.body.name
     const email = req.body.email
     const password = req.body.password
     const street = req.body.street
@@ -81,16 +77,10 @@ router.put('/:id', async (req, res, next) => {
     const zip = req.body.zip
 
     if (!users) res.status(404)
-    // await users.update({
-    //   firstName,
-    //   lastName,
-    //   email,
-    //   password
-    // })
+
     const updatedUser = await User.update(
       {
-        firstName,
-        lastName,
+        name,
         email,
         password
       },

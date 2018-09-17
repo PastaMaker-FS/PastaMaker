@@ -47,7 +47,6 @@ class SignForm extends Component {
 
   render() {
     const {classes, handleSubmit} = this.props
-    console.log(this.state)
     return (
       <div>
         <form onSubmit={handleSubmit} className={classes.container}>
@@ -56,7 +55,7 @@ class SignForm extends Component {
             label="Name"
             required
             className={classes.textField}
-            value={this.state.lastName}
+            value={this.state.name}
             onChange={this.handleChange('name')}
             margin="normal"
           />
@@ -145,8 +144,7 @@ const mapDispatchToProps = dispatch => {
   return {
     handleSubmit(evt) {
       evt.preventDefault()
-      const firstName = evt.target.firstName.value
-      const lastName = evt.target.lastName.value
+      const name = evt.target.name.value
       const email = evt.target.email.value
       const password = evt.target.password.value
       const street = evt.target.street.value
@@ -155,8 +153,7 @@ const mapDispatchToProps = dispatch => {
       const zip = evt.target.zip.value
       dispatch(
         newUser({
-          firstName,
-          lastName,
+          name,
           email,
           password,
           street,
@@ -172,8 +169,7 @@ const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
       evt.preventDefault()
-      const firstName = evt.target.firstName.value
-      const lastName = evt.target.lastName.value
+      const name = evt.target.lastName.value
       const email = evt.target.email.value
       const password = evt.target.password.value
       const street = evt.target.street.value
@@ -182,8 +178,7 @@ const mapDispatch = dispatch => {
       const zip = evt.target.zip.value
       dispatch(
         update({
-          firstName,
-          lastName,
+          name,
           email,
           password,
           street,
