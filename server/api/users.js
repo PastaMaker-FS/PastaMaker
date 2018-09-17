@@ -31,11 +31,11 @@ router.post('/', async (req, res, next) => {
         model: Address
       }
     })
-
+    req.login(user, err => (err ? next(err) : res.json(user)))
     res.json(user)
   } catch (error) {
     console.log('Does newUser exist? :', error)
-    res.json({message: "User Already Exists!"})
+    res.json({message: 'User Already Exists!'})
     next(error)
   }
 })
@@ -63,11 +63,15 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-
 // update user information route may need to fix this up?
-router.put('/:id', async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   try {
-    const users = await User.findById(req.params.id)
+    const users = await User.find({
+      where: {
+        email: req.body.email
+      }
+    })
+
     const name = req.body.name
     const email = req.body.email
     const password = req.body.password
@@ -86,13 +90,13 @@ router.put('/:id', async (req, res, next) => {
       },
       {
         where: {
-          id: users.id
+          email: req.body.email
         }
       }
     )
+
     const updatedAddress = await Address.update(
       {
-        userId: updatedUser.id,
         street,
         city,
         state,
@@ -100,11 +104,20 @@ router.put('/:id', async (req, res, next) => {
       },
       {
         where: {
-          userId: updatedUser.id
+          userId: users.id
         }
       }
     )
-    res.json(updatedUser)
+
+    const user = await User.findOne({
+      where: {
+        id: updatedUser.id
+      },
+      include: {
+        model: Address
+      }
+    })
+    res.json(user)
   } catch (error) {
     next(error)
   }
@@ -167,7 +180,8 @@ router.get('/:userId/orders', async (req, res, next) => {
   }
 
   try {
-    if (req.params.userId == req.user.id) { //|| req.user.isAdmin
+    if (req.params.userId == req.user.id) {
+      //|| req.user.isAdmin
       const orders = await getOrders()
       res.json(orders)
     } else {
@@ -216,7 +230,8 @@ router.post('/:userId/orders', async (req, res, next) => {
 // delete item
 router.delete('/:userId/orders/:orderId/:productId', async (req, res, next) => {
   try {
-    if (req.params.userId == req.user.id) { //|| req.user.isAdmin
+    if (req.params.userId == req.user.id) {
+      //|| req.user.isAdmin
       const numAffectedRows = await Item.destroy({
         where: {
           orderId: req.params.orderId,
@@ -237,7 +252,8 @@ router.delete('/:userId/orders/:orderId/:productId', async (req, res, next) => {
 // get an order
 router.get('/:userId/orders/:orderId/', async (req, res, next) => {
   try {
-    if (req.params.userId == req.user.id) { //|| req.user.isAdmin
+    if (req.params.userId == req.user.id) {
+      //|| req.user.isAdmin
       // get order
       const order = await Order.findOne({
         where: {
@@ -258,7 +274,8 @@ router.get('/:userId/orders/:orderId/', async (req, res, next) => {
 // edit an order
 router.put('/:userId/orders/:orderId/', async (req, res, next) => {
   try {
-    if (req.params.userId == req.user.id) { //|| req.user.isAdmin
+    if (req.params.userId == req.user.id) {
+      //|| req.user.isAdmin
       // console.log(`---------hi`)
       // get order
       const order = await Order.findOne({
@@ -289,7 +306,8 @@ router.put('/:userId/orders/:orderId/', async (req, res, next) => {
 // get an item
 router.get('/:userId/orders/:orderId/:productId', async (req, res, next) => {
   try {
-    if (req.params.userId == req.user.id) { //|| req.user.isAdmin
+    if (req.params.userId == req.user.id) {
+      //|| req.user.isAdmin
       // get item
       const item = await Item.findOne({
         where: {

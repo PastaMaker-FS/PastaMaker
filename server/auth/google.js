@@ -38,7 +38,9 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
         where: {googleId},
         defaults: {name, email}
       })
-        .then(([user]) => {done(null, user)})
+        .then(([user]) => {
+          done(null, user)
+        })
         .catch(done)
     }
   )
@@ -50,7 +52,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
   router.get(
     '/callback',
     passport.authenticate('google', {
-      successRedirect: '/home',
+      successRedirect: '/allproducts',
       failureRedirect: '/login'
     })
   )

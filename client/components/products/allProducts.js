@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getProductTHUNK, selectProduct } from '../../store/product';
-import { createItem, fetchOrders } from '../../store';
-import ProductGrid from '../products/productGrid';
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {getProductTHUNK, selectProduct} from '../../store/product'
+import {createItem, fetchOrders} from '../../store'
+import ProductGrid from '../products/productGrid'
 //import history from '../history'
-import STRIPE from '../payments/stripe';
+import STRIPE from '../payments/stripe'
 
 class AllProducts extends Component {
   async componentDidMount() {
@@ -13,9 +13,6 @@ class AllProducts extends Component {
   }
 
   render() {
-    //LOAD THIS PAGE INTO HISTORY TWICE
-    //history.push('/allproducts')
-
     return (
       <div>
         <h1> ALL PRODUCTS</h1>
