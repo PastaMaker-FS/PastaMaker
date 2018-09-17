@@ -31,9 +31,10 @@ router.post('/', async (req, res, next) => {
         model: Address
       }
     })
-
+    req.login(user, err => (err ? next(err) : res.json(user)))
     res.json(user)
   } catch (error) {
+    console.log('Does newUser exist? :', error)
     res.json({message: 'User Already Exists!'})
     next(error)
   }
