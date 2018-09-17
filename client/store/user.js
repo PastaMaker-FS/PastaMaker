@@ -64,19 +64,15 @@ export const auth = (email, password, method) => async dispatch => {
 }
 
 export const newUser = user => {
-  const content = user
+  let res
+  let content = user
   return async dispatch => {
     try {
-      const res = await axios.post('/api/users', content)
-      await dispatch(addUser(res.data))
-    } catch (err) {
-      console.error(err)
-    }
-    try {
+      res = await axios.post('/api/users', content)
       dispatch(getUser(res.data))
       history.push('/allproducts')
-    } catch (error) {
-      console.error(error)
+    } catch (err) {
+      console.error(err)
     }
   }
 }

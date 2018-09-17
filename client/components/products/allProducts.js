@@ -13,9 +13,7 @@ class AllProducts extends Component {
   }
 
   render() {
-    //LOAD THIS PAGE INTO HISTORY TWICE
-    history.push('/allproducts')
-
+    console.log("this is users", this.props)
     return (
       <div>
         <h1> ALL PRODUCTS</h1>

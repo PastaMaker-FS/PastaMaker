@@ -56,36 +56,128 @@ const states = [
     label: 'IN'
   },
   {
-    value: 'AL',
-    label: 'AL'
+    value: 'IA',
+    label: 'IA'
   },
   {
-    value: 'AL',
-    label: 'AL'
+    value: 'KS',
+    label: 'KS'
   },
   {
-    value: 'AL',
-    label: 'AL'
+    value: 'KY',
+    label: 'KY'
   },
   {
-    value: 'AL',
-    label: 'AL'
+    value: 'LA',
+    label: 'LA'
   },
   {
-    value: 'AL',
-    label: 'AL'
+    value: 'ME',
+    label: 'ME'
   },
   {
-    value: 'AL',
-    label: 'AL'
+    value: 'MD',
+    label: 'MD'
   },
   {
-    value: 'AL',
-    label: 'AL'
+    value: 'MI',
+    label: 'MI'
   },
   {
-    value: '51-100',
-    label: '51 to 100'
+    value: 'MN',
+    label: 'MN'
+  },
+  {
+    value: 'MS',
+    label: 'MS'
+  },
+  {
+    value: 'MO',
+    label: 'MO'
+  },
+  {
+    value: 'MT',
+    label: 'MT'
+  },
+  {
+    value: 'NE',
+    label: 'NE'
+  },
+  {
+    value: 'NV',
+    label: 'NV'
+  },
+  {
+    value: 'NH',
+    label: 'NH'
+  },
+  {
+    value: 'NY',
+    label: 'NY'
+  },
+  {
+    value: 'NC',
+    label: 'NC'
+  },
+  {
+    value: 'ND',
+    label: 'ND'
+  },
+  {
+    value: 'NJ',
+    label: 'NJ'
+  },
+  {
+    value: 'OH',
+    label: 'OH'
+  },
+  {
+    value: 'PA',
+    label: 'PA'
+  },
+  {
+    value: 'RI',
+    label: 'RI'
+  },
+  {
+    value: 'SC',
+    label: 'SC'
+  },
+  {
+    value: 'SD',
+    label: 'SD'
+  },
+  {
+    value: 'TN',
+    label: 'TN'
+  },
+  {
+    value: 'TX',
+    label: 'TX'
+  },
+  {
+    value: 'UT',
+    label: 'UT'
+  },
+  {
+    value: 'VT',
+    label: 'VT'
+  },
+  {
+    value: 'VA',
+    label: 'VA'
+  },
+  {
+    value: 'WA',
+    label: 'WA'
+  },
+  {
+    value: 'WV',
+    label: 'WV'
+  },
+  {
+    value: 'WY',
+    label: 'WY'
   }
 ]
 
