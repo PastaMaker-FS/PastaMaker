@@ -6,8 +6,6 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import createItem from '../../store/order';
 import Modal from '@material-ui/core/Modal';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;

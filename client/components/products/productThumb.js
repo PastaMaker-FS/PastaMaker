@@ -51,9 +51,6 @@ export function ProductThumb({
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
-            Share
-          </Button>
           <Button
             size="small"
             color="primary"

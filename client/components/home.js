@@ -35,30 +35,26 @@ class Home extends Component {
     const classes = this.props
     const products = this.props.products.products
     return (
-      <div className={classes.root}>
+      <React.Fragment>
         <div className="homeDiv">
           <div className="logoDiv">
-            <span
-            data-text="logo"
-            className="logo">
-              PastaBoss
-            </span>
-            <span>
-              We sell pasta and stuff(description of company)
-            </span>
+            <span className="logo">PastaBoss!</span>
+            <span>We sell pasta and stuff(description of company)</span>
             <span>
               We want everyone to have our awsome pasta and stuff(our mission)
             </span>
           </div>
         </div>
-        <GridList cellHeight={200} className={classes.gridList} cols={4}>
-          {products.map(data => (
-            <GridListTile key={data.id}>
-              <img src={data.imgUrl} alt={data.name} />
-            </GridListTile>
-          ))}
-        </GridList>
-      </div>
+        <div className={classes.root}>
+          <GridList cellHeight={300} className={classes.gridList} cols={3}>
+            {products.map(data => (
+              <GridListTile key={data.id}>
+                <img src={data.imgUrl} alt={data.name} />
+              </GridListTile>
+            ))}
+          </GridList>
+        </div>
+      </React.Fragment>
     )
   }
 }
