@@ -73,7 +73,7 @@ const AuthForm = props => {
               <div className={classes.left}>
                 <TextField
                   id="outlined-email-input"
-                  label="Email"
+                  label="email"
                   className={classes.textField}
                   type="email"
                   name="email"
@@ -83,9 +83,10 @@ const AuthForm = props => {
                 />
                 <TextField
                   id="outlined-password-input"
-                  label="Password"
+                  label="password"
                   className={classes.textField}
                   type="password"
+                  name="password"
                   autoComplete="current-password"
                   margin="normal"
                   variant="outlined"
@@ -153,6 +154,7 @@ const mapSignup = state => {
 const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
+      console.log(evt)
       evt.preventDefault()
       const formName = evt.target.name
       const email = evt.target.email.value
