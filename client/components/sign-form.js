@@ -47,6 +47,7 @@ class SignForm extends Component {
 
   render() {
     const {classes, handleSubmit} = this.props
+    console.log("newUSER", newUser)
     return (
       <div>
         <form onSubmit={handleSubmit} className={classes.container}>
@@ -126,6 +127,14 @@ class SignForm extends Component {
             SUBMIT
           </Button>
         </form>
+        {console.log("thisis props", JSON.stringify(this.props.newUser))}
+        {
+
+          this.props.newUser.message ?
+          <h1>{this.props.newUser.message}</h1>
+            :
+            null
+        }
       </div>
     )
   }
