@@ -5,6 +5,9 @@ import {auth} from '../store'
 import Button from '@material-ui/core/Button'
 import {Link} from 'react-router-dom'
 import {withStyles} from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card'
+import TextField from '@material-ui/core/TextField'
+import zIndex from '@material-ui/core/styles/zIndex'
 
 /**
  * COMPONENT
@@ -12,11 +15,45 @@ import {withStyles} from '@material-ui/core/styles'
 
 const styles = theme => ({
   button: {
-    margin: theme.spacing.unit,
-    color: 'red'
+    margin: theme.spacing.unit
   },
   input: {
     display: 'none'
+  },
+  contain: {
+    position: 'fixed',
+    zIndex: 2,
+    top: '30vh',
+    left: '40vw',
+    boxShadow: '0 6px 20px 0 rgba(0, 0, 0, 0.7)'
+  },
+  form: {
+    margin: 0
+  },
+  card: {
+    maxWidth: 350
+  },
+  media: {
+    height: 140
+  },
+  loginDiv: {
+    textAlign: 'center',
+    backgroundColor: '#F58F29',
+    height: 50
+  },
+  login: {
+    position: 'relative',
+    top: 15,
+    color: 'white'
+  },
+  left: {
+    marginLeft: 70
+  },
+  leftB: {
+    marginLeft: 50
+  },
+  imgDiv: {
+    marginTop: 10
   }
 })
 
@@ -25,33 +62,67 @@ const AuthForm = props => {
 
   return (
     <React.Fragment>
-      <div>
-        <form onSubmit={handleSubmit} name={name}>
-          <div>
-            <label htmlFor="email">
-              <small>Email</small>
-            </label>
-            <input name="email" type="text" />
+      <div className="background" />
+      <div className={classes.contain}>
+        <Card className={classes.card}>
+          <div className={classes.loginDiv}>
+            <div className={classes.login}>LOGIN</div>
           </div>
           <div>
-            <label htmlFor="password">
-              <small>Password</small>
-            </label>
-            <input name="password" type="password" />
+            <form className={classes.form} onSubmit={handleSubmit} name={name}>
+              <div className={classes.left}>
+                <TextField
+                  id="outlined-email-input"
+                  label="Email"
+                  className={classes.textField}
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  margin="normal"
+                  variant="outlined"
+                />
+                <TextField
+                  id="outlined-password-input"
+                  label="Password"
+                  className={classes.textField}
+                  type="password"
+                  autoComplete="current-password"
+                  margin="normal"
+                  variant="outlined"
+                />
+              </div>
+              {error && error.response && <div> {error.response.data} </div>}
+              <div className={classes.leftB}>
+                <Link to="/signup">
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    className={classes.button}
+                  >
+                    Sign Up
+                  </Button>
+                </Link>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  className={classes.button}
+                  type="submit"
+                >
+                  {displayName}
+                </Button>
+                <div className="imgDiv">
+                  <a href="/auth/google">
+                    <img
+                      src="https://i.imgur.com/RS0U5Nm.png"
+                      className="imgG"
+                    />
+                  </a>
+                </div>
+              </div>
+            </form>
           </div>
-          <div>
-            <button type="submit">{displayName}</button>
-          </div>
-          {error && error.response && <div> {error.response.data} </div>}
-        </form>
-        <a href="/auth/google">{displayName} with Google</a>
+        </Card>
       </div>
-
-      <Link to="/signup">
-        <Button variant="outlined" color="primary" className={classes.button}>
-          Sign Up
-        </Button>
-      </Link>
     </React.Fragment>
   )
 }
