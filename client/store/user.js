@@ -12,12 +12,14 @@ const GET_ALL_USER = 'GET_ALL_USER'
 const USER_IS_LOADING = 'USER_IS_LOADING'
 const USER_LOADED = 'USER_LOADED'
 const GET_ONE_USER = 'GET_ONE_USER'
+const SET_MESSAGE = 'SET_MESSAGE'
 
 /**
  * INITIAL STATE
  */
 const defaultUser = {
   users: [],
+  message: {},
   user: {},
   status: {
     userLoaded: false,
@@ -33,7 +35,8 @@ export const removeUser = () => ({type: REMOVE_USER})
 export const addUser = user => ({type: ADD_USER, user})
 export const updateUser = user => ({type: UPDATE_USER, user})
 export const singleUser = user => ({type: GET_ONE_USER, user})
-export const getAllUser = users => ({tye: GET_ALL_USER, users})
+export const getAllUser = users => ({type: GET_ALL_USER, users})
+const setMessage = message => ({type: SET_MESSAGE, message})
 
 /**
  * THUNK CREATORS
@@ -69,8 +72,12 @@ export const newUser = user => {
   return async dispatch => {
     try {
       res = await axios.post('/api/users', content)
-      dispatch(getUser(res.data))
-      history.push('/allproducts')
+      if (res.data.message === 'User Already Exists!') {
+        dispatch(setMessage(res.data.message))
+      } else {
+        dispatch(getUser(res.data))
+        history.push('/allproducts')
+      }
     } catch (err) {
       console.error(err)
     }
@@ -125,6 +132,8 @@ export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
       return action.user
+    case SET_MESSAGE:
+      return {...state, message: action.message}
     case GET_ONE_USER:
       return {...state, user: action.user}
     case ADD_USER:
