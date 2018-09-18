@@ -18,7 +18,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#ede10b'
+      main: '#dc9751'
     },
     secondary: {
       main: '#F58F29'
@@ -31,11 +31,11 @@ const styles = {
     margin: theme.spacing.unit,
     color: '',
     '&:hover': {
-      background: 'orange'
+      background: 'white'
     },
     '&:focus': {
-      boxShadow: '0 0 0 0.2rem rgba(125, 70, 0)',
-    },
+      boxShadow: '0 0 0 0.2rem rgba(125, 70, 0)'
+    }
   },
   input: {
     display: 'none'
@@ -63,19 +63,18 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => {
         <MuiThemeProvider theme={theme}>
           <AppBar position="static" color="secondary">
             <Toolbar>
-              <Link
-                to="/"
-                style={{textDecoration: 'none'}}
-                className={classes.grow}
-              >
-                <Button
-                  variant="raised"
-                  color="primary"
-                  className={classes.button}
-                >
-                  <span className="buttonLogo">PastaBoss!</span>
-                </Button>
-              </Link>
+              <div className={classes.grow}>
+                <Link to="/" style={{textDecoration: 'none'}}>
+                  <Button
+                    variant="raised"
+                    color="primary"
+                    className={classes.button}
+                  >
+                    <span className="buttonLogo">PastaBoss!</span>
+                  </Button>
+                </Link>
+              </div>
+
               {isLoggedIn ? (
                 <div>
                   {/* The navbar will show these links after you log in */}
