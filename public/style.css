@@ -55,4 +55,9 @@ form div {
 }
 .imgG {
   max-width: 50px;
-
+}
+.buttonLogo {
+  font-family: 'Cookie', cursive;
+  font-size: 20pt;
+  color: #7d4600;
+}
