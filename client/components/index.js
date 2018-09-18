@@ -12,7 +12,7 @@ export { default as Item } from './orders/item';
 export { default as ItemView } from './orders/item-view';
 export { default as OrderHistory } from './orders/order-history';
 export { default as OrderView } from './orders/order-view';
-export { default as CheckoutForm } from './checkout/1_checkoutForm';
+export { default as CheckoutWrapper } from './checkout/checkoutWrapper';
 export { default as Home } from './home';
 export { Login, Signup } from './auth-form';
 export { default as AllProducts } from './products/allProducts';

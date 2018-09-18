@@ -9,7 +9,7 @@ import { UserSign, UserUpdate } from './components/sign-form';
 import Home from './components/home';
 import { Login, UserHome, Cart, Confirmation } from './components';
 
-import CheckoutForm from './components/checkout/1_checkoutForm';
+import CheckoutWrapper from './components/checkout/checkoutWrapper';
 /**
  * COMPONENT
  */
@@ -30,7 +30,7 @@ class Routes extends Component {
 				<Route exact path="/aboutus" component={AboutUs} />
 				<Route exact path="/allproducts" component={AllProducts} />
 				<Route exact path="/cart" component={Cart} />
-				<Route exact path="/checkout" component={CheckoutForm} />
+				<Route exact path="/checkout" component={CheckoutWrapper} />
 				<Route exact path="/confirmation" component={Confirmation} />
 				{isLoggedIn && (
 					<Switch>
