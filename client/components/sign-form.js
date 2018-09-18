@@ -127,14 +127,14 @@ class SignForm extends Component {
             SUBMIT
           </Button>
         </form>
-        {console.log("thisis props", JSON.stringify(this.props.newUser))}
+        {/* {console.log("thisis props", JSON.stringify(this.props.newUser))}
         {
 
           this.props.newUser.message ?
           <h1>{this.props.newUser.message}</h1>
             :
             null
-        }
+        } */}
       </div>
     )
   }
