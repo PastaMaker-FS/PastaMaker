@@ -17,6 +17,9 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 
 const theme = createMuiTheme({
   palette: {
+    primary: {
+      main: '#ede10b'
+    },
     secondary: {
       main: '#F58F29'
     }
@@ -26,7 +29,13 @@ const theme = createMuiTheme({
 const styles = {
   button: {
     margin: theme.spacing.unit,
-    color: 'white'
+    color: '',
+    '&:hover': {
+      background: 'orange'
+    },
+    '&:focus': {
+      boxShadow: '0 0 0 0.2rem rgba(125, 70, 0)',
+    },
   },
   input: {
     display: 'none'
@@ -59,16 +68,24 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => {
                 style={{textDecoration: 'none'}}
                 className={classes.grow}
               >
-                <Button color="primary" className={classes.button}>
-                  Home
+                <Button
+                  variant="raised"
+                  color="primary"
+                  className={classes.button}
+                >
+                  <span className="buttonLogo">PastaBoss!</span>
                 </Button>
               </Link>
               {isLoggedIn ? (
                 <div>
                   {/* The navbar will show these links after you log in */}
                   <Link to="/allproducts" style={{textDecoration: 'none'}}>
-                    <Button color="primary" className={classes.button}>
-                      All Products
+                    <Button
+                      variant="raised"
+                      color="primary"
+                      className={classes.button}
+                    >
+                      <span className="buttonFont">All Products</span>
                     </Button>
                   </Link>
                   <a
@@ -76,18 +93,30 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => {
                     onClick={handleClick}
                     style={{textDecoration: 'none'}}
                   >
-                    <Button color="primary" className={classes.button}>
-                      Logout
+                    <Button
+                      variant="raised"
+                      color="primary"
+                      className={classes.button}
+                    >
+                      <span className="buttonFont">Logout</span>
                     </Button>
                   </a>
                   <Link to="/user" style={{textDecoration: 'none'}}>
-                    <Button color="primary" className={classes.button}>
-                      User Info
+                    <Button
+                      variant="raised"
+                      color="primary"
+                      className={classes.button}
+                    >
+                      <span className="buttonFont">User Info</span>
                     </Button>
                   </Link>
                   <Link to="/aboutus" style={{textDecoration: 'none'}}>
-                    <Button color="primary" className={classes.button}>
-                      About Us
+                    <Button
+                      variant="raised"
+                      color="primary"
+                      className={classes.button}
+                    >
+                      <span className="buttonFont">About Us</span>
                     </Button>
                   </Link>
                   <IconButton
@@ -104,17 +133,29 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => {
                 <div>
                   {/* The navbar will show these links before you log in */}
                   <Link to="/allproducts" style={{textDecoration: 'none'}}>
-                    <Button color="primary" className={classes.button}>
+                    <Button
+                      variant="raised"
+                      color="primary"
+                      className={classes.button}
+                    >
                       All Products
                     </Button>
                   </Link>
                   <Link to="/login" style={{textDecoration: 'none'}}>
-                    <Button color="primary" className={classes.button}>
+                    <Button
+                      variant="raised"
+                      color="primary"
+                      className={classes.button}
+                    >
                       Login
                     </Button>
                   </Link>
                   <Link to="/aboutus" style={{textDecoration: 'none'}}>
-                    <Button color="primary" className={classes.button}>
+                    <Button
+                      variant="raised"
+                      color="primary"
+                      className={classes.button}
+                    >
                       About Us
                     </Button>
                   </Link>
