@@ -42,7 +42,7 @@ class CheckoutForm extends React.Component {
       name: '',
       email: '',
       card: '',
-      userId: -1,
+      user: {},
       orderId: -1,
       totalPrice: -1,
       submitted: false
@@ -53,10 +53,10 @@ class CheckoutForm extends React.Component {
 
   async componentDidMount() {
     await this.props.fetchUser();
-    await this.props.fetchOrders(this.props.user.id);
+    await this.props.fetchOrders(this.props.user);
     const cart = this.props.orders.filter(order => order.isPurchased === false)[0];
     this.setState({
-      userId: this.props.user.id,
+      user: this.props.user,
       orderId: cart.id,
       totalPrice: cart.products.reduce((a,b) => a + (b.price * b.quantity), 0)
     })
@@ -85,7 +85,7 @@ class CheckoutForm extends React.Component {
       // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
       await this.props.purchaseOrder(
-        this.state.userId,
+        this.state.user,
         this.state.orderId,
         this.state.totalPrice
       )
@@ -204,9 +204,9 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   fetchUser: () => dispatch(me()),
-  fetchOrders: (userId) => dispatch(fetchOrders(userId)),
+  fetchOrders: (user) => dispatch(fetchOrders(user)),
   // chargeCard: (card) => dispatch(chargeCard(card)),
-  purchaseOrder: (userId, orderId, price) => dispatch(purchaseOrder(userId, orderId, price)),
+  purchaseOrder: (user, orderId, price) => dispatch(purchaseOrder(user, orderId, price)),
 })
 
 export default withStyles(styles)(connect(

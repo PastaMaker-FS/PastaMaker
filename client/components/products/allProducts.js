@@ -9,7 +9,7 @@ import STRIPE from '../payments/stripe'
 class AllProducts extends Component {
   async componentDidMount() {
     await this.props.fetchAllProducts()
-    this.props.fetchOrders(this.props.user.id)
+    this.props.fetchOrders(this.props.user)
   }
 
   render() {
@@ -37,10 +37,10 @@ const mapStoreToProps = store => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchAllProducts: () => dispatch(getProductTHUNK()),
-    fetchOrders: userId => dispatch(fetchOrders(userId)),
+    fetchOrders: user => dispatch(fetchOrders(user)),
     selectProduct: product => dispatch(selectProduct(product)),
-    addToCart: (userId, productId, quantity) =>
-      dispatch(createItem(userId, productId, quantity))
+    addToCart: (user, productId, quantity) =>
+      dispatch(createItem(user, productId, quantity))
   }
 }
 

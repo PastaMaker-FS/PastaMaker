@@ -125,64 +125,68 @@ router.put('/', async (req, res, next) => {
 //========================== ORDER ROUTES FOR USER =====================
 // get all orders for user if auth user or admin
 // for cart/history --> filter by isPurchased
+
 router.get('/:userId/orders', async (req, res, next) => {
-  const getOrders = async () => {
-    // get user's cart if it exists
-    let cart = await Order.findOne({
-      where: {
-        userId: req.params.userId,
-        isPurchased: false
-      }
-    })
 
-    // create cart if it doesn't exist
-    if (!cart) {
-      cart = await Order.create({
-        // datePurchased: req.body.datePurchased,
-        userId: req.params.userId
-      })
+const getUserOrders = async () => {
+  // get user's cart if it exists
+  let cart = await Order.findOne({
+    where: {
+      userId: req.params.userId,
+      isPurchased: false
     }
+  })
 
-    // then get all orders
-    const ordersWithProducts = []
-    const orders = await Order.findAll({
-      where: {
-        userId: req.params.userId
-      }
+  // create cart if it doesn't exist
+  if (!cart) {
+    cart = await Order.create({
+      // datePurchased: req.body.datePurchased,
+      userId: req.params.userId
     })
-
-    await Promise.all(
-      orders.map(async order => {
-        const products = await order.getProducts()
-
-        const productsParsed = products.map(product => ({
-          id: product.id,
-          name: product.name,
-          description: product.description,
-          stock: product.stock,
-          price: product.price,
-          purchasePrice: product.item.purchasePrice,
-          quantity: product.item.quantity,
-          imgUrl: product.imgUrl
-        }))
-
-        ordersWithProducts.push({
-          id: order.id,
-          datePurchased: order.datePurchased,
-          isPurchased: order.isPurchased,
-          totalPrice: order.totalPrice,
-          orderNumber: order.orderNumber,
-          products: productsParsed
-        })
-      })
-    )
-    return ordersWithProducts
   }
 
+  // then get all orders
+  const ordersWithProducts = []
+  const orders = await Order.findAll({
+    where: {
+      userId: req.params.userId
+    }
+  })
+
+  await Promise.all(
+    orders.map(async order => {
+      const products = await order.getProducts()
+
+      const productsParsed = products.map(product => ({
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        stock: product.stock,
+        price: product.price,
+        purchasePrice: product.item.purchasePrice,
+        quantity: product.item.quantity,
+        imgUrl: product.imgUrl
+      }))
+
+      ordersWithProducts.push({
+        id: order.id,
+        datePurchased: order.datePurchased,
+        isPurchased: order.isPurchased,
+        totalPrice: order.totalPrice,
+        orderNumber: order.orderNumber,
+        products: productsParsed
+      })
+    })
+  )
+  return ordersWithProducts
+}
+
+
+
   try {
-    if (req.params.userId == req.user.id) {
+    if (req.user && req.params.userId == req.user.id) {
       //|| req.user.isAdmin
-      const orders = await getOrders()
+      const orders = await getUserOrders()
       res.json(orders)
     } else {
       res.status(403).end()
@@ -195,7 +199,7 @@ router.get('/:userId/orders', async (req, res, next) => {
 
 // add item to cart
 router.post('/:userId/orders', async (req, res, next) => {
-  // console.log(`-------- req.body: ${JSON.stringify(req.body)}`)
+  console.log(`-------- req.body: ${JSON.stringify(req.body)}`)
   try {
     // get user's cart if it exists
     let cart = await Order.findOne({
@@ -206,21 +210,28 @@ router.post('/:userId/orders', async (req, res, next) => {
     })
 
     // create cart if it doesn't exist
-    if (!cart) {
-      cart = await Order.create({
-        // datePurchased: req.body.datePurchased,
-        userId: req.params.userId
-      })
-    }
+    // if (!cart) {
+    //   cart = await Order.create({
+    //     // datePurchased: req.body.datePurchased,
+    //     userId: req.params.userId
+    //   })
+    // }
 
     // add item to cart
-    const item = await Item.create({
+    const newItem = await Item.create({
       orderId: cart.id,
       productId: req.body.productId,
       quantity: req.body.quantity
     })
 
-    res.json(item)
+
+
+    // res.json(item)
+    res.json({
+      id: newItem.productId,
+      purchasePrice: newItem.purchasePrice,
+      quantity: newItem.quantity,
+    })
   } catch (error) {
     console.error(error)
     next(error)
@@ -345,7 +356,22 @@ router.put('/:userId/orders/:orderId/:productId', async (req, res, next) => {
         purchasePrice: req.body.purchasePrice
       })
 
-      res.json(updatedItem)
+      // newItem = {
+      //   id: updatedItem.productId,
+      //   name: product.name,
+      //   description: product.description,
+      //   stock: product.stock,
+      //   price: product.price,
+      //   purchasePrice: null,
+      //   quantity,
+      //   imgUrl: product.imgUrl,
+      // }
+
+      res.json({
+        id: updatedItem.productId,
+        purchasePrice: updatedItem.purchasePrice,
+        quantity: updatedItem.quantity,
+      })
     } else {
       res.status(403).end()
     }
