@@ -30,7 +30,9 @@ export function ProductThumb({
   addToCart,
   selectProduct,
   deselectProduct,
-  classes
+  classes,
+  incrementCount,
+  decrementCount
 }) {
   return (
     <div className={classes.divStyle}>
@@ -54,7 +56,11 @@ export function ProductThumb({
           <Button
             size="small"
             color="primary"
-            onClick={() => addToCart(user, product, 1)}
+            onClick={() => {
+              addToCart(user, product, 1)
+              incrementCount();
+              decrementCount();
+            }}
           >
             Add to Cart
           </Button>

@@ -20,6 +20,8 @@ class AllProducts extends Component {
           selectProduct={this.props.selectProduct}
           user={this.props.user}
           addToCart={this.props.addToCart}
+          incrementCount={this.props.incrementCount}
+          decrementConnt={this.props.decrementCount}
         />
       </div>
     )
