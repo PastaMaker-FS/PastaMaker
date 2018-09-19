@@ -40,7 +40,7 @@ class Home extends Component {
           <div className="logoDiv">
             <span className="logo">PastaBoss!</span>
             <h2>
-              Bringing small batch hand crafted Italian pasta made from heritage wheat to the world!
+              Bringing small batch hand crafted Italian pasta made from durum heritage wheat to the world! 100% Italian and glycophosphate free!
             </h2>
             <h3>What's in your pasta?</h3>
           </div>

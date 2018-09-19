@@ -39,7 +39,7 @@ class AboutUs extends Component {
 
     return (
       <div className="wallpaper">
-          <h1>ABOUT US</h1>
+          <div className="titleLogo">ABOUT US</div>
         <div className={classes.divStyle}>
           {abouts.map(about => {
             return (
