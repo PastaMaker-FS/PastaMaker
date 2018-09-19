@@ -11,7 +11,8 @@ import Typography from '@material-ui/core/Typography'
 
 const styles = theme => ({
   card: {
-    maxWidth: 345
+    maxWidth: 345,
+    height: 350
   },
   media: {
     // ⚠️ object-fit is not supported by IE11.
