@@ -1,6 +1,7 @@
-import React from 'react'
-import {connect} from 'react-redux'
+import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Checkout from '../checkout/checkout';
 
 // material ui
 import Button from '@material-ui/core/Button';
@@ -16,141 +17,112 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
 // thunks
-import {
-  decrementItem,
-  incrementItem,
-  destroyItem
-} from '../../store';
+import { decrementItem, incrementItem, destroyItem } from '../../store';
 
 // components
-import {
-  Item
-} from '../../components'
+import { Item } from '../../components';
 
 // styles
-const styles = theme => ({
-  root: {
-    width: '100%',
-    overflowX: 'auto',
-  },
-  flex: {
-    flexGrow: 1,
-  },
-  table: {
-    minWidth: 700,
-  },
+const styles = (theme) => ({
+	root: {
+		width: '100%',
+		overflowX: 'auto'
+	},
+	flex: {
+		flexGrow: 1
+	},
+	table: {
+		minWidth: 700
+	}
 });
 
 class CartView extends React.Component {
+	render() {
+		const { classes, cart, totalPending, user, incrementPending, decrementPending } = this.props;
 
-  render() {
-    const {classes, cart, totalPending, user, incrementPending, decrementPending} = this.props
+		return (
+			<React.Fragment>
+				<Toolbar>
+					<Typography variant="title" color="inherit">
+						Your Cart
+					</Typography>
+				</Toolbar>
 
-    return (
-      <React.Fragment>
+				<Paper className={classes.root}>
+					<Toolbar>
+						<Typography color="inherit" className={classes.flex}>
+							Pending Order
+						</Typography>
+					</Toolbar>
 
-        <Toolbar>
-          <Typography
-            variant="title"
-            color="inherit"
-          >Your Cart
-          </Typography>
-        </Toolbar>
+					<Table className={classes.table}>
+						<TableHead>
+							<TableRow>
+								<TableCell>Avatar</TableCell>
+								<TableCell>Name</TableCell>
+								<TableCell numeric>Quantity</TableCell>
+								<TableCell numeric>Price</TableCell>
+								<TableCell numeric>Subtotal</TableCell>
+								<TableCell>Add / Subtract / Remove</TableCell>
+							</TableRow>
+						</TableHead>
 
-        <Paper className={classes.root}>
+						<TableBody>
+							{cart.products.map((product) => (
+								<Item
+									key={product.id}
+									product={product}
+									increment={() => {
+										this.props.incrementItem(user.id, cart.id, product.id);
+									}}
+									decrement={() => {
+										this.props.decrementItem(user.id, cart.id, product.id);
+									}}
+									remove={() => {
+										this.props.destroyItem(user.id, cart.id, product.id);
+									}}
+									incrementPending={incrementPending}
+									decrementPending={decrementPending}
+								/>
+							))}
+						</TableBody>
+					</Table>
 
-          <Toolbar>
+					<Toolbar>
+						<Typography color="secondary" className={classes.flex}>
+							Total Price: ${(totalPending / 100).toFixed(2)}
+						</Typography>
 
-            <Typography
-              color="inherit"
-              className={classes.flex}
-            >Pending Order
-            </Typography>
+						<Checkout
+							name={'PastaBoss'}
+							description={'AllThePasta'}
+							amount={(totalPending / 100).toFixed(2)}
+						/>
 
-          </Toolbar>
-
-          <Table className={classes.table}>
-
-            <TableHead>
-              <TableRow>
-                <TableCell>Avatar</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell numeric>Quantity</TableCell>
-                <TableCell numeric>Price</TableCell>
-                <TableCell numeric>Subtotal</TableCell>
-                <TableCell>Add / Subtract / Remove</TableCell>
-              </TableRow>
-            </TableHead>
-
-            <TableBody>
-              {cart.products.map(product =>
-                <Item
-                  key={product.id}
-                  product={product}
-                  increment={() => {
-                    this.props.incrementItem(user, cart.id, product.id)
-                  }}
-                  decrement={() => {
-                    this.props.decrementItem(user, cart.id, product.id)
-                  }}
-                  remove={() => {
-                    this.props.destroyItem(user, cart.id, product.id)
-                  }}
-                  incrementPending={incrementPending}
-                  decrementPending={decrementPending}
-                />
-              )}
-            </TableBody>
-
-          </Table>
-
-          <Toolbar>
-
-          <Typography
-              color="secondary"
-              className={classes.flex}
-            >Total Price: ${(totalPending/100).toFixed(2)}
-            </Typography>
-
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.button}
-              component={Link}
-              to="/checkout"
-            >Checkout
-            </Button>
-
-            <Button
-              variant="contained"
-              color="inherit"
-              className={classes.button}
-              component={Link}
-              to="/allproducts"
-            >Continue Shopping
-            </Button>
-
-          </Toolbar>
-
-      </Paper>
-
-      </React.Fragment>
-    )
-  }
+						<Button
+							variant="contained"
+							color="inherit"
+							className={classes.button}
+							component={Link}
+							to="/allproducts"
+						>
+							Continue Shopping
+						</Button>
+					</Toolbar>
+				</Paper>
+			</React.Fragment>
+		);
+	}
 }
 
-const mapState = state => ({
-  user: state.user
-})
+const mapState = (state) => ({
+	user: state.user
+});
 
-const mapDispatch = dispatch => ({
-  incrementItem: (userId, orderId, productId) => dispatch(incrementItem(userId, orderId, productId)),
-  decrementItem: (userId, orderId, productId) => dispatch(decrementItem(userId, orderId, productId)),
-  destroyItem: (userId, orderId, productId) => dispatch(destroyItem(userId, orderId, productId))
-})
+const mapDispatch = (dispatch) => ({
+	incrementItem: (userId, orderId, productId) => dispatch(incrementItem(userId, orderId, productId)),
+	decrementItem: (userId, orderId, productId) => dispatch(decrementItem(userId, orderId, productId)),
+	destroyItem: (userId, orderId, productId) => dispatch(destroyItem(userId, orderId, productId))
+});
 
-export default withStyles(styles)(connect(
-  mapState,
-  mapDispatch,
-)(CartView));
-
+export default withStyles(styles)(connect(mapState, mapDispatch)(CartView));
