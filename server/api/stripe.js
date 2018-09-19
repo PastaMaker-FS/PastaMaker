@@ -1,33 +1,53 @@
 const router = require('express').Router();
 const { order } = require('../db/models');
+const stripe = require('stripe')('sk_test_wFQxEwR1zd4tlLgLDdSX0nDD');
+const uuidv1 = require('uuid/v1');
 module.exports = router;
+
+const paymentObject = {}
+
+const postStripeCharge = res => (stripeErr, stripeRes) => {
+  if (stripeErr) {
+    res.status(500).send({ error: stripeErr });
+  } else {
+    res.status(200).send({ success: stripeRes });
+  }
+}
 
 router.post('/', async (req, res, next) => {
 	try {
-		console.log('The stripe', req.body);
+    // //console.log('The stripe', req.body);
+    // paymentObject.amount = req.body.amount;
+    // paymentObject.currency = req.body.currency;
+    // paymentObject.token = req.body.source;
+    // paymentObject.description = req.body.description;
+
+    // const response = await getStripe(paymentObject, res);
+    // console.log(response);
+
+
+      stripe.charges.create(req.body, postStripeCharge(res));
+
+
+    //res.status(200).send({ success: stripeRes });
 	} catch (error) {
 		console.log('error', error);
 	}
 });
-// var stripe = require('stripe')('sk_test_wFQxEwR1zd4tlLgLDdSX0nDD');
 
-// //What are we taking in?
 
-// //We are taking in the credit card order form.
-
-// //Generate Unique IDS
-
-// function getStripe() {
+// function getStripe({amount, currency, token, description}) {
 // 	return new Promise((resolve, reject) => {
+//     let specialkey = uuidv1();
 // 		stripe.charges.create(
 // 			{
-// 				amount: 2000,
-// 				currency: 'usd',
-// 				source: 'tok_amex', // obtained with Stripe.js
-// 				description: 'Charge for jenny.rosen@example.com'
+// 				amount,
+// 				currency,
+// 				source: token,
+// 				description
 // 			},
 // 			{
-// 				idempotency_key: 'C2A2hazus6O3mhIl'
+// 				idempotency_key: specialkey
 // 			},
 // 			function(err, charge) {
 // 				if (err) {
@@ -47,13 +67,13 @@ router.post('/', async (req, res, next) => {
 // }
 
 // testStripe()
-// // async function getCharge(charge){
+// async function getCharge(charge){
 
-// //   try {
-// //     stripe.charges.retrieve("ch_1DBSeLLV2XllS4MDb3aUjjSh", {
-// //       api_key: "sk_test_wFQxEwR1zd4tlLgLDdSX0nDD"
-// //     });
-// //   } catch (error) {
+//   try {
+//     stripe.charges.retrieve("ch_1DBSeLLV2XllS4MDb3aUjjSh", {
+//       api_key: "sk_test_wFQxEwR1zd4tlLgLDdSX0nDD"
+//     });
+//   } catch (error) {
 
-// //   }
-// // }
+//   }
+// }
