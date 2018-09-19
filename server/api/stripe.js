@@ -1,14 +1,14 @@
-const router = require('express').Router()
-const {order} = require('../db/models')
-module.exports=router
+const router = require('express').Router();
+const { order } = require('../db/models');
+module.exports = router;
 
 router.post('/', async (req, res, next) => {
-  try {
-console.log("The stripe", req)
-  } catch (error) {
-console.log("error", error)
-  }
-})
+	try {
+		console.log('The stripe', req.body);
+	} catch (error) {
+		console.log('error', error);
+	}
+});
 // var stripe = require('stripe')('sk_test_wFQxEwR1zd4tlLgLDdSX0nDD');
 
 // //What are we taking in?
@@ -16,7 +16,6 @@ console.log("error", error)
 // //We are taking in the credit card order form.
 
 // //Generate Unique IDS
-
 
 // function getStripe() {
 // 	return new Promise((resolve, reject) => {
