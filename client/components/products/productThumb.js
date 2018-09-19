@@ -18,9 +18,9 @@ const styles = theme => ({
     objectFit: 'cover'
   },
   divStyle: {
-    marginTop: 10,
-    marginRight: 10,
-    marginLeft: 10
+    width: "30%",
+    marginTop: 20,
+    marginLeft: 40
   }
 })
 
