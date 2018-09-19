@@ -88,13 +88,13 @@ class CartView extends React.Component {
                   key={product.id}
                   product={product}
                   increment={() => {
-                    this.props.incrementItem(user.id, cart.id, product.id)
+                    this.props.incrementItem(user, cart.id, product.id)
                   }}
                   decrement={() => {
-                    this.props.decrementItem(user.id, cart.id, product.id)
+                    this.props.decrementItem(user, cart.id, product.id)
                   }}
                   remove={() => {
-                    this.props.destroyItem(user.id, cart.id, product.id)
+                    this.props.destroyItem(user, cart.id, product.id)
                   }}
                   incrementPending={incrementPending}
                   decrementPending={decrementPending}
@@ -109,7 +109,7 @@ class CartView extends React.Component {
           <Typography
               color="secondary"
               className={classes.flex}
-            >Total Price: ${totalPending}
+            >Total Price: ${(totalPending/100).toFixed(2)}
             </Typography>
 
             <Button

@@ -54,7 +54,7 @@ export function ProductThumb({
           <Button
             size="small"
             color="primary"
-            onClick={() => addToCart(user.id, product.id, 1)}
+            onClick={() => addToCart(user, product, 1)}
           >
             Add to Cart
           </Button>

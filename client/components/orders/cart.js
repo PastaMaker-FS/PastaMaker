@@ -21,7 +21,6 @@ class Cart extends React.Component {
     await this.props.fetchOrders(this.props.user);
     const cart = this.props.orders.filter(order => order.isPurchased === false)[0]
     this.setState({
-      // cart: orders.filter(order => order.isPurchased === false)[0],
       totalPending: cart.products.reduce((a,b) => a + (b.price * b.quantity), 0),
       ready: true
     })
@@ -74,14 +73,14 @@ class Cart extends React.Component {
 
 const mapState = state => ({
   orders: state.orders.list,
-  user: state.user.id,
+  user: state.user,
   loading: state.orders.loading,
   error: state.orders.error
 })
 
 const mapDispatch = dispatch => ({
   fetchUser: () => dispatch(me()),
-  fetchOrders: (userId) => dispatch(fetchOrders(userId)),
+  fetchOrders: (user) => dispatch(fetchOrders(user)),
 })
 
 export default connect(mapState, mapDispatch)(Cart)

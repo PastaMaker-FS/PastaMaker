@@ -30,7 +30,7 @@ class Item extends React.Component {
 			...prevState,
 			product: {
 				...prevState.product,
-				quantity: prevState.product.quantity + 1
+				quantity: Number(prevState.product.quantity) + 1
 			}
     }));
     this.props.incrementPending(this.state.product.price);
@@ -44,7 +44,7 @@ class Item extends React.Component {
 				...prevState,
 				product: {
 					...prevState.product,
-					quantity: prevState.product.quantity - 1
+					quantity: Number(prevState.product.quantity) - 1
 				}
       }));
       this.props.decrementPending(this.state.product.price);
