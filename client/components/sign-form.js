@@ -8,6 +8,8 @@ import MenuItem from '@material-ui/core/MenuItem'
 import TextField from '@material-ui/core/TextField'
 import {Signup} from './auth-form'
 import states from './states'
+import AlertDialog from './error'
+
 
 const styles = theme => ({
   container: {
@@ -129,7 +131,9 @@ class SignForm extends Component {
         </form>
         {console.log('this is it', this.props.message)}
         {this.props.message === 'User Already Exists!' ? (
-          <h1> USER EXISTS </h1>
+          <h1>
+             <AlertDialog />
+          </h1>
         ) : null}
       </div>
     )
