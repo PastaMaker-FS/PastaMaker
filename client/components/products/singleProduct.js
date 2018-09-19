@@ -46,7 +46,7 @@ export class SingleProduct extends React.Component {
           />
           <br />
           <div className="singleProductDiv">
-            <h4> {name}</h4>
+            <span className="productName"> Item: {name}</span>
             <p>Description: {description}</p>
             <span className="productStock"> In stock {stock} units.</span>
             <span> Price: {price / 100}</span>
