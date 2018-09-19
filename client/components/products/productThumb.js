@@ -18,9 +18,9 @@ const styles = theme => ({
     objectFit: 'cover'
   },
   divStyle: {
-    marginTop: 10,
-    marginRight: 10,
-    marginLeft: 10
+    width: "30%",
+    marginTop: 20,
+    marginLeft: 40
   }
 })
 
@@ -54,7 +54,7 @@ export function ProductThumb({
           <Button
             size="small"
             color="primary"
-            onClick={() => addToCart(user.id, product.id, 1)}
+            onClick={() => addToCart(user, product, 1)}
           >
             Add to Cart
           </Button>

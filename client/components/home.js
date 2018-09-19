@@ -39,10 +39,10 @@ class Home extends Component {
         <div className="homeDiv">
           <div className="logoDiv">
             <span className="logo">PastaBoss!</span>
-            <span>We sell pasta and stuff(description of company)</span>
-            <span>
-              We want everyone to have our awsome pasta and stuff(our mission)
-            </span>
+            <h2>
+              Bringing small batch hand crafted Italian pasta made from heritage wheat to the world!
+            </h2>
+            <h3>What's in your pasta?</h3>
           </div>
         </div>
         <div className={classes.root}>

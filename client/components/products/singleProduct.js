@@ -31,7 +31,6 @@ export class SingleProduct extends React.Component {
       )
     }
   }
-
   render() {
     const {name, description, stock, price, imgUrl} = this.props.product
     const hideProduct = this.props.hide

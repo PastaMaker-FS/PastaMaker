@@ -79,14 +79,14 @@ class OrderHistory extends React.Component {
 
 const mapState = state => ({
   orders: state.orders.list,
-  user: state.user.id,
+  user: state.user,
   loading: state.orders.loading,
   error: state.orders.error
 })
 
 const mapDispatch = dispatch => ({
   fetchUser: () => dispatch(me()),
-  fetchOrders: (userId) => dispatch(fetchOrders(userId)),
+  fetchOrders: (user) => dispatch(fetchOrders(user)),
 })
 
 // export default connect(mapState, mapDispatch)(OrderHistory)

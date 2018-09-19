@@ -22,6 +22,17 @@ body {
   height: 100vh;
   width: 100vw;
 }
+
+.wallpaper {
+  position: fixed;
+  background-image: url('https://i.imgur.com/6gce6tj.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-top: 25px;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
+}
 .homeDiv {
   text-align: center;
   margin-top: 80px;
