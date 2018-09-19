@@ -15,16 +15,15 @@ const styles = {
   },
   media: {
     // ⚠️ object-fit is not supported by IE11.
-    objectFit: 'cover',
+    objectFit: 'cover'
   },
   divStyle: {
-
     display: 'flex',
-    flexWrap: 'wrap'
-  },
-
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginTop: 200
+  }
 }
-
 
 class AboutUs extends Component {
   constructor(props) {
@@ -39,8 +38,8 @@ class AboutUs extends Component {
     const {abouts, classes} = this.props
 
     return (
-      <div>
-        <h1>ABOUT US</h1>
+      <div className="wallpaper">
+          <h1>ABOUT US</h1>
         <div className={classes.divStyle}>
           {abouts.map(about => {
             return (
