@@ -11,20 +11,20 @@ import Typography from '@material-ui/core/Typography'
 
 const styles = {
   card: {
-    maxWidth: 345
+    maxWidth: 345,
+    height: 350
   },
   media: {
     // ⚠️ object-fit is not supported by IE11.
-    objectFit: 'cover',
+    objectFit: 'cover'
   },
   divStyle: {
-
     display: 'flex',
-    flexWrap: 'wrap'
-  },
-
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginTop: 200,
+  }
 }
-
 
 class AboutUs extends Component {
   constructor(props) {
@@ -39,8 +39,8 @@ class AboutUs extends Component {
     const {abouts, classes} = this.props
 
     return (
-      <div>
-        <h1>ABOUT US</h1>
+      <div className="wallpaper">
+          <div className="titleLogo">ABOUT US</div>
         <div className={classes.divStyle}>
           {abouts.map(about => {
             return (

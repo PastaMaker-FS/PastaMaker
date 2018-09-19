@@ -93,14 +93,6 @@ class CartView extends React.Component {
 							Total Price: ${(totalPending / 100).toFixed(2)}
 						</Typography>
 
-						{/* <Button
-              variant="contained"
-              color="secondary"
-              className={classes.button}
-              component={Link}
-              to="/checkout"
-            >Checkout
-            </Button> */}
 						<Checkout
 							name={'PastaBoss'}
 							description={'AllThePasta'}

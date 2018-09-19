@@ -22,6 +22,29 @@ body {
   height: 100vh;
   width: 100vw;
 }
+
+.titleLogo {
+  position: absolute;
+  padding-top: 100px;
+  top: 10%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  color: whitesmoke;
+  font-family: 'Cookie', cursive;
+  font-size: 80px;
+}
+.wallpaper {
+  position: fixed;
+  background-image: url('https://i.imgur.com/6gce6tj.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-top: 25px;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
+}
 .homeDiv {
   text-align: center;
   margin-top: 80px;
@@ -60,4 +83,8 @@ form div {
   font-family: 'Cookie', cursive;
   font-size: 20pt;
   color: #7d4600;
+}
+.singleProductDiv {
+  display: flex;
+  flex-direction: column;
 }

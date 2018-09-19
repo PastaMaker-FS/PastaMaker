@@ -7,22 +7,13 @@ import {Link} from 'react-router-dom'
 import {withStyles} from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import TextField from '@material-ui/core/TextField'
-import zIndex from '@material-ui/core/styles/zIndex'
-
-/**
- * COMPONENT
- */
 
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit
   },
-  input: {
-    display: 'none'
-  },
   contain: {
     position: 'fixed',
-    zIndex: 2,
     top: '30vh',
     left: '40vw',
     boxShadow: '0 6px 20px 0 rgba(0, 0, 0, 0.7)'

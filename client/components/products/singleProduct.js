@@ -1,20 +1,19 @@
-import React from 'react';
+import React from 'react'
 
 export class SingleProduct extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			quantity: 0
-		};
+  constructor(props) {
+    super(props)
+    this.state = {
+      quantity: 0
+    }
 
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-	}
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
 
-	handleChange(event) {
-		//console.log(event.target.value);
-		this.setState({ quantity: event.target.value });
-	}
+  handleChange(event) {
+    this.setState({quantity: event.target.value})
+  }
 
 	handleSubmit(event) {
 		event.preventDefault();
@@ -28,7 +27,7 @@ export class SingleProduct extends React.Component {
 		} else {
 			//console.log('The product quantity of ' + this.state.quanity + ' has been submited to cart');
 
-			this.props.addToCart(this.props.user.id, this.props.product.id, this.state.quantity);
+			this.props.addToCart(this.props.user, this.props.product, this.state.quantity); // <---check it.
 		}
 	}
 
@@ -63,4 +62,4 @@ export class SingleProduct extends React.Component {
 	}
 }
 
-export default SingleProduct;
+export default SingleProduct
