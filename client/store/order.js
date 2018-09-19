@@ -67,7 +67,7 @@ const errorOrders = (error) => ({
  * THUNK CREATORS
  */
 
-const fetchOrdersRemote = async () => {
+const fetchOrdersRemote = async (user) => {
   // preload cart with local storage
   if (localStorage.getItem('orders')) {
     // create cart
@@ -110,7 +110,7 @@ export const fetchOrders = (user) => async (dispatch) => {
   try {
 
     const [orders, local] = user.id
-      ? await fetchOrdersRemote()
+      ? await fetchOrdersRemote(user)
       : fetchOrdersLocal();
 
     dispatch(setAllOrders(orders, local));
