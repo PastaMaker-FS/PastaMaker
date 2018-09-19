@@ -28,7 +28,7 @@ export class SingleProduct extends React.Component {
 		} else {
 			//console.log('The product quantity of ' + this.state.quanity + ' has been submited to cart');
 
-			this.props.addToCart(this.props.user, this.props.product, this.state.quantity);
+			this.props.addToCart(this.props.user, this.props.product, this.state.quantity); // <---check it.
 		}
 	}
 
