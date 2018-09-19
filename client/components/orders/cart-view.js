@@ -109,7 +109,7 @@ class CartView extends React.Component {
           <Typography
               color="secondary"
               className={classes.flex}
-            >Total Price: ${totalPending}
+            >Total Price: ${(totalPending/100).toFixed(2)}
             </Typography>
 
             <Button

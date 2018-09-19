@@ -67,49 +67,51 @@ const errorOrders = (error) => ({
  * THUNK CREATORS
  */
 
+const fetchOrdersRemote = async () => {
+  // preload cart with local storage
+  if (localStorage.getItem('orders')) {
+    // create cart
+    const {data: serverOrders} = await axios.get(`/api/users/${user.id}/orders`)
+    // move local stored items to cart
+    let state = JSON.parse(localStorage.getItem('orders'));
+    state.list[0].products.map(async product => {
+      const {data: serverNewItem} = await axios.post(`/api/users/${user.id}/orders`, {
+        productId: product.id,
+        quantity: product.quantity,
+      })
+    })
+    // clear store so only prelod once
+    localStorage.clear();
+  }
+  // rebuild
+  const {data: serverOrders} = await axios.get(`/api/users/${user.id}/orders`)
+  return [serverOrders, false];
+}
+
+const fetchOrdersLocal = () => {
+
+  let state = JSON.parse(localStorage.getItem('orders'));
+  let orders = state
+    ? state.list
+    : [{
+        id: -1,
+        orderNumber: null,
+        totalPrice: null,
+        isPurchased: false,
+        datePurchased: null,
+        products: []
+      }]
+  return [orders, true]
+}
+
 export const fetchOrders = (user) => async (dispatch) => {
 
   dispatch(loadingOrders(true));
-
-  let local = false;
   try {
 
-    let orders;
-    if (user.id) {
-
-      // preload cart with local storage
-      if (localStorage.getItem('orders')) {
-        // create cart
-        const {data: serverOrders} = await axios.get(`/api/users/${user.id}/orders`)
-        // move local stored items to cart
-        let state = JSON.parse(localStorage.getItem('orders'));
-        state.list[0].products.map(async product => {
-          const {data: serverNewItem} = await axios.post(`/api/users/${user.id}/orders`, {
-            productId: product.id,
-            quantity: product.quantity,
-          })
-        })
-        localStorage.clear();
-      }
-      // rebuild
-      const {data: serverOrders} = await axios.get(`/api/users/${user.id}/orders`)
-      orders = serverOrders;
-
-    } else {
-
-      local = true;
-      let state = JSON.parse(localStorage.getItem('orders'));
-      orders = state
-        ? state.list
-        : [{
-            id: -1,
-            orderNumber: null,
-            totalPrice: null,
-            isPurchased: false,
-            datePurchased: null,
-            products: []
-          }]
-    }
+    const [orders, local] = user.id
+      ? await fetchOrdersRemote()
+      : fetchOrdersLocal();
 
     dispatch(setAllOrders(orders, local));
   } catch (error) {
@@ -117,6 +119,9 @@ export const fetchOrders = (user) => async (dispatch) => {
     dispatch(errorOrders(true));
   }
 }
+
+// const createItemRemote = async () => {}
+// const createItemLocal = () => {}
 
 export const createItem = (user, product, quantity) => async (dispatch) => {
 
@@ -165,6 +170,8 @@ export const destroyItem = (user, orderId, productId) => async (dispatch) => {
     dispatch(errorOrders(true))
   }
 }
+
+
 
 export const incrementItem = (user, orderId, productId) => async (dispatch) => {
 
