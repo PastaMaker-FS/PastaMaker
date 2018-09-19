@@ -56,7 +56,7 @@ const styles = {
   }
 }
 
-const Navbar = ({handleClick, isLoggedIn, classes}) => {
+const Navbar = ({handleClick, isLoggedIn, classes, count}) => {
   return (
     <div>
       <div className={classes.root}>
@@ -165,7 +165,7 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => {
                     component={Link}
                     to="/cart"
                   >
-                    <ShoppingCartIcon />
+                    <ShoppingCartIcon />{count}
                   </IconButton>
                 </div>
               )}

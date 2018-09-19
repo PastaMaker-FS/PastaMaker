@@ -87,6 +87,8 @@ class ProductGrid extends Component {
         deselectProduct={this.hideProduct}
         user={this.props.user}
         addToCart={this.props.addToCart}
+        incrementCount={this.props.incrementCount}
+        decrementConnt={this.props.decrementCount}
       />
     ))
     return (

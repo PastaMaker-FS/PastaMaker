@@ -19,7 +19,7 @@ class Routes extends Component {
 	}
 
 	render() {
-		const { isLoggedIn } = this.props;
+    const {isLoggedIn, incrementCount, decrementCount} = this.props;
 
 		return (
 			<Switch>
@@ -28,7 +28,8 @@ class Routes extends Component {
 				<Route exact path="/signup" component={UserSign} />
 				<Route exact path="/" component={Home} />
 				<Route exact path="/aboutus" component={AboutUs} />
-				<Route exact path="/allproducts" component={AllProducts} />
+				<Route exact path="/allproducts" component={AllProducts}
+          incrementCount={incrementCount} decrementCount={decrementCount} />
 				<Route exact path="/cart" component={Cart} />
 				<Route exact path="/checkout" component={CheckoutWrapper} />
 				<Route exact path="/confirmation" component={Confirmation} />
